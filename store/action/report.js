@@ -3,24 +3,15 @@ export const ADD_LOACATION = 'ADD_LOACATION';
 export const ADD_DESCRIPTION = 'ADD_DESCRIPTION';
 export const ADD_REPORT = 'ADD_REPORT';
 import ENV from '../../env';
-import Report from '../../models/report';
-import report from '../reducers/report';
-import {useSelector, useStore} from 'react-redux';
-
 
 export const addImage = (imageUrl) =>{
-    // const store = useStore;
-    // console.log('store',store.getState  ); 
-    // someAction();
     return { type: ADD_IMAGE, image:imageUrl };
 }
 
-// export function someAction() {
-//     return (dispatch, getState) => {
-//       const {items} = getState;
-//       console.log(items);
-//     }
-// } 
+export const yourAction = (text) => async(dispatch, getState) => {
+    console.log(getState())
+    console.log(text)
+}
 
 export const addLocation = (location) => {
     return async dispatch => {

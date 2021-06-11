@@ -36,8 +36,8 @@ const DetailsScreen = (props) => {
     const [text, onChangeText] = useState();
 
     const descriptionHandler = () => {
-        // dispatch(reportActions.addDescription(text));
-        dispatch(reportActions.addReport(text));
+        // dispatch(reportActions.addReport(text));
+        dispatch(reportActions.yourAction(text));
     }
 
     return(
