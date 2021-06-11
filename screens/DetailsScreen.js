@@ -23,6 +23,7 @@ const DetailsScreen = (props) => {
     const [address, setAddress] = useState();
 
     useEffect(() => {
+        dispatch(reportActions.yourAction("dgdfvd"));
         if(selector.image){
             setImage(selector.image);
         }
@@ -37,7 +38,7 @@ const DetailsScreen = (props) => {
 
     const descriptionHandler = () => {
         // dispatch(reportActions.addReport(text));
-        dispatch(reportActions.yourAction(text));
+        console.log("amen")
     }
 
     return(

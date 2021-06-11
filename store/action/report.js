@@ -9,7 +9,8 @@ export const addImage = (imageUrl) =>{
 }
 
 export const yourAction = (text) => async(dispatch, getState) => {
-    console.log(getState())
+    console.log("your action")
+    console.log("steat",getState())
     console.log(text)
 }
 
