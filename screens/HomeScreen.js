@@ -9,6 +9,7 @@ const HomeScreen = (props) => {
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       <Text>Home Screen</Text>
       <Button style={styles.button} title="Camera" onPress={() => {
+        // dispatch(authActions.logout());
         props.navigation.navigate('Camera');
       }}/>
     </View>
