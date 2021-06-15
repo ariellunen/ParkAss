@@ -11,6 +11,12 @@ const HomeScreen = (props) => {
       <Button style={styles.button} title="Camera" onPress={() => {
         props.navigation.navigate('Camera');
       }}/>
+      <Button style={styles.button} title="My Reports" onPress={() => {
+        props.navigation.navigate('Reports');
+      }}/>
+      <Button style={styles.button} title="Logout" onPress={() => {
+        dispatch(authActions.logout());
+      }}/>
     </View>
   );
 }

@@ -21,14 +21,18 @@ const DetailsScreen = (props) => {
     const selector = useSelector(state => state.report);
     const [image, setImage] = useState();
     const [address, setAddress] = useState();
+    const [lat, setLat] = useState();
+    const [lng, setLng] = useState();
 
     useEffect(() => {
-        dispatch(reportActions.yourAction("dgdfvd"));
         if(selector.image){
             setImage(selector.image);
         }
         if(selector.address){
             setAddress(selector.address);
+            setLat(selector.lat);
+            setLng(selector.lng)
+            console.log("image",image)
             console.log("lll",selector.address)
         }
     },[selector]);
@@ -38,7 +42,11 @@ const DetailsScreen = (props) => {
 
     const descriptionHandler = () => {
         // dispatch(reportActions.addReport(text));
-        console.log("amen")
+        dispatch(reportActions.createReport(text, image, address, lat, lng));
+        // props.navigation.navigate('Reports');
+
+        // Details
+        // console.log("amen")
     }
 
     return(

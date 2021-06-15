@@ -1,5 +1,5 @@
 class Report {
-    constructor(id, userId, date, imageUrl, lat,lng, address, desc) {
+    constructor(id,userId, date, imageUrl, lat,lng, address, desc) {
       this.id = id;
       this.userId = userId;
       this.date = date;

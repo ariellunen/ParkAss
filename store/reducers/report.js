@@ -1,20 +1,26 @@
 import Report from '../../models/report';
-import { ADD_IMAGE, ADD_LOACATION, ADD_DESCRIPTION,ADD_REPORT } from '../action/report';
+import { ADD_IMAGE, ADD_LOACATION, SET_REPORTS,ADD_REPORT,CREATE_REPORT } from '../action/report';
  
 const initialState = {
-    reportsArr:[],
+    reportsArr:null,
     image:null,
     address:null,
     lat:null,
     lng:null,
-    description:null,
+    description: null,
     date:null,
+    userReports:null,
 };
 
-// console.log(initialState.image)
-
 export default (state=initialState, action) =>{
+    console.log("reportsArr",state.reportsArr)
+
     switch (action.type){
+        case SET_REPORTS:
+            return{
+                reportsArr: action.loadedReports,
+                userReports: action.userReports
+            }
         case ADD_IMAGE:
             return{
                 image: action.image,
@@ -27,22 +33,16 @@ export default (state=initialState, action) =>{
                 address: action.locationData.address,
                 ...state
             }
-        // case ADD_DESCRIPTION:
-        //     return{
-        //         description: action.desc,
-        //     }
-        case ADD_REPORT:
-            console.log(state.reportsArr);
-
+        case CREATE_REPORT: 
             const newReport = new Report(
-                1,
-                1,
-                new Date(),
-                state.image,
-                state.lat,
-                state.lng,
-                state.address,
-                action.text
+                action.reportData.id,
+                action.reportData.userId,
+                action.reportData.date,
+                action.reportData.image,
+                action.reportData.lat,
+                action.reportData.lng,
+                action.reportData.address,
+                action.reportData.text,
             );
 
             return {
