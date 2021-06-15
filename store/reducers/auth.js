@@ -7,6 +7,9 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
+  console.log(state.token);
+  console.log("userId",state.userId);
+
   switch (action.type) {
     case AUTHENTICATE:
       return {

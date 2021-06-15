@@ -37,6 +37,7 @@ const ImgPicker = props => {
 
     setPickedImage(image.uri);
     dispatch(reportActions.addImage(image.uri));
+    // dispatch(reportActions.fetchReports(image.uri));
     props.navigation.navigate('Map');
   };
 

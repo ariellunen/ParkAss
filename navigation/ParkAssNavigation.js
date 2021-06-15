@@ -8,7 +8,7 @@ import * as authActions from '../store/action/auth';
 
 import HomeScreen from '../screens/HomeScreen';
 import AuthScreen from '../screens/AuthScreen';
-import StartUpScreen from '../screens/StartUpScreen';
+import MyReportsScreen from '../screens/MyReportsScreen';
 import UserReports from '../screens/UserReportScreen';
 import FullMap, {fullMapOption as fullMapOption} from '../screens/FullMapScreen';
 import Colors from '../constants/Colors';
@@ -77,13 +77,12 @@ export const ParkAssDrawer = () => {
 export const ParkAssNavigation = () => {
   return (
       <Stack.Navigator>
-        {/* <Stack.Screen name="Startup" component={StartUpScreen} options={{ title: 'ParkAss', headerLeft: null }}/> */}
-        {/* <Stack.Screen name="Auth" component={AuthNavigator} options={{ title: 'Authenticate', headerLeft: null }}/> */}
         <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'ParkAss', headerLeft: null }}/>
         <Stack.Screen name="Camera" component={ImagePicker} options={{ title: 'Camera', headerLeft: null }}/>
         <Stack.Screen name="Map" component={MapScreen} options={{ title: 'Map', headerLeft: null }}/>
         <Stack.Screen name="Details" component={DetailsScreen} options={{ title: 'Details', headerLeft: null }}/>
         <Stack.Screen name="FullMap" component={FullMap} options={fullMapOption} />
+        <Stack.Screen name="Reports" component={MyReportsScreen} options={{ title: 'My Report', headerLeft: null }} />
       </Stack.Navigator>
   );
 }

@@ -21,6 +21,8 @@ const DetailsScreen = (props) => {
     const selector = useSelector(state => state.report);
     const [image, setImage] = useState();
     const [address, setAddress] = useState();
+    const [lat, setLat] = useState();
+    const [lng, setLng] = useState();
 
     useEffect(() => {
         if(selector.image){
@@ -28,6 +30,9 @@ const DetailsScreen = (props) => {
         }
         if(selector.address){
             setAddress(selector.address);
+            setLat(selector.lat);
+            setLng(selector.lng)
+            console.log("image",image)
             console.log("lll",selector.address)
         }
     },[selector]);
@@ -36,8 +41,12 @@ const DetailsScreen = (props) => {
     const [text, onChangeText] = useState();
 
     const descriptionHandler = () => {
-        // dispatch(reportActions.addDescription(text));
-        dispatch(reportActions.addReport(text));
+        // dispatch(reportActions.addReport(text));
+        dispatch(reportActions.createReport(text, image, address, lat, lng));
+        // props.navigation.navigate('Reports');
+
+        // Details
+        // console.log("amen")
     }
 
     return(
