@@ -63,7 +63,7 @@ const MyReportsScreen = () => {
   if(!isLoading && reports?.length === 0){
     return(
       <View style={{flex:1, justifyContent:'center'}}>
-      <Text>No Reports Found!</Text>
+      <Text>אין דיווחים קודמים!</Text>
     </View>
     )
   }

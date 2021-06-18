@@ -1,8 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 import * as reportActions from '../store/action/report';
-import Colors from '../constants/Colors';
+// import Colors from '../constants/Colors';
+import { IconButton } from 'react-native-paper';
+
 import {
     View,
     Image,
@@ -13,9 +15,7 @@ import {
     StyleSheet,
     TextInput,
     ScrollView
-  } from 'react-native';
-
-
+} from 'react-native';
 
 const DetailsScreen = (props) => {
     const selector = useSelector(state => state.report);
@@ -25,17 +25,17 @@ const DetailsScreen = (props) => {
     const [lng, setLng] = useState();
 
     useEffect(() => {
-        if(selector.image){
+        if (selector.image) {
             setImage(selector.image);
         }
-        if(selector.address){
+        if (selector.address) {
             setAddress(selector.address);
             setLat(selector.lat);
             setLng(selector.lng)
-            console.log("image",image)
-            console.log("lll",selector.address)
+            console.log("image", image)
+            console.log("lll", selector.address)
         }
-    },[selector]);
+    }, [selector]);
 
     const dispatch = useDispatch();
     const [text, onChangeText] = useState();
@@ -49,36 +49,58 @@ const DetailsScreen = (props) => {
         // console.log("amen")
     }
 
-    return(
-        <ScrollView>
+    return (
+        <View style={styles.body}>
             <Image style={styles.image} source={{ uri: image }} />
             <Text>{address}</Text>
-            <TextInput 
+            <TextInput
                 style={styles.input}
-                placeholder="placeholder"
+                // placeholder="placeholder"
                 onChangeText={onChangeText}
                 value={text}
             />
-            <Button 
+            {/* <Button 
                 title="Save Report"
                 color={Colors.primary}
                 onPress={descriptionHandler}
-            />
-        </ScrollView>
+            /> */}
+            <View style={styles.SingleCard}>
+                <View style={{ backgroundColor: 'lightblue', borderRadius: 70 }}>
+                    <IconButton
+                        icon="check"
+                        size={50}
+                        color="white"
+                        title="Save Report"
+                        onPress={descriptionHandler}
+                    />
+                </View>
+                <Text style={styles.paragraph}>שמור דיווח</Text>
+            </View>
+        </View>
     )
 }
 
 const styles = StyleSheet.create({
     image: {
-        width: '70%',
-        height: '70%'
+        width: '90%',
+        height: '50%',
+        marginTop: 10,
     },
     input: {
-        height: 80,
+        height: 150,
+        width: '90%',
         margin: 12,
         borderWidth: 1,
     },
+    body: {
+        height: '100%',
+        alignItems: 'center',
+    },
+    SingleCard: {
+        alignItems: 'center',
+        marginTop: 30,
+    }
 });
-  
+
 
 export default DetailsScreen;

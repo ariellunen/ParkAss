@@ -6,7 +6,9 @@ import {
   StyleSheet,
   Button,
   ActivityIndicator,
-  Alert
+  Alert,
+  Text,
+  Image,
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useDispatch } from 'react-redux';
@@ -60,25 +62,25 @@ const AuthScreen = props => {
   });
 
   useEffect(() => {
-    if(error){
-      Alert.alert('An Error Occurred!', error, [{text: 'OK'}])
+    if (error) {
+      Alert.alert('An Error Occurred!', error, [{ text: 'OK' }])
     }
-  },[error]);
+  }, [error]);
 
   const authHandler = async () => {
     let action;
-    if(isSignup){
-      action = authActions.signup(formState.inputValues.email,formState.inputValues.password);
+    if (isSignup) {
+      action = authActions.signup(formState.inputValues.email, formState.inputValues.password);
     }
     else {
-      action = authActions.login(formState.inputValues.email,formState.inputValues.password);
+      action = authActions.login(formState.inputValues.email, formState.inputValues.password);
     }
     setError(null);
     setIsLoading(true);
     try {
       await dispatch(action);
-      
-    } catch(err){
+
+    } catch (err) {
       setError(err.message);
       setIsLoading(false);
     }
@@ -102,7 +104,10 @@ const AuthScreen = props => {
       keyboardVerticalOffset={50}
       style={styles.screen}
     >
-      <LinearGradient colors={['#ffedff', '#ffe3ff']} style={styles.gradient}>
+      {/* <LinearGradient colors={['blue', '#ffe3ff']} style={styles.gradient}> */}
+      <View style={styles.body}>
+        <Image style={styles.tinyLogo}
+          source={{ uri: 'https://i.postimg.cc/VNVbPVYT/image.png' }} />
         <View style={styles.authContainer}>
           <ScrollView>
             <Input
@@ -129,20 +134,21 @@ const AuthScreen = props => {
               initialValue=""
             />
             <View style={styles.buttonContainer}>
-              {isLoading? (
-                <ActivityIndicator size='small' color={color.primary}/>
-              ):(
+              {isLoading ? (
+                <ActivityIndicator size='small' color={color.primary} />
+              ) : (
                 <Button
-                  title={isSignup? "Sign Up":"Login"}
-                  color={Colors.primary}
+                  title={isSignup ? "Sign Up" : "Login"}
+                  color='darkgrey'
                   onPress={authHandler}
                 />
               )}
             </View>
             <View style={styles.buttonContainer}>
               <Button
-                title={`Switch to ${isSignup? 'Login': 'Sign Up'}`}
-                color={Colors.accent}
+                title={`Switch to ${isSignup ? 'Login' : 'Sign Up'}`}
+                // color={Colors.accent}
+                color='gainsboro'
                 onPress={() => {
                   setIsSignup(prevState => !prevState);
                 }}
@@ -150,21 +156,24 @@ const AuthScreen = props => {
             </View>
           </ScrollView>
         </View>
-      </LinearGradient>
+        <Image style={styles.Logo} source={{ uri: 'https://i.postimg.cc/qBhBF76p/image.png' }} />
+      </View>
+      {/* </LinearGradient> */}
     </KeyboardAvoidingView>
   );
 };
 
 const styles = StyleSheet.create({
   screen: {
-    flex: 1
-  },
-  gradient: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
+  },
+  body: {
+    height: '100%',
+    alignItems: 'center',
+    backgroundColor: 'white',
   },
   authContainer: {
+    marginTop: 70,
     width: '80%',
     maxWidth: 400,
     maxHeight: 400,
@@ -175,10 +184,20 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     elevation: 5,
     borderRadius: 10,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
   buttonContainer: {
-    marginTop: 10
+    marginTop: 10,
+  },
+  tinyLogo: {
+    height: '17%',
+    width: '100%',
+    marginTop: 30,
+  },
+  Logo: {
+    height: '30%',
+    width: '55%',
+    marginTop: 20,
   }
 });
 
