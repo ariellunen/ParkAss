@@ -20,9 +20,9 @@ const HomeScreen = (props) => {
         <View style={styles.all}>
           <View style={styles.SingleCard}>
             <View style={{ backgroundColor: 'darkseagreen', borderRadius: 70 }}>
-              <IconButton style={styles.amen}
+              <IconButton
                 icon="camera"
-                size={60}
+                size={50}
                 color="white"
                 title="Camera"
                 onPress={() => { props.navigation.navigate('Camera'); }
@@ -34,7 +34,7 @@ const HomeScreen = (props) => {
             <View style={{ backgroundColor: 'lightcoral', borderRadius: 70 }}>
               <IconButton
                 icon="file"
-                size={60}
+                size={50}
                 color="white"
                 title="My Reports"
                 onPress={() => { props.navigation.navigate('Reports'); }
@@ -46,7 +46,7 @@ const HomeScreen = (props) => {
             <View style={{ backgroundColor: 'lightblue', borderRadius: 70 }}>
               <IconButton
                 icon="logout"
-                size={60}
+                size={50}
                 color="white"
                 title="Logout"
                 onPress={() => { dispatch(authActions.logout()); }
@@ -58,7 +58,7 @@ const HomeScreen = (props) => {
             <View style={{ backgroundColor: 'thistle', borderRadius: 70 }}>
               <IconButton
                 icon="phone"
-                size={60}
+                size={50}
                 color="white"
                 title="Call the police"
                 onPress={() => { }

@@ -58,7 +58,7 @@
 //   const pickOnMapHandler = () =>{
 //     props.navigation.navigate('FullMap');
 //   };
-  
+
 //   return (
 //     <View style={styles.locationPicker}>
 //       <MapPreview style={styles.mapPreview} location={pickedLocation} onPress={pickOnMapHandler}>
@@ -105,6 +105,7 @@
 
 // export default MapScreen;
 
+import { Card, Avatar, IconButton } from 'react-native-paper';
 import React, { useState, useEffect, useCallback } from 'react';
 import {
   View,
@@ -112,7 +113,8 @@ import {
   Text,
   ActivityIndicator,
   Alert,
-  StyleSheet
+  StyleSheet,
+  Dimensions,
 } from 'react-native';
 import * as Location from 'expo-location';
 import * as Permissions from 'expo-permissions';
@@ -121,7 +123,9 @@ import Colors from '../constants/Colors';
 import MapPreview from '../components/MapPreview';
 import { useDispatch } from 'react-redux';
 import * as reportActions from '../store/action/report';
-import {useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
+// import { red100 } from 'react-native-paper/lib/typescript/styles/colors';
+// import '../components/UI/Card.js';
 
 
 const LocationPicker = props => {
@@ -134,7 +138,7 @@ const LocationPicker = props => {
   useEffect(() => {
     if (mapPickedLocation) {
       setPickedLocation(mapPickedLocation);
-      console.log("pickedLocation - " ,mapPickedLocation)
+      console.log("pickedLocation - ", mapPickedLocation)
       // onLocationPicked(mapPickedLocation);
     }
   }, [mapPickedLocation]);
@@ -190,16 +194,17 @@ const LocationPicker = props => {
   };
 
   const dispatch = useDispatch();
-  
+
 
   const saveLocationHandler = () => {
     dispatch(reportActions.addLocation(pickedLocation));
-    
+
     props.navigation.navigate('Details');
   }
 
   return (
     <View style={styles.locationPicker}>
+      <Text style={styles.h1}>בחר את מיקום האירוע</Text>
       <MapPreview
         style={styles.mapPreview}
         location={pickedLocation}
@@ -208,25 +213,46 @@ const LocationPicker = props => {
         {isFetching ? (
           <ActivityIndicator size="large" color={Colors.primary} />
         ) : (
-          <Text>No location chosen yet!</Text>
+          <Text>עדיין לא נבחר מיקום!</Text>
         )}
       </MapPreview>
-      <View style={styles.actions}>
-        <Button
-          title="Get User Location"
-          color={Colors.primary}
-          onPress={getLocationHandler}
-        />
-        <Button
-          title="Pick on Map"
-          color={Colors.primary}
-          onPress={pickOnMapHandler}
-        />
-        <Button
-          title="Save Location"
-          color={Colors.primary}
-          onPress={saveLocationHandler}
-        />
+
+      <View style={styles.SingleCard}>
+        <View style={{ backgroundColor: 'darkseagreen', borderRadius: 70 }}>
+          <IconButton
+            icon="map-marker"
+            size={50}
+            color="white"
+            title="Get User Location"
+            onPress={getLocationHandler}
+          />
+        </View>
+        <Text style={styles.paragraph}>מצא מיקום</Text>
+      </View>
+      <View style={styles.SingleCard}>
+        <View style={{ backgroundColor: 'lightcoral', borderRadius: 70 }}>
+          <IconButton
+            icon="fullscreen"
+            size={50}
+            color="white"
+            title="Pick on Map"
+            onPress={pickOnMapHandler}
+          />
+        </View>
+        <Text style={styles.paragraph}>הגדל מפה</Text>
+      </View>
+      <View style={styles.SingleCard}>
+        <View style={{ backgroundColor: 'lightblue', borderRadius: 70 }}>
+          <IconButton
+            // icon="check"
+            icon="pin"
+            size={50}
+            color="white"
+            title="Save Location"
+            onPress={saveLocationHandler}
+          />
+        </View>
+        <Text style={styles.paragraph}>שמור מיקום</Text>
       </View>
     </View>
   );
@@ -234,19 +260,33 @@ const LocationPicker = props => {
 
 const styles = StyleSheet.create({
   locationPicker: {
-    marginBottom: 15
+    height: '100%',
+    backgroundColor: 'white',
+    alignItems: 'center',
   },
   mapPreview: {
     marginBottom: 10,
-    width: '100%',
-    height: 150,
+    width: '98%',
+    height: '40%',
     borderColor: '#ccc',
-    borderWidth: 1
+    borderWidth: 2,
+    marginTop: 30,
   },
-  actions: {
-    flexDirection: 'row',
+  SingleCard: {
+    height: Dimensions.get("window").height * 0.13,
+    width: Dimensions.get("window").width * 0.5,
+    alignItems: 'center',
     justifyContent: 'space-around',
-    width: '100%'
+    flexDirection: 'row',
+  },
+  paragraph: {
+    fontSize: 18,
+    color: 'black',
+  },
+  h1: {
+    fontSize: 25,
+    color: 'black',
+    marginTop: 15,
   }
 });
 
