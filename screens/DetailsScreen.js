@@ -14,7 +14,8 @@ import {
     Alert,
     StyleSheet,
     TextInput,
-    ScrollView
+    ScrollView,
+    Dimensions
 } from 'react-native';
 
 const DetailsScreen = (props) => {
@@ -23,6 +24,7 @@ const DetailsScreen = (props) => {
     const [address, setAddress] = useState();
     const [lat, setLat] = useState();
     const [lng, setLng] = useState();
+    const { width, height } = Dimensions.get("window");
 
     useEffect(() => {
         if (selector.image) {
@@ -43,7 +45,7 @@ const DetailsScreen = (props) => {
     const descriptionHandler = () => {
         // dispatch(reportActions.addReport(text));
         dispatch(reportActions.createReport(text, image, address, lat, lng));
-        // props.navigation.navigate('Reports');
+        props.navigation.navigate('Home');
 
         // Details
         // console.log("amen")
@@ -65,16 +67,30 @@ const DetailsScreen = (props) => {
                 onPress={descriptionHandler}
             /> */}
             <View style={styles.SingleCard}>
-                <View style={{ backgroundColor: 'lightblue', borderRadius: 70 }}>
-                    <IconButton
-                        icon="check"
-                        size={50}
-                        color="white"
-                        title="Save Report"
-                        onPress={descriptionHandler}
-                    />
+                <View style={styles.SizeCard}>
+                    <View style={{ backgroundColor: 'lightblue', borderRadius: 70 }}>
+                        <IconButton
+                            icon="check"
+                            size={30}
+                            color="white"
+                            title="Save Report"
+                            onPress={descriptionHandler}
+                        />
+                    </View>
+                    <Text style={styles.paragraph}>שמור דיווח</Text>
                 </View>
-                <Text style={styles.paragraph}>שמור דיווח</Text>
+                <View style={styles.SizeCard}>
+                    <View style={{ backgroundColor: 'salmon', borderRadius: 70 }}>
+                        <IconButton
+                            icon="delete"
+                            size={30}
+                            color="white"
+                            title="Save Report"
+                            onPress={descriptionHandler}
+                        />
+                    </View>
+                    <Text style={styles.paragraph}>מחק דיווח</Text>
+                </View>
             </View>
         </View>
     )
@@ -97,8 +113,15 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     SingleCard: {
+        marginTop: 25,
+        flexDirection: 'row',
         alignItems: 'center',
-        marginTop: 30,
+        flexWrap: 'wrap',
+    },
+    SizeCard: {
+        height: Dimensions.get("window").height * 0.2,
+        width: Dimensions.get("window").width * 0.4,
+        alignItems: 'center',
     }
 });
 

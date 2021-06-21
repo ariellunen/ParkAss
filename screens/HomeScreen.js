@@ -1,4 +1,4 @@
-import { View, Text, Button, StyleSheet, SafeAreaView, ImageBackground, Dimensions } from 'react-native';
+import { View, Text, Button, StyleSheet, SafeAreaView, ImageBackground, Dimensions  } from 'react-native';
 import { Card, Avatar, IconButton } from 'react-native-paper';
 import * as React from 'react';
 import { useDispatch } from 'react-redux';
@@ -6,15 +6,13 @@ import * as authActions from '../store/action/auth';
 // import { red100 } from 'react-native-paper/lib/typescript/styles/colors';
 
 const LeftContent = props => <Avatar.Icon {...props} icon="home" backgroundColor="lightskyblue" />
-
-
-const HomeScreen = (props) => {
+  const HomeScreen = (props) => {
   const { width, height } = Dimensions.get("window");
   const dispatch = useDispatch();
   return (
     // <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' , backgroundColor: 'red' }}>
     <ImageBackground source={{ uri: 'https://i.postimg.cc/J7P1jYZk/image.jpg' }} style={{ width: '100%', height: '100%', alignItems: 'center' }}>
-      <Card style={styles.card}>
+      <Card style={styles.card} dir="rtl">
         <Card.Title title="מסך הבית" subtitle="בחר את הפעולה המתאימה" left={LeftContent} />
         {/* <Text style={styles.paragraph}>Home Screen</Text> */}
         <View style={styles.all}>
