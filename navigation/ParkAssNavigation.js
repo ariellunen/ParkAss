@@ -78,7 +78,7 @@ export const ParkAssNavigation = () => {
   return (
       <Stack.Navigator>
         <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'ParkAss', headerLeft: null }}/>
-        <Stack.Screen name="Camera" component={ImagePicker} options={{ title: 'Camera', headerLeft: null }}/>
+        {/* <Stack.Screen name="Camera" component={ImagePicker} options={{ title: 'Camera', headerLeft: null }}/> */}
         <Stack.Screen name="Map" component={MapScreen} options={{ title: 'Map', headerLeft: null }}/>
         <Stack.Screen name="Details" component={DetailsScreen} options={{ title: 'Details', headerLeft: null }}/>
         <Stack.Screen name="FullMap" component={FullMap} options={fullMapOption} />

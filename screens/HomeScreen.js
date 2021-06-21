@@ -1,14 +1,48 @@
-import { View, Text, Button, StyleSheet, SafeAreaView, ImageBackground, Dimensions  } from 'react-native';
+import { View, Text, Button, StyleSheet,Alert, SafeAreaView, ImageBackground, Dimensions  } from 'react-native';
 import { Card, Avatar, IconButton } from 'react-native-paper';
-import * as React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import * as authActions from '../store/action/auth';
 // import { red100 } from 'react-native-paper/lib/typescript/styles/colors';
+import * as ImagePicker from 'expo-image-picker';
+import * as reportActions from '../store/action/report';
+import Colors from '../constants/Colors';
 
 const LeftContent = props => <Avatar.Icon {...props} icon="home" backgroundColor="lightskyblue" />
 const HomeScreen = (props) => {
   const { width, height } = Dimensions.get("window");
   const dispatch = useDispatch();
+  const [pickedImage, setPickedImage] = useState();
+  const verifyPermissions = async () => {
+    const result = await ImagePicker.requestCameraPermissionsAsync();
+    if (result.status !== 'granted') {
+      Alert.alert(
+        'Insufficient permissions!',
+        'You need to grant camera permissions to use this app.',
+        [{ text: 'Okay' }]
+      );
+      return false;
+    }
+    return true;
+  };
+
+  const takeImageHandler = async () => {
+    const hasPermission = await verifyPermissions();
+    if (!hasPermission) {
+      return;
+    }
+    const image = await ImagePicker.launchCameraAsync({
+      allowsEditing: false,
+      aspect: [16, 9],
+      quality: 0.5
+    });
+
+    setPickedImage(image.uri);
+    dispatch(reportActions.addImage(image.uri));
+    props.navigation.navigate('Map');
+  };
+
+
   return (
     // <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' , backgroundColor: 'red' }}>
     <ImageBackground source={{ uri: 'https://i.postimg.cc/J7P1jYZk/image.jpg' }} style={{ width: '100%', height: '100%', alignItems: 'center' }}>
@@ -23,8 +57,8 @@ const HomeScreen = (props) => {
                 size={50}
                 color="white"
                 title="Camera"
-                onPress={() => { props.navigation.navigate('Camera'); }
-                } />
+                onPress={takeImageHandler}
+              />
             </View>
             <Text style={styles.paragraph}>מצלמה</Text>
           </View>
