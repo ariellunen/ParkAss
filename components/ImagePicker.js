@@ -42,20 +42,27 @@ const ImgPicker = props => {
   };
 
   return (
-    <View style={styles.imagePicker}>
-      <View style={styles.imagePreview}>
-        {!pickedImage ? (
-          <Text>No image picked yet.</Text>
-        ) : (
-          <Image style={styles.image} source={{ uri: pickedImage }} />
-        )}
-      </View>
-      <Button
+    // <View style={styles.imagePicker}>
+    //   <View style={styles.imagePreview}>
+    //     {!pickedImage ? (
+    //       <Text>No image picked yet.</Text>
+    //     ) : (
+    //       <Image style={styles.image} source={{ uri: pickedImage }} />
+    //     )}
+    //   </View>
+    //   <Button
+    //     title="Take Image"
+    //     color={Colors.primary}
+    //     onPress={takeImageHandler}
+    //   />
+      
+    // </View>
+    <View>
+       <Button
         title="Take Image"
         color={Colors.primary}
         onPress={takeImageHandler}
-      />
-      
+      />   
     </View>
   );
 };

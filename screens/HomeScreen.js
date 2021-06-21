@@ -6,7 +6,7 @@ import * as authActions from '../store/action/auth';
 // import { red100 } from 'react-native-paper/lib/typescript/styles/colors';
 
 const LeftContent = props => <Avatar.Icon {...props} icon="home" backgroundColor="lightskyblue" />
-  const HomeScreen = (props) => {
+const HomeScreen = (props) => {
   const { width, height } = Dimensions.get("window");
   const dispatch = useDispatch();
   return (
