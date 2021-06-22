@@ -55,9 +55,9 @@ const DetailsScreen = (props) => {
 
     return (
         <View style={styles.body}>
-            {/* <View style={{ backgroundColor: 'lightskyblue', width: '100%', height: 160 }}>
-                <Text style={{ fontSize: 30, fontWeight: 'bold', textAlign: 'center', marginTop: 15 }}>פרטי האירוע</Text>
-            </View> */}
+            <View style={{ backgroundColor: 'lightskyblue', width: '100%', height: 190 }}>
+                <Text style={{ fontSize: 30, fontWeight: 'bold', textAlign: 'center', marginTop: 30, color: 'white' }}>פרטי האירוע</Text>
+            </View>
             <Card style={styles.card}>
                 <Card.Title title="טופס תלונה" subtitle="הוסף תיאור לאירוע" left={LeftContent} style={{ backgroundColor: 'aliceblue', width: '100%', height: 100, borderTopLeftRadius: 30, borderTopRightRadius: 30 }} />
                 <View style={styles.SingleCard}>
@@ -138,13 +138,11 @@ const styles = StyleSheet.create({
     },
     card: {
         backgroundColor: 'white',
-        height: '95%',
-        // marginTop: -100,
+        height: '80%',
+        marginTop: -100,
         borderRadius: 30,
         width: '80%',
         justifyContent: 'center',
-        // position: 'absolute',
-        // zIndex: 1,
     },
     SingleButton: {
         marginTop: 40,

@@ -15,6 +15,7 @@ import Colors from '../constants/Colors';
 import MapScreen from '../screens/MapScreen';
 import DetailsScreen from '../screens/DetailsScreen';
 import ImagePicker from '../components/ImagePicker';
+import ReportDetailScreen from '../screens/ReportDetailScreen';
 
 const Stack = createStackNavigator();
 const Drawer = createDrawerNavigator();
@@ -76,24 +77,15 @@ export const ParkAssDrawer = () => {
 
 export const ParkAssNavigation = () => {
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="Home" component={HomeScreen} options={{ title: 'ParkAss', headerLeft: null }} />
-      {/* <Stack.Screen name="Camera" component={ImagePicker} options={{ title: 'Camera', headerLeft: null }}/> */}
-      <Stack.Screen name="Map" component={MapScreen} options={{ title: 'Map', headerLeft: null }} />
-      <Stack.Screen name="Details" component={DetailsScreen} options={{
-        title: 'Details', headerLeft: null, headerStyle: { backgroundColor: 'lightskyblue', height: 250},
-        headerTintColor: '#fff',
-        headerTitleStyle: { fontWeight: 'bold', alignSelf: 'center', fontSize: 30, marginTop: -60 },
-      }} />
+    <Stack.Navigator screenOptions={{
+      headerShown: false
+    }}>
+      <Stack.Screen name="Home" component={HomeScreen}/>
+      <Stack.Screen name="Map" component={MapScreen}/>
+      <Stack.Screen name="Details" component={DetailsScreen}/>
       <Stack.Screen name="FullMap" component={FullMap} options={fullMapOption} />
-      <Stack.Screen name="Reports" component={MyReportsScreen}
-        options={{
-          title: 'My Report',
-          headerLeft: null,
-          headerStyle: { backgroundColor: '#14c8e1' },
-          headerTintColor: '#fff',
-          headerTitleStyle: { fontWeight: 'bold', alignSelf: 'center' },
-        }} />
+      <Stack.Screen name="Reports" component={MyReportsScreen}/>
+      <Stack.Screen name="ReportDetails" component={ReportDetailScreen} />
     </Stack.Navigator>
   );
 }

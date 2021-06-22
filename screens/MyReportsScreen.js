@@ -11,13 +11,12 @@ import {
   FlatList
 } from 'react-native';
 import { useDispatch } from 'react-redux';
-import MapPreview from '../components/MapPreview';
 import * as reportActions from '../store/action/report';
 import Colors from '../constants/Colors';
 import {useSelector} from 'react-redux';
 import ReportItem from '../components/ReportItem';
 
-const MyReportsScreen = () => {
+const MyReportsScreen = (props) => {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
@@ -77,12 +76,11 @@ const MyReportsScreen = () => {
           image={itemData.item.imageUrl}
           address={itemData.item.address}
           desc={itemData.item.desc}
-          // onSelect={() => {
-          //   props.navigation.navigate('PlaceDetail', {
-          //     placeTitle: itemData.item.title,
-          //     placeId: itemData.item.id
-          //   });
-          // }}
+          onSelect={() => {
+            props.navigation.navigate('ReportDetails', {
+              report: itemData.item,
+            });
+          }}
         />
       )}
     />
