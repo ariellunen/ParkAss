@@ -55,16 +55,11 @@ const DetailsScreen = (props) => {
 
     return (
         <View style={styles.body}>
-            <View style={{ backgroundColor: 'lightskyblue', width: '100%', height: 160 }}>
+            {/* <View style={{ backgroundColor: 'lightskyblue', width: '100%', height: 160 }}>
                 <Text style={{ fontSize: 30, fontWeight: 'bold', textAlign: 'center', marginTop: 15 }}>פרטי האירוע</Text>
-            </View>
+            </View> */}
             <Card style={styles.card}>
-                <Card.Title title="טופס תלונה" subtitle="הוסף תיאור לאירוע" left={LeftContent} style={{ backgroundColor: 'aliceblue', width: '100%', height: 80, borderTopLeftRadius: 30, borderTopRightRadius: 30 }} />
-                {/* <View style={{ backgroundColor: 'blue', width: '100%', height: 160 }}> */}
-                {/* <Icon
-                    name='home'
-                    color='#00aced' /> */}
-                {/* </View> */}
+                <Card.Title title="טופס תלונה" subtitle="הוסף תיאור לאירוע" left={LeftContent} style={{ backgroundColor: 'aliceblue', width: '100%', height: 100, borderTopLeftRadius: 30, borderTopRightRadius: 30 }} />
                 <View style={styles.SingleCard}>
                     <Image style={styles.image} source={{ uri: image }} />
                     <Text style={styles.location}>{address}</Text>
@@ -119,7 +114,7 @@ const styles = StyleSheet.create({
         borderRadius: 50,
     },
     input: {
-        height: '15%',
+        height: '20%',
         width: '90%',
         marginTop: 20,
         borderWidth: 1,
@@ -143,11 +138,13 @@ const styles = StyleSheet.create({
     },
     card: {
         backgroundColor: 'white',
-        height: '70%',
-        marginTop: -80,
+        height: '95%',
+        // marginTop: -100,
         borderRadius: 30,
         width: '80%',
         justifyContent: 'center',
+        // position: 'absolute',
+        // zIndex: 1,
     },
     SingleButton: {
         marginTop: 40,
