@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import * as reportActions from '../store/action/report';
 // import Colors from '../constants/Colors';
-import { IconButton } from 'react-native-paper';
+import { Card, IconButton, Avatar, Icon } from 'react-native-paper';
 
 import {
     View,
@@ -15,8 +15,10 @@ import {
     StyleSheet,
     TextInput,
     ScrollView,
-    Dimensions
+    Dimensions,
 } from 'react-native';
+
+const LeftContent = props => <Avatar.Icon {...props} icon="parking" backgroundColor="lightskyblue" />
 
 const DetailsScreen = (props) => {
     const selector = useSelector(state => state.report);
@@ -24,7 +26,7 @@ const DetailsScreen = (props) => {
     const [address, setAddress] = useState();
     const [lat, setLat] = useState();
     const [lng, setLng] = useState();
-    const { width, height } = Dimensions.get("window");
+    // const { width, height } = Dimensions.get("window");
 
     useEffect(() => {
         if (selector.image) {
@@ -53,74 +55,109 @@ const DetailsScreen = (props) => {
 
     return (
         <View style={styles.body}>
-            <Image style={styles.image} source={{ uri: image }} />
-            <Text>{address}</Text>
-            <TextInput
-                style={styles.input}
-                // placeholder="placeholder"
-                onChangeText={onChangeText}
-                value={text}
-            />
-            {/* <Button 
-                title="Save Report"
-                color={Colors.primary}
-                onPress={descriptionHandler}
-            /> */}
-            <View style={styles.SingleCard}>
-                <View style={styles.SizeCard}>
-                    <View style={{ backgroundColor: 'lightblue', borderRadius: 70 }}>
-                        <IconButton
-                            icon="check"
-                            size={30}
-                            color="white"
-                            title="Save Report"
-                            onPress={descriptionHandler}
-                        />
-                    </View>
-                    <Text style={styles.paragraph}>שמור דיווח</Text>
-                </View>
-                <View style={styles.SizeCard}>
-                    <View style={{ backgroundColor: 'salmon', borderRadius: 70 }}>
-                        <IconButton
-                            icon="delete"
-                            size={30}
-                            color="white"
-                            title="Save Report"
-                            onPress={descriptionHandler}
-                        />
-                    </View>
-                    <Text style={styles.paragraph}>מחק דיווח</Text>
-                </View>
+            <View style={{ backgroundColor: 'lightskyblue', width: '100%', height: 160 }}>
+                <Text style={{ fontSize: 30, fontWeight: 'bold', textAlign: 'center', marginTop: 15 }}>פרטי האירוע</Text>
             </View>
+            <Card style={styles.card}>
+                <Card.Title title="טופס תלונה" subtitle="הוסף תיאור לאירוע" left={LeftContent} style={{ backgroundColor: 'aliceblue', width: '100%', height: 80, borderTopLeftRadius: 30, borderTopRightRadius: 30 }} />
+                {/* <View style={{ backgroundColor: 'blue', width: '100%', height: 160 }}> */}
+                {/* <Icon
+                    name='home'
+                    color='#00aced' /> */}
+                {/* </View> */}
+                <View style={styles.SingleCard}>
+                    <Image style={styles.image} source={{ uri: image }} />
+                    <Text style={styles.location}>{address}</Text>
+
+                    <TextInput
+                        style={styles.input}
+                        onChangeText={onChangeText}
+                        value={text}
+                    />
+                    <View style={styles.SingleButton}>
+                        <View style={styles.Button}>
+                            <View style={{ backgroundColor: 'lightblue', borderRadius: 70 }}>
+                                <IconButton
+                                    icon="check"
+                                    size={30}
+                                    color="white"
+                                    title="Save Report"
+                                    onPress={descriptionHandler}
+                                />
+                            </View>
+                            <Text style={styles.paragraph}>שמור דיווח</Text>
+                        </View>
+                        <View style={styles.Button}>
+                            <View style={{ backgroundColor: 'salmon', borderRadius: 70 }}>
+                                <IconButton
+                                    icon="delete"
+                                    size={30}
+                                    color="white"
+                                    title="Save Report"
+                                    onPress={descriptionHandler}
+                                />
+                            </View>
+                            <Text style={styles.paragraph}>מחק דיווח</Text>
+                        </View>
+                    </View>
+                </View>
+
+            </Card>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
+    SingleCard: {
+        alignItems: 'center',
+        height: '90%',
+    },
     image: {
         width: '90%',
-        height: '50%',
-        marginTop: 10,
+        height: '30%',
+        marginTop: 20,
+        borderRadius: 50,
     },
     input: {
-        height: 150,
+        height: '15%',
         width: '90%',
-        margin: 12,
+        marginTop: 20,
         borderWidth: 1,
+        borderRadius: 50,
+        textAlign: 'center',
+        backgroundColor: 'ghostwhite',
+        borderColor: 'ghostwhite',
+    },
+    location: {
+        backgroundColor: 'ghostwhite',
+        borderRadius: 50,
+        width: '90%',
+        height: '5%',
+        textAlign: 'center',
+        marginTop: 20,
     },
     body: {
         height: '100%',
         alignItems: 'center',
+        backgroundColor: 'ghostwhite',
     },
-    SingleCard: {
-        marginTop: 25,
+    card: {
+        backgroundColor: 'white',
+        height: '70%',
+        marginTop: -80,
+        borderRadius: 30,
+        width: '80%',
+        justifyContent: 'center',
+    },
+    SingleButton: {
+        marginTop: 40,
         flexDirection: 'row',
         alignItems: 'center',
         flexWrap: 'wrap',
+        justifyContent: 'space-around',
+        width: '80%',
     },
-    SizeCard: {
-        height: Dimensions.get("window").height * 0.2,
-        width: Dimensions.get("window").width * 0.4,
+    Button: {
         alignItems: 'center',
     }
 });
