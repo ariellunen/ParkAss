@@ -29,8 +29,12 @@
     "i18n-js": "^3.8.0",
     "lodash": "^4.17.21",
     "react": "16.13.1",
+    "react-bottom-drawer": "^0.1.1",
     "react-dom": "16.13.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-41.0.0.tar.gz",
+    "react-native-bottom-drawer-view": "^1.0.3",
+    "react-native-drawer": "^2.5.1",
+    "react-native-elements": "^3.4.2",
     "react-native-gesture-handler": "^1.10.3",
     "react-native-google-places-autocomplete": "^2.2.0",
     "react-native-maps": "0.27.1",
@@ -44,7 +48,8 @@
     "react-redux": "^7.2.4",
     "redux": "^4.1.0",
     "redux-thunk": "^2.3.0",
-    "reselect": "^3.0.1"
+    "reselect": "^3.0.1",
+    "rn-bottom-drawer": "^1.4.3"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0"

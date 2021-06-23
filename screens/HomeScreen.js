@@ -107,10 +107,11 @@ const HomeScreen = (props) => {
 const styles = StyleSheet.create({
   card: {
     backgroundColor: 'white',
-    height: '70%',
-    marginTop: 100,
+    height: '60%',
     borderRadius: 30,
     width: '80%',
+    marginTop: 'auto',
+    marginBottom: 'auto',
   },
   all: {
     marginTop: 50,
