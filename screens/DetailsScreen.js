@@ -45,12 +45,12 @@ const DetailsScreen = (props) => {
     const [text, onChangeText] = useState();
 
     const descriptionHandler = () => {
-        // dispatch(reportActions.addReport(text));
         dispatch(reportActions.createReport(text, image, address, lat, lng));
         props.navigation.navigate('Home');
+    }
 
-        // Details
-        // console.log("amen")
+    const deleteHandler = () => {
+        props.navigation.navigate('Home');
     }
 
     return (
@@ -89,7 +89,7 @@ const DetailsScreen = (props) => {
                                     size={30}
                                     color="white"
                                     title="Save Report"
-                                    onPress={descriptionHandler}
+                                    onPress={deleteHandler}
                                 />
                             </View>
                             <Text style={styles.paragraph}>מחק דיווח</Text>
