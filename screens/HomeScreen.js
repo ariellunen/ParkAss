@@ -1,12 +1,10 @@
-import { View, Text, Button, StyleSheet,Alert, SafeAreaView, ImageBackground, Dimensions  } from 'react-native';
+import { View, Text, Button, StyleSheet,Alert, ImageBackground, Dimensions  } from 'react-native';
 import { Card, Avatar, IconButton } from 'react-native-paper';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import * as authActions from '../store/action/auth';
-// import { red100 } from 'react-native-paper/lib/typescript/styles/colors';
 import * as ImagePicker from 'expo-image-picker';
 import * as reportActions from '../store/action/report';
-import Colors from '../constants/Colors';
 
 const LeftContent = props => <Avatar.Icon {...props} icon="home" backgroundColor="lightskyblue" />
 const HomeScreen = (props) => {
@@ -44,11 +42,9 @@ const HomeScreen = (props) => {
 
 
   return (
-    // <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' , backgroundColor: 'red' }}>
     <ImageBackground source={{ uri: 'https://i.postimg.cc/J7P1jYZk/image.jpg' }} style={{ width: '100%', height: '100%', alignItems: 'center' }}>
       <Card style={styles.card} dir="rtl">
         <Card.Title title="מסך הבית" subtitle="בחר את הפעולה המתאימה" left={LeftContent} />
-        {/* <Text style={styles.paragraph}>Home Screen</Text> */}
         <View style={styles.all}>
           <View style={styles.SingleCard}>
             <View style={{ backgroundColor: 'darkseagreen', borderRadius: 70 }}>

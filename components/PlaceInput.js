@@ -62,7 +62,6 @@ const PlaceInput = (props) => {
                     autoCorrect={false}
                     autoCapitalize='none'
                     placeholder="Search"
-                    // leftIcon={{ type: 'font-awesome', name: 'home' }}
                     style={styles.desInput}
                     value={destinationInput}
                     onChangeText={input => {
@@ -143,8 +142,6 @@ const styles = StyleSheet.create({
         marginTop: 0.5,
         borderRadius: 15,
         width: '90%',
-        // alignItems: 'center'
-
     },
     main: {
         color: 'black',

@@ -1,21 +1,16 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import * as reportActions from '../store/action/report';
-// import Colors from '../constants/Colors';
-import { Card, IconButton, Avatar, Icon } from 'react-native-paper';
+import { Card, IconButton, Avatar } from 'react-native-paper';
 
 import {
     View,
     Image,
-    Button,
     Text,
-    ActivityIndicator,
-    Alert,
     StyleSheet,
     TextInput,
-    ScrollView,
-    Dimensions,
+
 } from 'react-native';
 
 const LeftContent = props => <Avatar.Icon {...props} icon="parking" backgroundColor="lightskyblue" />
@@ -26,7 +21,6 @@ const DetailsScreen = (props) => {
     const [address, setAddress] = useState();
     const [lat, setLat] = useState();
     const [lng, setLng] = useState();
-    // const { width, height } = Dimensions.get("window");
 
     useEffect(() => {
         if (selector.image) {
