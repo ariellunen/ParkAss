@@ -94,21 +94,25 @@ const MapScreen = (props) => {
     <View style={{flex: 1}}>
       <FullMapScreen pickedLocation={pickedLocation} />
       <PlaceInput handleSearchResult={handleSearchResult} pickedLocation={pickedLocation}/>
-      <View style={{ backgroundColor: 'darkseagreen', borderRadius: 10 }}>
         <IconButton
-          icon="camera"
-          size={30}
+          icon="plus"
+          size={40}
           color="white"
           title="Add"
           onPress={handleSaveLocation}
+          style={styles.add}
         />
-      </View>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  
+  add: {
+    backgroundColor: 'lightskyblue', 
+    borderRadius: 30,
+    position: 'absolute',
+    bottom: 0,
+  },
 });
 
 export default MapScreen;
