@@ -113,6 +113,7 @@ export const addLocation = (location) => {
             throw new Error('Something went wrong!');
         }
         const address = resData.results[0].formatted_address
+        console.log(address)
         dispatch({type: ADD_LOACATION, locationData:{location: location, address: address}})
 
     }

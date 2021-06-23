@@ -8,9 +8,6 @@ const ReportDetailScreen = (props) => {
     console.log("route",props.route.params.report)
     const report = props.route.params.report;
 
-    const showMapHandler = () => {
-        
-    }
     return(
         <ScrollView contentContainerStyle={{alignItems: 'center'}}>
             <Image source={{uri: report.imageUrl}} style={styles.image}/>

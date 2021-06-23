@@ -1,293 +1,114 @@
-// import React, { useState, useEffect } from 'react';
-// import { View, Button, Text, ActivityIndicator, Alert, StyleSheet } from 'react-native';
-// import * as Location from 'expo-location';
-// import Colors from '../constants/Colors';
-// import MapPreview from '../components/MapPreview';
-
-// const MapScreen = props => {
-//   console.log("Map screen", props.route.params);
-
-//   const [isFetching, setIsFetching] = useState(false);
-//   const [pickedLocation, setPickedLocation] = useState();
-
-//   const mapPickedLocation = props.route.params?.savePickedLocationHandler;
-
-//   useEffect(() => {
-//     if(mapPickedLocation){
-//       setPickedLocation(mapPickedLocation);
-//     }
-//   },[mapPickedLocation]);
-
-//   const verifyPermissions = async () => {
-//     const result = await Location.requestForegroundPermissionsAsync();
-//     if (result.status !== 'granted') {
-//       Alert.alert(
-//         'Insufficient permissions!',
-//         'You need to grant location permissions to use this app.',
-//         [{ text: 'Okay' }]
-//       );
-//       return false;
-//     }
-//     return true;
-//   };
-
-//   const getLocationHandler = async () => {
-//     const hasPermission = await verifyPermissions();
-//     if (!hasPermission) {
-//       return;
-//     }
-//     try {
-//       setIsFetching(true);
-//       const location = await Location.getCurrentPositionAsync({
-//         timeout: 5000
-//       });
-//       setPickedLocation({
-//         lat: location.coords.latitude,
-//         lng: location.coords.longitude
-//       });
-//     } catch (err) {
-//       Alert.alert(
-//         'Could not fetch location!',
-//         'Please try again later or pick a location on the map.',
-//         [{ text: 'Okay' }]
-//       );
-//     }
-//     setIsFetching(false);
-//   };
-
-//   const pickOnMapHandler = () =>{
-//     props.navigation.navigate('FullMap');
-//   };
-
-//   return (
-//     <View style={styles.locationPicker}>
-//       <MapPreview style={styles.mapPreview} location={pickedLocation} onPress={pickOnMapHandler}>
-//         {isFetching ? (
-//           <ActivityIndicator size="large" color={Colors.primary} />
-//         ) : (
-//           <Text>No location chosen yet!</Text>
-//         )}
-//       </MapPreview>
-//       <View style={styles.actions}>
-//         <Button
-//           title="Get User Location"
-//           color={Colors.primary}
-//           onPress={getLocationHandler}
-//         />
-//         <Button 
-//           title="Pick on map"
-//           color={Colors.primary}
-//           onPress={pickOnMapHandler}
-//         />
-//       </View>
-
-//     </View>
-//   );
-// };
-
-// const styles = StyleSheet.create({
-//   locationPicker: {
-//     marginBottom: 15
-//   },
-//   mapPreview: {
-//     marginBottom: 10,
-//     width: '100%',
-//     height: 150,
-//     borderColor: '#ccc',
-//     borderWidth: 1,
-//   },
-//   actions:{
-//     flexDirection: 'row',
-//     justifyContent: 'space-around',
-//     width:'100%'
-//   }
-// });
-
-// export default MapScreen;
-
-import { Card, Avatar, IconButton } from 'react-native-paper';
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   View,
-  Button,
-  Text,
-  ActivityIndicator,
-  Alert,
   StyleSheet,
-  Dimensions,
+  ActivityIndicator,
+  Alert
 } from 'react-native';
-import * as Location from 'expo-location';
-import * as Permissions from 'expo-permissions';
-
+import FullMapScreen from './FullMapScreen';
+import PlaceInput from '../components/PlaceInput';
 import Colors from '../constants/Colors';
-import MapPreview from '../components/MapPreview';
+import * as Location from 'expo-location';
+import { IconButton } from 'react-native-paper';
 import { useDispatch } from 'react-redux';
 import * as reportActions from '../store/action/report';
-import { useSelector } from 'react-redux';
-// import { red100 } from 'react-native-paper/lib/typescript/styles/colors';
-// import '../components/UI/Card.js';
 
-
-const LocationPicker = props => {
-  const [isFetching, setIsFetching] = useState(false);
+const MapScreen = (props) => {
+  const dispatch = useDispatch();
   const [pickedLocation, setPickedLocation] = useState();
-  const [selectedLocation, setSelectedLocation] = useState();
+  const [isFetching, setIsFetching] = useState(false);
 
-  const mapPickedLocation = props.route.params?.pickedLocation;
-
-  useEffect(() => {
-    if (mapPickedLocation) {
-      setPickedLocation(mapPickedLocation);
-      console.log("pickedLocation - ", mapPickedLocation)
-      // onLocationPicked(mapPickedLocation);
-    }
-  }, [mapPickedLocation]);
-
-  // const locationPickedHandler = useCallback(location => {
-  //   setSelectedLocation(location);
-  // }, []);
-
-  const verifyPermissions = async () => {
-    const result = await Location.requestForegroundPermissionsAsync();;
-    if (result.status !== 'granted') {
-      Alert.alert(
-        'Insufficient permissions!',
-        'You need to grant location permissions to use this app.',
-        [{ text: 'Okay' }]
-      );
-      return false;
-    }
-    return true;
+  const defultRegion = {
+    latitude: 37.78,
+    longitude: -122.43,
+    latitudeDelta: 0.015,
+    longitudeDelta: 0.0121
   };
 
-  const getLocationHandler = async () => {
-    const hasPermission = await verifyPermissions();
-    if (!hasPermission) {
-      return;
-    }
+  const [hasUserPremission, setHasUserPremission] = useState(false);
 
+  useEffect(() => {
+    async function fetchData() {
+      const result = await Location.requestForegroundPermissionsAsync();;
+      if (result.status !== 'granted') {
+        setPickedLocation(defultRegion);
+      }
+      setHasUserPremission(true);
+      getLocationHandler();
+    }
+    fetchData();
+  },[]);
+
+  const getLocationHandler = async () => {
     try {
       setIsFetching(true);
       const location = await Location.getCurrentPositionAsync({
         timeout: 5000
       });
+      console.log("location",location);
       setPickedLocation({
-        lat: location.coords.latitude,
-        lng: location.coords.longitude
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+        latitudeDelta: 0.015,
+        longitudeDelta: 0.0121
       });
-      // props.onLocationPicked({
-      //   lat: location.coords.latitude,
-      //   lng: location.coords.longitude
-      // });
+      console.log("pickedLocation", pickedLocation);
     } catch (err) {
+      console.log(err);
+      setPickedLocation(defultRegion);
       Alert.alert(
         'Could not fetch location!',
-        'Please try again later or pick a location on the map.',
+        'Please try again later or search your location',
         [{ text: 'Okay' }]
       );
     }
-    setIsFetching(false);
   };
 
-  const pickOnMapHandler = () => {
-    props.navigation.navigate('FullMap');
-  };
+  if (!isFetching && pickedLocation !== undefined) {
+    return <ActivityIndicator size="large" color={Colors.primary} style={{flex: 1}} />
+  }
 
-  const dispatch = useDispatch();
+  console.log("pickedLocation", pickedLocation);
 
+  const handleSearchResult = (search_results) =>{
+    console.log("map screen region", search_results)
+    setPickedLocation({
+      latitude: search_results.result.geometry.location.lat,
+      longitude: search_results.result.geometry.location.lng,
+      latitudeDelta: 0.015,
+      longitudeDelta: 0.0121
+    });
+    console.log(pickedLocation)
+  }
 
-  const saveLocationHandler = () => {
-    dispatch(reportActions.addLocation(pickedLocation));
-
+  const handleSaveLocation = () =>{
+    const location = {
+      lat: pickedLocation.latitude,
+      lng: pickedLocation.longitude
+    }
+    dispatch(reportActions.addLocation(location));
     props.navigation.navigate('Details');
   }
 
-  return (
-    <View style={styles.locationPicker}>
-      <Text style={styles.h1}>בחר את מיקום האירוע</Text>
-      <MapPreview
-        style={styles.mapPreview}
-        location={pickedLocation}
-        onPress={pickOnMapHandler}
-      >
-        {isFetching ? (
-          <ActivityIndicator size="large" color={Colors.primary} />
-        ) : (
-          <Text>עדיין לא נבחר מיקום!</Text>
-        )}
-      </MapPreview>
-
-      <View style={styles.SingleCard}>
-        <View style={{ backgroundColor: 'darkseagreen', borderRadius: 70 }}>
-          <IconButton
-            icon="map-marker"
-            size={50}
-            color="white"
-            title="Get User Location"
-            onPress={getLocationHandler}
-          />
-        </View>
-        <Text style={styles.paragraph}>מצא מיקום</Text>
-      </View>
-      <View style={styles.SingleCard}>
-        <View style={{ backgroundColor: 'lightcoral', borderRadius: 70 }}>
-          <IconButton
-            icon="fullscreen"
-            size={50}
-            color="white"
-            title="Pick on Map"
-            onPress={pickOnMapHandler}
-          />
-        </View>
-        <Text style={styles.paragraph}>הגדל מפה</Text>
-      </View>
-      <View style={styles.SingleCard}>
-        <View style={{ backgroundColor: 'lightblue', borderRadius: 70 }}>
-          <IconButton
-            // icon="check"
-            icon="pin"
-            size={50}
-            color="white"
-            title="Save Location"
-            onPress={saveLocationHandler}
-          />
-        </View>
-        <Text style={styles.paragraph}>שמור מיקום</Text>
+  return(
+    <View style={{flex: 1}}>
+      <FullMapScreen pickedLocation={pickedLocation} />
+      <PlaceInput handleSearchResult={handleSearchResult} pickedLocation={pickedLocation}/>
+      <View style={{ backgroundColor: 'darkseagreen', borderRadius: 10 }}>
+        <IconButton
+          icon="camera"
+          size={30}
+          color="white"
+          title="Add"
+          onPress={handleSaveLocation}
+        />
       </View>
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
-  locationPicker: {
-    height: '100%',
-    backgroundColor: 'white',
-    alignItems: 'center',
-  },
-  mapPreview: {
-    marginBottom: 10,
-    width: '98%',
-    height: '40%',
-    borderColor: '#ccc',
-    borderWidth: 2,
-    marginTop: 30,
-  },
-  SingleCard: {
-    height: Dimensions.get("window").height * 0.13,
-    width: Dimensions.get("window").width * 0.5,
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    flexDirection: 'row',
-  },
-  paragraph: {
-    fontSize: 18,
-    color: 'black',
-  },
-  h1: {
-    fontSize: 25,
-    color: 'black',
-    marginTop: 15,
-  }
+  
 });
 
-export default LocationPicker;
+export default MapScreen;

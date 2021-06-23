@@ -9,7 +9,6 @@ import * as authActions from '../store/action/auth';
 import HomeScreen from '../screens/HomeScreen';
 import AuthScreen from '../screens/AuthScreen';
 import MyReportsScreen from '../screens/MyReportsScreen';
-import UserReports from '../screens/UserReportScreen';
 import FullMap, { fullMapOption as fullMapOption } from '../screens/FullMapScreen';
 import Colors from '../constants/Colors';
 import MapScreen from '../screens/MapScreen';
@@ -40,7 +39,7 @@ export const ReportStackNavigation = () => {
     <ReportStackNavigatior.Navigator>
       <ReportStackNavigatior.Screen
         name="Reports"
-        component={UserReports}
+        component={MyReportsScreen}
       />
     </ReportStackNavigatior.Navigator>
   )

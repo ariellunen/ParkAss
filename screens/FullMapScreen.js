@@ -4,67 +4,32 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  Platform
+  Platform,
+  TextInput,
+  ActivityIndicator
 } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
-
 import Colors from '../constants/Colors';
 
 const FullMapScreen = props => {
-  // const initialLocation = props.navigation.getParam('initialLocation');
-  // const readonly = props.navigation.getParam('readonly');
-
-  const [selectedLocation, setSelectedLocation] = useState();
-
-  const mapRegion = {
-    latitude: 37.78,
-    longitude: -122.43,
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421
-  };
-
-  const selectLocationHandler = event => {
-    // if (readonly) {
-    //   return;
-    // }
-    setSelectedLocation({
-      lat: event.nativeEvent.coordinate.latitude,
-      lng: event.nativeEvent.coordinate.longitude
-    });
-  };
-
-  const savePickedLocationHandler = useCallback(() => {
-    if (!selectedLocation) {
-      // could show an alert!
-      return;
-    }
-    props.navigation.navigate('Map', { pickedLocation: selectedLocation });
-  }, [selectedLocation]);
+  const [markerCoordinates, setMarkerCoordinates] = useState();
 
   useEffect(() => {
-    props.navigation.setParams({ savePickedLocationHandler: savePickedLocationHandler });
-  }, [savePickedLocationHandler]);
-  
-
-  let markerCoordinates;
-
-  if (selectedLocation) {
-    markerCoordinates = {
-      latitude: selectedLocation.lat,
-      longitude: selectedLocation.lng
-    };
-  }
+    if(props.pickedLocation !== undefined){
+      setMarkerCoordinates({
+        latitude: props.pickedLocation.latitude,
+        longitude: props.pickedLocation.longitude
+      });
+    }
+  }, [props]);
 
   return (
-    <MapView
-      style={styles.map}
-      region={mapRegion}
-      onPress={selectLocationHandler}
-    >
-      {markerCoordinates && (
+      <MapView
+        style={styles.map}
+        region={props.pickedLocation}
+      >
         <Marker title="Picked Location" coordinate={markerCoordinates} />
-      )}
-    </MapView>
+      </MapView>
   );
 };
 
@@ -80,8 +45,14 @@ export const fullMapOption = navData => {
 };
 
 const styles = StyleSheet.create({
+  second: {
+    color: '#777'
+  },
+  container: {
+    flex: 1,
+  },
   map: {
-    flex: 1
+    ...StyleSheet.absoluteFillObject
   },
   headerButton: {
     marginHorizontal: 20
@@ -89,6 +60,25 @@ const styles = StyleSheet.create({
   headerButtonText: {
     fontSize: 16,
     color: Platform.OS === 'android' ? 'white' : Colors.primary
+  },
+  desInput: {
+    height: 40,
+    borderWidth: 0.5,
+    marginTop: 50,
+    marginLeft: 5,
+    marginRight: 5,
+    padding: 5,
+    backgroundColor: 'white'
+  },
+  suggestions: {
+    backgroundColor: 'white',
+    padding: 15,
+    borderTopWidth: 0.5,
+    marginLeft: 5,
+    marginRight: 5,
+  },
+  main: {
+    color: 'black',
   }
 });
 

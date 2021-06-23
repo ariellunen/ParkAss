@@ -2,11 +2,12 @@ import 'react-native-gesture-handler';
 import * as React from 'react';
 // import { NavigationContainer } from '@react-navigation/native';
 import AppNavigator from './navigation/AppNavigator';
-import {Provider} from 'react-redux';
+import { Provider } from 'react-redux';
 import ReduxThunk from 'redux-thunk';
 import authReducer from './store/reducers/auth';
 import reportReducer from './store/reducers/report';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { TouchableWithoutFeedback, Keyboard } from 'react-native';
 
 
 const rootReducer = combineReducers({
@@ -15,12 +16,17 @@ const rootReducer = combineReducers({
 });
 
 const store = createStore(rootReducer, applyMiddleware(ReduxThunk));
-// console.log(store.getState().report);
 
+const hideKeyBoard = () => {
+  Keyboard.dismiss();
+}
 export default function App() {
   return (
-    <Provider store={store}>
-      <AppNavigator />
-    </Provider>
+    <TouchableWithoutFeedback onPress={hideKeyBoard}>
+      <Provider store={store}>
+        <AppNavigator />
+      </Provider>
+    </TouchableWithoutFeedback>
+
   );
 }
