@@ -21,14 +21,14 @@ const FullMapScreen = props => {
         longitude: props.pickedLocation.longitude
       });
     }
-  }, [props]);
+  }, [props.pickedLocation]);
 
   return (
       <MapView
         style={styles.map}
         region={props.pickedLocation}
       >
-        <Marker title="Picked Location" coordinate={markerCoordinates} />
+        {markerCoordinates !== undefined && <Marker title="Picked Location" coordinate={markerCoordinates} />}
       </MapView>
   );
 };
