@@ -28,20 +28,9 @@ const FullMapScreen = props => {
         style={styles.map}
         region={props.pickedLocation}
       >
-        {/* <Marker title="Picked Location" coordinate={markerCoordinates} /> */}
+        {markerCoordinates !== undefined && <Marker title="Picked Location" coordinate={markerCoordinates} />}
       </MapView>
   );
-};
-
-export const fullMapOption = navData => {
-  const saveFn = navData.route.params?.savePickedLocationHandler;
-  return {
-    headerRight: () => (
-      <TouchableOpacity style={styles.headerButton} onPress={saveFn}>
-        <Text style={styles.headerButtonText}>Save</Text>
-      </TouchableOpacity>
-    )
-  };
 };
 
 const styles = StyleSheet.create({
