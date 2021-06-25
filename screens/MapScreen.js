@@ -12,6 +12,7 @@ import * as Location from 'expo-location';
 import { IconButton } from 'react-native-paper';
 import { useDispatch } from 'react-redux';
 import * as reportActions from '../store/action/report';
+import ENV from '../env';
 
 const MapScreen = (props) => {
   const dispatch = useDispatch();
@@ -82,33 +83,45 @@ const MapScreen = (props) => {
   }
 
   const handleSaveLocation = () =>{
-    const location = {
-      lat: pickedLocation.latitude,
-      lng: pickedLocation.longitude
+    if(pickedLocation === undefined){
+      Alert.alert(
+        'לא נבחר מיקום',
+        [{ text: 'Okay' }]
+      );
     }
-    dispatch(reportActions.addLocation(location));
-    props.navigation.navigate('Details');
+    else{
+      const location = {
+        lat: pickedLocation.latitude,
+        lng: pickedLocation.longitude
+      }
+      dispatch(reportActions.addLocation(location));
+      props.navigation.navigate('Details');
+    }
   }
 
   return(
     <View style={{flex: 1}}>
       <FullMapScreen pickedLocation={pickedLocation} />
       <PlaceInput handleSearchResult={handleSearchResult} pickedLocation={pickedLocation}/>
-      <View style={{ backgroundColor: 'darkseagreen', borderRadius: 10 }}>
         <IconButton
-          icon="camera"
-          size={30}
+          icon="plus"
+          size={40}
           color="white"
           title="Add"
           onPress={handleSaveLocation}
+          style={styles.add}
         />
-      </View>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  
+  add: {
+    backgroundColor: 'lightskyblue', 
+    borderRadius: 30,
+    position: 'absolute',
+    bottom: 0,
+  },
 });
 
 export default MapScreen;

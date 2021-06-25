@@ -6,8 +6,6 @@ import {
   ActivityIndicator,
   Alert,
   StyleSheet,
-  ScrollView,
-  Image,
   FlatList
 } from 'react-native';
 import { useDispatch } from 'react-redux';

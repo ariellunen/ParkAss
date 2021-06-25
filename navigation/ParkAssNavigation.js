@@ -9,7 +9,7 @@ import * as authActions from '../store/action/auth';
 import HomeScreen from '../screens/HomeScreen';
 import AuthScreen from '../screens/AuthScreen';
 import MyReportsScreen from '../screens/MyReportsScreen';
-import FullMap, { fullMapOption as fullMapOption } from '../screens/FullMapScreen';
+import FullMap from '../screens/FullMapScreen';
 import Colors from '../constants/Colors';
 import MapScreen from '../screens/MapScreen';
 import DetailsScreen from '../screens/DetailsScreen';
@@ -82,7 +82,7 @@ export const ParkAssNavigation = () => {
       <Stack.Screen name="Home" component={HomeScreen}/>
       <Stack.Screen name="Map" component={MapScreen}/>
       <Stack.Screen name="Details" component={DetailsScreen}/>
-      <Stack.Screen name="FullMap" component={FullMap} options={fullMapOption} />
+      <Stack.Screen name="FullMap" component={FullMap}/>
       <Stack.Screen name="Reports" component={MyReportsScreen}/>
       <Stack.Screen name="ReportDetails" component={ReportDetailScreen} />
     </Stack.Navigator>

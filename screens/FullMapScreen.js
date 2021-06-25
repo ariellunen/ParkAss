@@ -33,17 +33,6 @@ const FullMapScreen = props => {
   );
 };
 
-export const fullMapOption = navData => {
-  const saveFn = navData.route.params?.savePickedLocationHandler;
-  return {
-    headerRight: () => (
-      <TouchableOpacity style={styles.headerButton} onPress={saveFn}>
-        <Text style={styles.headerButtonText}>Save</Text>
-      </TouchableOpacity>
-    )
-  };
-};
-
 const styles = StyleSheet.create({
   second: {
     color: '#777'

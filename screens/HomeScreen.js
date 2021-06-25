@@ -1,12 +1,10 @@
-import { View, Text, Button, StyleSheet,Alert, SafeAreaView, ImageBackground, Dimensions  } from 'react-native';
+import { View, Text, Button,Linking, StyleSheet,Alert,Image, ImageBackground, Dimensions  } from 'react-native';
 import { Card, Avatar, IconButton } from 'react-native-paper';
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import * as authActions from '../store/action/auth';
-// import { red100 } from 'react-native-paper/lib/typescript/styles/colors';
 import * as ImagePicker from 'expo-image-picker';
 import * as reportActions from '../store/action/report';
-import Colors from '../constants/Colors';
 
 const LeftContent = props => <Avatar.Icon {...props} icon="home" backgroundColor="lightskyblue" />
 const HomeScreen = (props) => {
@@ -34,21 +32,28 @@ const HomeScreen = (props) => {
     const image = await ImagePicker.launchCameraAsync({
       allowsEditing: false,
       aspect: [16, 9],
-      quality: 0.5
+      quality: 0.5,
+      base64: true,
+      
     });
 
-    setPickedImage(image.uri);
+    // let imageUri = `data:image/jpg;base64,${image.base64}`
+
+    // setPickedImage(imageUri);
+    console.log(<Image source={{uri: image.uri}}/>);
     dispatch(reportActions.addImage(image.uri));
-    props.navigation.navigate('Map');
+
+    // Linking.openURL(`http://api.whatsapp.com/send?phone=9720542344828&text=${image.uri}`)
+
+
+    // props.navigation.navigate('Map');
   };
 
 
   return (
-    // <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' , backgroundColor: 'red' }}>
     <ImageBackground source={{ uri: 'https://i.postimg.cc/J7P1jYZk/image.jpg' }} style={{ width: '100%', height: '100%', alignItems: 'center' }}>
       <Card style={styles.card} dir="rtl">
         <Card.Title title="מסך הבית" subtitle="בחר את הפעולה המתאימה" left={LeftContent} />
-        {/* <Text style={styles.paragraph}>Home Screen</Text> */}
         <View style={styles.all}>
           <View style={styles.SingleCard}>
             <View style={{ backgroundColor: 'darkseagreen', borderRadius: 70 }}>

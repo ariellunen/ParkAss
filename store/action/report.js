@@ -8,6 +8,7 @@ import Report from '../../models/report';
 import ENV from '../../env';
 
 export const addImage = (imageUrl) =>{
+    console.log(imageUrl)
     return { type: ADD_IMAGE, image:imageUrl };
 }
 
@@ -103,7 +104,7 @@ export const createReport = (text, image, address, lat, lng) =>{
 
 export const addLocation = (location) => {
     return async dispatch => {
-        const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${location.lat},${location.lng}&key=${ENV.googleApiKey}`);
+        const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${location.lat},${location.lng}&language=en&key=${ENV.googleApiKey}`);
         if(!response.ok){
             throw new Error('Something went wrong!');
         }
@@ -112,9 +113,21 @@ export const addLocation = (location) => {
         if(!resData.results){
             throw new Error('Something went wrong!');
         }
+        const results = resData.results[0].address_components;
+        let city = '';
+        console.log("results",results)
+        results.map((result) => {
+            if(result.types[0] === 'locality'){
+                city = result.long_name
+                console.log(city)
+            }
+        })
+        
+
         const address = resData.results[0].formatted_address
-        console.log(address)
-        dispatch({type: ADD_LOACATION, locationData:{location: location, address: address}})
+        // const city = resData.results[0].address_components[2].long_name
+        // console.log(resData.results[0].address_components)
+        dispatch({type: ADD_LOACATION, locationData:{location: location, address: address, city:city}})
 
     }
 }

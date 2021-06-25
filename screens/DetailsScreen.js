@@ -1,22 +1,17 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import * as reportActions from '../store/action/report';
-// import Colors from '../constants/Colors';
-import { Card, IconButton, Avatar, Icon } from 'react-native-paper';
-
+import { Card, IconButton, Avatar } from 'react-native-paper';
 import {
     View,
     Image,
-    Button,
     Text,
-    ActivityIndicator,
-    Alert,
     StyleSheet,
     TextInput,
-    ScrollView,
-    Dimensions,
+    Linking
 } from 'react-native';
+import cityHallNum from '../models/cityHallNum';
 
 const LeftContent = props => <Avatar.Icon {...props} icon="parking" backgroundColor="lightskyblue" />
 
@@ -24,9 +19,9 @@ const DetailsScreen = (props) => {
     const selector = useSelector(state => state.report);
     const [image, setImage] = useState();
     const [address, setAddress] = useState();
+    const [city, setCity] = useState();
     const [lat, setLat] = useState();
     const [lng, setLng] = useState();
-    // const { width, height } = Dimensions.get("window");
 
     useEffect(() => {
         if (selector.image) {
@@ -36,16 +31,26 @@ const DetailsScreen = (props) => {
             setAddress(selector.address);
             setLat(selector.lat);
             setLng(selector.lng)
-            console.log("image", image)
-            console.log("lll", selector.address)
+        }
+        if (selector.city) {
+            setCity(selector.city)
         }
     }, [selector]);
 
     const dispatch = useDispatch();
     const [text, onChangeText] = useState();
+    console.log("city", selector.city)
 
-    const descriptionHandler = () => {
+    const saveReportHandler = () => {
+
+
         dispatch(reportActions.createReport(text, image, address, lat, lng));
+        console.log(cityHallNum[city])
+        Linking.openURL(`http://api.whatsapp.com/send?phone=972
+        ${cityHallNum[city]}
+        &text=${image}\n`)
+        // תיאור - ${text}\n
+        // כתובת - ${address}`)
         props.navigation.navigate('Home');
     }
 
@@ -77,7 +82,7 @@ const DetailsScreen = (props) => {
                                     size={30}
                                     color="white"
                                     title="Save Report"
-                                    onPress={descriptionHandler}
+                                    onPress={saveReportHandler}
                                 />
                             </View>
                             <Text style={styles.paragraph}>שמור דיווח</Text>

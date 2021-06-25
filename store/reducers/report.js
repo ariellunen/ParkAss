@@ -5,6 +5,7 @@ const initialState = {
     reportsArr:null,
     image:null,
     address:null,
+    city:null,
     lat:null,
     lng:null,
     description: null,
@@ -31,6 +32,7 @@ export default (state=initialState, action) =>{
                 lat: action.locationData.location.lat,
                 lng: action.locationData.location.lng,
                 address: action.locationData.address,
+                city: action.locationData.city,
                 ...state
             }
         case CREATE_REPORT: 
