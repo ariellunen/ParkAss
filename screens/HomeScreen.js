@@ -51,19 +51,17 @@ const HomeScreen = (props) => {
       base64: true,
     });
 
-    // let imageUri = `data:image/jpg;base64,${image.base64}`
 
     setPickedImage(image.uri);
-    console.log(image.uri);
     firebase
       .auth()
-      .createUserWithEmailAndPassword("email@email.com", "12345678")
+      // .createUserWithEmailAndPassword("email@email.com", "12345678")
+      .getCurrentUser()
       .catch((error) => {
         var errorMessage = error.message;
         console.log(errorMessage);
       });
     uploadmultimedia();
-    dispatch(reportActions.addImage(image.uri));
   };
   const uploadmultimedia = async () => {
     const blob = await new Promise((resolve, reject) => {
@@ -89,6 +87,7 @@ const HomeScreen = (props) => {
         return imageRef.getDownloadURL();
       })
       .then((dwnldurl) => {
+        console.log(dwnldurl)
         dispatch(reportActions.addImage(dwnldurl));
         props.navigation.navigate('Map');
       });
