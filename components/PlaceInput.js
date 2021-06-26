@@ -7,20 +7,20 @@ import {
     Platform,
     TextInput,
 } from 'react-native';
-// import ENV from '../env';
 import Colors from '../constants/Colors';
 import { Icon } from 'react-native-elements'
-
+import {REACT_APP_GOOGLE_API_KEY} from '@env'
 
 
 const PlaceInput = (props) => {
+
     const [destinationInput, setDestentionInput] = useState("");
     const [pickedLocation, setPickedLocation] = useState();
     const [predictions, setPredictions] = useState([]);
 
     const handleSearch = async (placeId) => {
         console.log(placeId);
-        const apiUrl = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&radius=10000&key=AIzaSyANv-6zqK0wzXkwJa2iwQJOXkdGT8IDMec`;
+        const apiUrl = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&radius=10000&key=${REACT_APP_GOOGLE_API_KEY}`;
         try {
             const result = await fetch(apiUrl);
             console.log("result", result)

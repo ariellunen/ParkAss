@@ -13,7 +13,6 @@ import FullMap from '../screens/FullMapScreen';
 import Colors from '../constants/Colors';
 import MapScreen from '../screens/MapScreen';
 import DetailsScreen from '../screens/DetailsScreen';
-import ImagePicker from '../components/ImagePicker';
 import ReportDetailScreen from '../screens/ReportDetailScreen';
 
 const Stack = createStackNavigator();

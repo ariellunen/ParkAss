@@ -7,6 +7,10 @@ import authReducer from "./store/reducers/auth";
 import reportReducer from "./store/reducers/report";
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import { TouchableWithoutFeedback, Keyboard, I18nManager } from "react-native";
+// import config from './config';
+
+
+
 import firebase from "firebase/app";
 import "firebase/storage";
 require("firebase/storage");
