@@ -9,7 +9,6 @@ import { createStore, combineReducers, applyMiddleware } from "redux";
 import { TouchableWithoutFeedback, Keyboard, I18nManager } from "react-native";
 import firebase from "firebase/app";
 import "firebase/storage";
-I18nManager.forceRTL(true);
 require("firebase/storage");
 require("firebase/database");
 if (!firebase.apps.length) {
@@ -24,6 +23,7 @@ if (!firebase.apps.length) {
   });
 }
 firebase.storage().ref();
+I18nManager.forceRTL(true);
 
 const rootReducer = combineReducers({
   auth: authReducer,
