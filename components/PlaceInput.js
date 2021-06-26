@@ -12,7 +12,6 @@ import { Icon } from 'react-native-elements'
 import {REACT_APP_GOOGLE_API_KEY} from '@env'
 
 
-
 const PlaceInput = (props) => {
 
     const [destinationInput, setDestentionInput] = useState("");
@@ -43,7 +42,7 @@ const PlaceInput = (props) => {
     }, [props])
 
     const onChangeTextInput = async (input) => {
-        const apiUrl = `https://maps.googleapis.com/maps/api/place/autocomplete/json?key=${ENV.googleApiKey}&input=${input}&location=${props.pickedLocation.latitude},${props.pickedLocation.latitude}&radius=2000`;
+        const apiUrl = `https://maps.googleapis.com/maps/api/place/autocomplete/json?key=AIzaSyANv-6zqK0wzXkwJa2iwQJOXkdGT8IDMec&input=${input}&location=${props.pickedLocation.latitude},${props.pickedLocation.latitude}&radius=2000`;
         try {
             const result = await fetch(apiUrl);
             const json = await result.json();
