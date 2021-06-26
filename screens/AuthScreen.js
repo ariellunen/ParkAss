@@ -7,28 +7,22 @@ import {
   Button,
   ActivityIndicator,
   Alert,
-  Text,
   Image,
 } from 'react-native';
-import { LinearGradient } from 'expo-linear-gradient';
 import { useDispatch } from 'react-redux';
 import Input from '../components/UI/Input';
-import Card from '../components/UI/Card';
-import Colors from '../constants/Colors';
 import * as authActions from '../store/action/auth';
 import { color } from 'react-native-reanimated';
-
 const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE';
-
 const formReducer = (state, action) => {
   if (action.type === FORM_INPUT_UPDATE) {
     const updatedValues = {
       ...state.inputValues,
-      [action.input]: action.value
+      [action.input]: action.value,
     };
     const updatedValidities = {
       ...state.inputValidities,
-      [action.input]: action.isValid
+      [action.input]: action.isValid,
     };
     let updatedFormIsValid = true;
     for (const key in updatedValidities) {
@@ -37,13 +31,12 @@ const formReducer = (state, action) => {
     return {
       formIsValid: updatedFormIsValid,
       inputValidities: updatedValidities,
-      inputValues: updatedValues
+      inputValues: updatedValues,
     };
   }
   return state;
 };
-
-const AuthScreen = props => {
+const AuthScreen = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
   const [isSignup, setIsSignup] = useState(false);
@@ -52,62 +45,53 @@ const AuthScreen = props => {
   const [formState, dispatchFormState] = useReducer(formReducer, {
     inputValues: {
       email: '',
-      password: ''
+      password: '',
     },
     inputValidities: {
       email: false,
-      password: false
+      password: false,
     },
-    formIsValid: false
+    formIsValid: false,
   });
-
   useEffect(() => {
     if (error) {
-      Alert.alert('An Error Occurred!', error, [{ text: 'OK' }])
+      Alert.alert('An Error Occurred!', error, [{ text: 'OK' }]);
     }
   }, [error]);
-
   const authHandler = async () => {
     let action;
     if (isSignup) {
       action = authActions.signup(formState.inputValues.email, formState.inputValues.password);
-    }
-    else {
+    } else {
       action = authActions.login(formState.inputValues.email, formState.inputValues.password);
     }
     setError(null);
     setIsLoading(true);
     try {
       await dispatch(action);
-
     } catch (err) {
       setError(err.message);
       setIsLoading(false);
     }
   };
-
   const inputChangeHandler = useCallback(
     (inputIdentifier, inputValue, inputValidity) => {
       dispatchFormState({
         type: FORM_INPUT_UPDATE,
         value: inputValue,
         isValid: inputValidity,
-        input: inputIdentifier
+        input: inputIdentifier,
       });
     },
-    [dispatchFormState]
+    [dispatchFormState],
   );
-
   return (
-    <KeyboardAvoidingView
-      behavior="padding"
-      keyboardVerticalOffset={50}
-      style={styles.screen}
-    >
-      {/* <LinearGradient colors={['blue', '#ffe3ff']} style={styles.gradient}> */}
+    <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={50} style={styles.screen}>
       <View style={styles.body}>
-        <Image style={styles.tinyLogo}
-          source={{ uri: 'https://i.postimg.cc/VNVbPVYT/image.png' }} />
+        <Image
+          style={styles.tinyLogo}
+          source={{ uri: 'https://i.postimg.cc/VNVbPVYT/image.png' }}
+        />
         <View style={styles.authContainer}>
           <ScrollView>
             <Input
@@ -135,11 +119,11 @@ const AuthScreen = props => {
             />
             <View style={styles.buttonContainer}>
               {isLoading ? (
-                <ActivityIndicator size='small' color={color.primary} />
+                <ActivityIndicator size="small" color={color.primary} />
               ) : (
                 <Button
-                  title={isSignup ? "Sign Up" : "Login"}
-                  color='darkgrey'
+                  title={isSignup ? 'Sign Up' : 'Login'}
+                  color="darkgrey"
                   onPress={authHandler}
                 />
               )}
@@ -147,10 +131,9 @@ const AuthScreen = props => {
             <View style={styles.buttonContainer}>
               <Button
                 title={`Switch to ${isSignup ? 'Login' : 'Sign Up'}`}
-                // color={Colors.accent}
-                color='gainsboro'
+                color="gainsboro"
                 onPress={() => {
-                  setIsSignup(prevState => !prevState);
+                  setIsSignup((prevState) => !prevState);
                 }}
               />
             </View>
@@ -158,7 +141,6 @@ const AuthScreen = props => {
         </View>
         <Image style={styles.Logo} source={{ uri: 'https://i.postimg.cc/qBhBF76p/image.png' }} />
       </View>
-      {/* </LinearGradient> */}
     </KeyboardAvoidingView>
   );
 };
@@ -198,7 +180,7 @@ const styles = StyleSheet.create({
     height: '30%',
     width: '55%',
     marginTop: 20,
-  }
+  },
 });
 
 export default AuthScreen;

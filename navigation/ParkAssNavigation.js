@@ -20,70 +20,31 @@ const Drawer = createDrawerNavigator();
 
 const AuthStackNavigator = createStackNavigator();
 
-export const AuthNavigator = () => {
-  return (
-    <AuthStackNavigator.Navigator>
-      <AuthStackNavigator.Screen
-        name="Auth"
-        component={AuthScreen}
-      />
-    </AuthStackNavigator.Navigator>
-  );
-};
+export const AuthNavigator = () => (
+  <AuthStackNavigator.Navigator>
+    <AuthStackNavigator.Screen name="Auth" component={AuthScreen} />
+  </AuthStackNavigator.Navigator>
+);
 
 const ReportStackNavigatior = createStackNavigator();
 
-export const ReportStackNavigation = () => {
-  return (
-    <ReportStackNavigatior.Navigator>
-      <ReportStackNavigatior.Screen
-        name="Reports"
-        component={MyReportsScreen}
-      />
-    </ReportStackNavigatior.Navigator>
-  )
-}
+export const ReportStackNavigation = () => (
+  <ReportStackNavigatior.Navigator>
+    <ReportStackNavigatior.Screen name="Reports" component={MyReportsScreen} />
+  </ReportStackNavigatior.Navigator>
+);
 
-export const ParkAssDrawer = () => {
-  const dispatch = useDispatch();
-
-  return (
-    <Drawer.Navigator
-      drawerContent={props => {
-        return (
-          <View style={{ flex: 1, paddingTop: 20 }}>
-            <SafeAreaView forceInset={{ top: 'always', horizontal: 'never' }}>
-              <DrawerItemList {...props} />
-              <Button
-                title="Logout"
-                color={Colors.primary}
-                onPress={() => {
-                  dispatch(authActions.logout());
-                  // props.navigation.navigate('Auth');
-                }}
-              />
-            </SafeAreaView>
-          </View>
-        );
-      }}
-    >
-      <Drawer.Screen name="Home" component={ParkAssNavigation} />
-      <Drawer.Screen name="Reports" component={ReportStackNavigation} />
-    </Drawer.Navigator>
-  )
-}
-
-export const ParkAssNavigation = () => {
-  return (
-    <Stack.Navigator screenOptions={{
-      headerShown: false
-    }}>
-      <Stack.Screen name="Home" component={HomeScreen}/>
-      <Stack.Screen name="Map" component={MapScreen}/>
-      <Stack.Screen name="Details" component={DetailsScreen}/>
-      <Stack.Screen name="FullMap" component={FullMap}/>
-      <Stack.Screen name="Reports" component={MyReportsScreen}/>
-      <Stack.Screen name="ReportDetails" component={ReportDetailScreen} />
-    </Stack.Navigator>
-  );
-}
+export const ParkAssNavigation = () => (
+  <Stack.Navigator
+    screenOptions={{
+      headerShown: false,
+    }}
+  >
+    <Stack.Screen name="Home" component={HomeScreen} />
+    <Stack.Screen name="Map" component={MapScreen} />
+    <Stack.Screen name="Details" component={DetailsScreen} />
+    <Stack.Screen name="FullMap" component={FullMap} />
+    <Stack.Screen name="Reports" component={MyReportsScreen} />
+    <Stack.Screen name="ReportDetails" component={ReportDetailScreen} />
+  </Stack.Navigator>
+);

@@ -10,23 +10,23 @@ const inputReducer = (state, action) => {
       return {
         ...state,
         value: action.value,
-        isValid: action.isValid
+        isValid: action.isValid,
       };
     case INPUT_BLUR:
       return {
         ...state,
-        touched: true
+        touched: true,
       };
     default:
       return state;
   }
 };
 
-const Input = props => {
+const Input = (props) => {
   const [inputState, dispatch] = useReducer(inputReducer, {
     value: props.initialValue ? props.initialValue : '',
     isValid: props.initiallyValid,
-    touched: false
+    touched: false,
   });
 
   const { onInputChange, id } = props;
@@ -37,8 +37,9 @@ const Input = props => {
     }
   }, [inputState, onInputChange, id]);
 
-  const textChangeHandler = text => {
-    const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  const textChangeHandler = (text) => {
+    const emailRegex =
+      /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     let isValid = true;
     if (props.required && text.trim().length === 0) {
       isValid = false;
@@ -55,7 +56,7 @@ const Input = props => {
     if (props.minLength != null && text.length < props.minLength) {
       isValid = false;
     }
-    dispatch({ type: INPUT_CHANGE, value: text, isValid: isValid });
+    dispatch({ type: INPUT_CHANGE, value: text, isValid });
   };
 
   const lostFocusHandler = () => {
@@ -83,10 +84,10 @@ const Input = props => {
 
 const styles = StyleSheet.create({
   formControl: {
-    width: '100%'
+    width: '100%',
   },
   label: {
-    marginVertical: 8
+    marginVertical: 8,
   },
   input: {
     paddingHorizontal: 2,
@@ -95,13 +96,13 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
   },
   errorContainer: {
-    marginVertical: 5
+    marginVertical: 5,
   },
   errorText: {
     fontFamily: 'open-sans',
     color: 'red',
-    fontSize: 13
-  }
+    fontSize: 13,
+  },
 });
 
 export default Input;

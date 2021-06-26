@@ -1,54 +1,45 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import {
-  View,
-  Text,
   StyleSheet,
-  TouchableOpacity,
   Platform,
-  TextInput,
-  ActivityIndicator
 } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import Colors from '../constants/Colors';
-
-const FullMapScreen = props => {
+import PropTypes from 'prop-types';
+const FullMapScreen = (props) => {
   const [markerCoordinates, setMarkerCoordinates] = useState();
-
   useEffect(() => {
-    if(props.pickedLocation !== undefined){
+    if (props.pickedLocation !== undefined) {
       setMarkerCoordinates({
         latitude: props.pickedLocation.latitude,
-        longitude: props.pickedLocation.longitude
+        longitude: props.pickedLocation.longitude,
       });
     }
   }, [props.pickedLocation]);
-
   return (
-      <MapView
-        style={styles.map}
-        region={props.pickedLocation}
-      >
-        {markerCoordinates !== undefined && <Marker title="Picked Location" coordinate={markerCoordinates} />}
-      </MapView>
+    <MapView style={styles.map} region={props.pickedLocation}>
+      {markerCoordinates !== undefined && (
+        <Marker title="Picked Location" coordinate={markerCoordinates} />
+      )}
+    </MapView>
   );
 };
-
 const styles = StyleSheet.create({
   second: {
-    color: '#777'
+    color: '#777',
   },
   container: {
     flex: 1,
   },
   map: {
-    ...StyleSheet.absoluteFillObject
+    ...StyleSheet.absoluteFillObject,
   },
   headerButton: {
-    marginHorizontal: 20
+    marginHorizontal: 20,
   },
   headerButtonText: {
     fontSize: 16,
-    color: Platform.OS === 'android' ? 'white' : Colors.primary
+    color: Platform.OS === 'android' ? 'white' : Colors.primary,
   },
   desInput: {
     height: 40,
@@ -57,7 +48,7 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     marginRight: 5,
     padding: 5,
-    backgroundColor: 'white'
+    backgroundColor: 'white',
   },
   suggestions: {
     backgroundColor: 'white',
@@ -68,7 +59,7 @@ const styles = StyleSheet.create({
   },
   main: {
     color: 'black',
-  }
+  },
 });
 
 export default FullMapScreen;
