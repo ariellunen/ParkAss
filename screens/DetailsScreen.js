@@ -43,7 +43,7 @@ const DetailsScreen = (props) => {
 
     const saveReportHandler = () => {
 
-
+        console.log(image)
         dispatch(reportActions.createReport(text, image, address, lat, lng));
         console.log(cityHallNum[city])
         Linking.openURL(`http://api.whatsapp.com/send?phone=972

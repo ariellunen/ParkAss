@@ -11,8 +11,8 @@ import { IconButton } from 'react-native-paper';
 // import { Icon } from 'react-native-paper/lib/typescript/components/Avatar/Avatar';
 import { Icon } from 'react-native-elements'
 import { NavigationEvents } from '@react-navigation/compat';
-
-
+import Animated from 'react-native-reanimated';
+import BottomSheet from 'reanimated-bottom-sheet';
 
 
 const ReportDetailScreen = (props) => {
@@ -20,11 +20,26 @@ const ReportDetailScreen = (props) => {
     const report = props.route.params.report;
     const { width, height } = Dimensions.get("window");
 
-
+    bs = React.createRef();
+    fall = new Animated.Value(1);
     const [isVisible, setIsVisible] = React.useState(true);
     const openDrawer = React.useCallback(() => setIsVisible(true), []);
     // const closeDrawer = React.useCallback(() => setIsVisible(false), []);
 
+    const renderInner = () => (
+        <View style={styles.panel}>
+            <Text>Hello</Text>
+
+        </View>
+    )
+
+    const renderHeader = () => (
+        <View style={styles.header}>
+            <View style={styles.panelHeader}>
+                <View style={styles.panelHandel}></View>
+            </View>
+        </View>
+    )
 
     return (
         <ScrollView contentContainerStyle={{ alignItems: 'center' }}>
@@ -32,32 +47,49 @@ const ReportDetailScreen = (props) => {
                 location={{ lat: report.lat, lng: report.lng }}
                 style={styles.locationContainer}
             />
-            <View style={styles.button}>
-                <IconButton
-                    icon="upload"
-                    size={20}
-                    color="gainsboro"
-                    title="drawer"
-                    onPress={openDrawer}
-                    style={styles.icon}
-                />
-                <Text style={styles.paragraph}>לחץ לפרטים</Text>
-            </View>
-            {/* <Button onClick={openDrawer} title="ראה פרטי דוח"/> */}
-            {/* <Drawer
-                    duration={250}
-                    hideScrollbars={true}
-                    onClose={closeDrawer}
-                    isVisible={isVisible}
-                >
-                    <DrawerContentt />
-                </Drawer> */}
+            <Button title="פרטים נוספים" onPress={() => bs.current.snapTo(0)} style={{marginTop:10}}/>
+            <BottomSheet 
+                ref={bs}
+                snapPoints={[330,0]}
+                renderContent={renderInner}
+                renderHeader={renderHeader}
+                initialSnap={1}
+                callbackNode={fall}
+                enabledGestureInteraction={true}
+                // enabledHeaderGestureInteraction={true}
+                // enabledContentGestureInteraction={true}
+
+            />
         </ScrollView>
     )
 
 }
 
 const styles = StyleSheet.create({
+    header:{
+        backgroundColor: 'white',
+        shadowColor: '#333333',
+        shadowOffset:{width:-1, height:-3},
+        shadowRadius: 2,
+        shadowOpacity: 0.4,
+        paddingTop: 20,
+        borderTopLeftRadius:20,
+        borderTopRightRadius:20,
+    },
+    panelHeader:{
+        backgroundColor: 'white',
+        alignItems:'center',
+    },
+    panelHandel:{
+        width: 40,
+        height:8,
+        borderRadius: 4,
+        backgroundColor: '#00000040',
+        marginBottom: 10,
+    },
+    panel:{
+        backgroundColor:'white'
+    },
     paragraph: {
         // fontSize: 10,
         color: 'gainsboro',
