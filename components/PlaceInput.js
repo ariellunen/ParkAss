@@ -124,8 +124,8 @@ const styles = StyleSheet.create({
         color: Platform.OS === 'android' ? 'white' : Colors.primary
     },
     desInput: {
-        borderTopLeftRadius: 30,
-        borderBottomLeftRadius: 30,
+        borderTopRightRadius: 30,
+        borderBottomRightRadius: 30,
         height: 40,
         width: '80%',
         marginTop: 50,

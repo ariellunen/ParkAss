@@ -73,22 +73,23 @@ const MyReportsScreen = (props) => {
         <Text style={{ fontSize: 30, fontWeight: 'bold', textAlign: 'center', marginTop: 40, color: 'white' }}>דיווחים קודמים</Text>
       </View>
       <Card style={styles.card}>
-      <FlatList
-        data={reports}
-        keyExtractor={item => item.id}
-        renderItem={itemData => (
-          <ReportItem
-            image={itemData.item.imageUrl}
-            address={itemData.item.address}
-            desc={itemData.item.desc}
-            onSelect={() => {
-              props.navigation.navigate('ReportDetails', {
-                report: itemData.item,
-              });
-            }}
-          />
-        )}
-      />
+        <FlatList
+          data={reports}
+          keyExtractor={item => item.id}
+          style={styles.list}
+          renderItem={itemData => (
+            <ReportItem
+              image={itemData.item.imageUrl}
+              address={itemData.item.address}
+              desc={itemData.item.desc}
+              onSelect={() => {
+                props.navigation.navigate('ReportDetails', {
+                  report: itemData.item,
+                });
+              }}
+            />
+          )}
+        />
       </Card>
     </View>
   )
@@ -96,14 +97,15 @@ const MyReportsScreen = (props) => {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: 'white', 
-    height: '85%', 
+    backgroundColor: 'white',
+    height: '85%',
     width: '95%',
     borderRadius: 30,
     marginTop: 20,
   },
-  ocard: {
+  list: {
     backgroundColor: 'red',
-  }
+    width: 40,
+  },
 });
 export default MyReportsScreen;

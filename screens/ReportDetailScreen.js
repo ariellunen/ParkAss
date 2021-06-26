@@ -9,7 +9,6 @@ import BottomSheet from 'reanimated-bottom-sheet';
 import { useTheme } from 'react-native-paper';
 
 
-
 const ReportDetailScreen = (props) => {
     const { colors } = useTheme();
 
@@ -20,6 +19,10 @@ const ReportDetailScreen = (props) => {
     let bs = React.createRef();
     const fall = new Animated.Value(1);
     const [isVisible, setIsVisible] = React.useState(true);
+
+    const back = () => {
+        props.navigation.navigate('Home');
+    }
 
     const renderInner = () => (
         <View style={styles.panel}>
@@ -44,11 +47,20 @@ const ReportDetailScreen = (props) => {
 
     return (
         <View style={{ flex: 1 }}>
-                <MapPreview
-                    location={{ lat: report.lat, lng: report.lng }}
-                    style={styles.locationContainer}
-                    onPress={() => bs.current.snapTo(1)}
+            <View style={{ backgroundColor: 'lightblue', borderRadius: 70, position: 'absolute', left: 0, marginTop: 40, zIndex: 1 }}>
+                <IconButton
+                    icon="home"
+                    size={30}
+                    color="white"
+                    title="back home"
+                    onPress={back}
                 />
+            </View>
+            <MapPreview
+                location={{ lat: report.lat, lng: report.lng }}
+                style={styles.locationContainer}
+            onPress={() => bs.current.snapTo(1)}
+            />
             <BottomSheet
                 ref={bs}
                 snapPoints={[330, 0]}
@@ -64,6 +76,7 @@ const ReportDetailScreen = (props) => {
                 right: 0,
             }}>
                 <View style={{ alignItems: 'center' }}>
+
                     <TouchableOpacity onPress={() => bs.current.snapTo(0)} style={styles.button}>
                         <View>
                             <Text style={styles.paragraph}>פרטי הדיווח</Text>
@@ -76,6 +89,9 @@ const ReportDetailScreen = (props) => {
 }
 
 const styles = StyleSheet.create({
+    back: {
+        backgroundColor: '#0000005b',
+    },
     header: {
         paddingTop: 10,
         borderTopLeftRadius: 30,
@@ -127,9 +143,6 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginTop: 10,
         width: '60%',
-    },
-    icon: {
-        backgroundColor: '#0000005b',
     },
     buttonStyle: {
         width: '100%',
