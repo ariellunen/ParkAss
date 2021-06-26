@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text, ScrollView, Image, StyleSheet, Button, Dimensions, TouchableOpacity,ImageBackground, TextInput } from 'react-native';
+import { View, Text, ScrollView, Image, StyleSheet, Button, Dimensions, TouchableOpacity, ImageBackground, TextInput } from 'react-native';
 import MapPreview from '../components/MapPreview';
 import { IconButton } from 'react-native-paper';
 import { Icon } from 'react-native-elements'
@@ -20,26 +20,17 @@ const ReportDetailScreen = (props) => {
     let bs = React.createRef();
     const fall = new Animated.Value(1);
     const [isVisible, setIsVisible] = React.useState(true);
-    const openDrawer = React.useCallback(() => setIsVisible(true), []);
-    // const closeDrawer = React.useCallback(() => setIsVisible(false), []);
 
     const renderInner = () => (
         <View style={styles.panel}>
-            <View style={{ alignItems: 'center' }}>
-                <Text style={styles.panelTitle}>Upload Photo</Text>
-                <Text style={styles.panelSubtitle}>Choose Your Profile Picture</Text>
+            <View style={{ alignItems: 'center', backgroundColor: 'aliceblue' }}>
+                <Text style={styles.panelTitle}>פרטי הדיווח</Text>
+                <Text style={styles.panelSubtitle}>{report.address}</Text>
             </View>
-            <TouchableOpacity style={styles.panelButton} >
-                <Text style={styles.panelButtonTitle}>Take Photo</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.panelButton} >
-                <Text style={styles.panelButtonTitle}>Choose From Library</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-                style={styles.panelButton}
-                onPress={() => bs.current.snapTo(1)}>
-                <Text style={styles.panelButtonTitle}>Cancel</Text>
-            </TouchableOpacity>
+            <View style={styles.Details}>
+                <Text style={styles.Description}> {report.desc} </Text>
+                <Image source={{ uri: report.imageUrl }} style={styles.image} />
+            </View>
         </View>
     );
 
@@ -53,11 +44,11 @@ const ReportDetailScreen = (props) => {
 
     return (
         <View style={{ flex: 1 }}>
-            <MapPreview
-                location={{ lat: report.lat, lng: report.lng }}
-                style={styles.locationContainer}
-            />
-            <Button title="פרטים נוספים" onPress={() => bs.current.snapTo(0)} style={{ marginTop: 10 }} />
+                <MapPreview
+                    location={{ lat: report.lat, lng: report.lng }}
+                    style={styles.locationContainer}
+                    onPress={() => bs.current.snapTo(1)}
+                />
             <BottomSheet
                 ref={bs}
                 snapPoints={[330, 0]}
@@ -68,72 +59,32 @@ const ReportDetailScreen = (props) => {
                 enabledGestureInteraction={true}
             />
             <Animated.View style={{
-                margin: 20,
-                opacity: Animated.add(0.1, Animated.multiply(fall, 1.0)),
+                position: 'absolute',
+                bottom: 0,
+                right: 0,
             }}>
                 <View style={{ alignItems: 'center' }}>
-                    <TouchableOpacity onPress={() => bs.current.snapTo(0)}>
-                        <View
-                            style={{
-                                height: 100,
-                                width: 100,
-                                borderRadius: 15,
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                            }}>
-                            <ImageBackground
-                                source={{
-                                    uri: report.imageUrl,
-                                }}
-                                style={{ height: 100, width: 100 }}
-                                imageStyle={{ borderRadius: 15 }}>
-                                <View
-                                    style={{
-                                        flex: 1,
-                                        justifyContent: 'center',
-                                        alignItems: 'center',
-                                    }}>
-                                    {/* <Icon
-                    name="camera"
-                    size={35}
-                    color="#fff"
-                    style={{
-                      opacity: 0.7,
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      borderWidth: 1,
-                      borderColor: '#fff',
-                      borderRadius: 10,
-                    }}
-                  /> */}
-                                </View>
-                            </ImageBackground>
+                    <TouchableOpacity onPress={() => bs.current.snapTo(0)} style={styles.button}>
+                        <View>
+                            <Text style={styles.paragraph}>פרטי הדיווח</Text>
                         </View>
                     </TouchableOpacity>
-                    <Text style={{ marginTop: 10, fontSize: 18, fontWeight: 'bold' }}>
-                        John Doe
-                    </Text>
                 </View>
             </Animated.View>
         </View>
     )
-
 }
 
 const styles = StyleSheet.create({
     header: {
-        backgroundColor: '#FFFFFF',
-        shadowColor: '#333333',
-        shadowOffset: { width: -1, height: -3 },
-        shadowRadius: 2,
-        shadowOpacity: 0.4,
-        // elevation: 5,
-        paddingTop: 20,
-        borderTopLeftRadius: 20,
-        borderTopRightRadius: 20,
+        paddingTop: 10,
+        borderTopLeftRadius: 30,
+        borderTopRightRadius: 30,
+        backgroundColor: 'aliceblue',
     },
     panelHeader: {
         alignItems: 'center',
+        backgroundColor: 'aliceblue',
     },
     panelHandle: {
         width: 40,
@@ -143,25 +94,39 @@ const styles = StyleSheet.create({
         marginBottom: 10,
     },
     panel: {
-        padding: 20,
         backgroundColor: '#FFFFFF',
-        paddingTop: 20,
+        bottom: 0,
     },
     paragraph: {
-        // fontSize: 10,
-        color: 'gainsboro',
+        fontSize: 20,
+        color: 'black',
         fontWeight: 'bold',
+    },
+    panelTitle: {
+        fontSize: 27,
+    },
+    panelSubtitle: {
+        fontSize: 14,
+        color: 'gray',
+        marginBottom: 10,
     },
     button: {
         backgroundColor: '#00000042',
         flexDirection: 'row',
         alignItems: 'center',
-        width: '35%',
+        width: '80%',
         justifyContent: 'center',
-        position: 'absolute',
-        bottom: 0,
         borderTopLeftRadius: 25,
-        right: 0,
+        borderTopRightRadius: 25,
+        height: 50,
+    },
+    Description: {
+        color: 'black',
+        fontWeight: 'bold',
+        fontSize: 14,
+        textAlign: 'center',
+        marginTop: 10,
+        width: '60%',
     },
     icon: {
         backgroundColor: '#0000005b',
@@ -180,69 +145,16 @@ const styles = StyleSheet.create({
     p: {
         width: '100%',
     },
-    panelTitle: {
-        fontSize: 27,
-        height: 35,
-    },
-    panelSubtitle: {
-        fontSize: 14,
-        color: 'gray',
-        height: 30,
-        marginBottom: 10,
-    },
-    panelButton: {
-        padding: 13,
-        borderRadius: 10,
-        backgroundColor: '#FF6347',
-        alignItems: 'center',
-        marginVertical: 7,
-    },
-    panelButtonTitle: {
-        fontSize: 17,
-        fontWeight: 'bold',
-        color: 'white',
-    },
-    action: {
-        flexDirection: 'row',
-        marginTop: 10,
-        marginBottom: 10,
-        borderBottomWidth: 1,
-        borderBottomColor: '#f2f2f2',
-        paddingBottom: 5,
-    },
-    actionError: {
-        flexDirection: 'row',
-        marginTop: 10,
-        borderBottomWidth: 1,
-        borderBottomColor: '#FF0000',
-        paddingBottom: 5,
-    },
-    textInput: {
-        flex: 1,
-        marginTop: Platform.OS === 'ios' ? 0 : -12,
-        paddingLeft: 10,
-        color: '#05375a',
-    },
+
     locationContainer: {
         height: Dimensions.get("window").height * 1.04,
         width: Dimensions.get("window").width,
-        position:'absolute'
+        position: 'absolute'
     },
-    card: {
-        width: '100%',
-        height: 400,
-        marginTop: -30,
-        borderTopLeftRadius: 30,
-        borderTopRightRadius: 30,
-    },
-    addressContainer: {
+    Details: {
         alignItems: 'center',
     },
-    desc: {
-        color: 'black',
-        width: '100%',
-        backgroundColor: 'yellow',
-    },
+
     image: {
         height: '60%',
         width: '80%',
