@@ -7,7 +7,7 @@ import {
     Platform,
     TextInput,
 } from 'react-native';
-import ENV from '../env';
+// import ENV from '../env';
 import Colors from '../constants/Colors';
 import { Icon } from 'react-native-elements'
 
@@ -20,7 +20,7 @@ const PlaceInput = (props) => {
 
     const handleSearch = async (placeId) => {
         console.log(placeId);
-        const apiUrl = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&radius=10000&key=${ENV.googleApiKey}`;
+        const apiUrl = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&radius=10000&key=AIzaSyANv-6zqK0wzXkwJa2iwQJOXkdGT8IDMec`;
         try {
             const result = await fetch(apiUrl);
             console.log("result", result)
@@ -42,7 +42,7 @@ const PlaceInput = (props) => {
     }, [props])
 
     const onChangeTextInput = async (input) => {
-        const apiUrl = `https://maps.googleapis.com/maps/api/place/autocomplete/json?key=${ENV.googleApiKey}&input=${input}&location=${props.pickedLocation.latitude},${props.pickedLocation.latitude}&radius=2000`;
+        const apiUrl = `https://maps.googleapis.com/maps/api/place/autocomplete/json?key=AIzaSyANv-6zqK0wzXkwJa2iwQJOXkdGT8IDMec&input=${input}&location=${props.pickedLocation.latitude},${props.pickedLocation.latitude}&radius=2000`;
         try {
             const result = await fetch(apiUrl);
             const json = await result.json();

@@ -12,7 +12,7 @@ import * as Location from 'expo-location';
 import { IconButton } from 'react-native-paper';
 import { useDispatch } from 'react-redux';
 import * as reportActions from '../store/action/report';
-import ENV from '../env';
+// import ENV from '../env';
 
 const MapScreen = (props) => {
   const dispatch = useDispatch();

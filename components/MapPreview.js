@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Image, StyleSheet, TouchableOpacity } from 'react-native';
 
-import ENV from '../env';
+// import ENV from '../';
 
 const MapPreview = props => {
     console.log(props.location);
@@ -11,7 +11,7 @@ const MapPreview = props => {
         imagePreviewUrl = `https://maps.googleapis.com/maps/api/staticmap?center=${props.location.lat
             },${props.location.lng
             }&zoom=15&size=400x850&maptype=roadmap&markers=color:red%7Clabel:A%7C${props.location.lat
-            },${props.location.lng}&key=${ENV.googleApiKey}`;
+            },${props.location.lng}&key=AIzaSyANv-6zqK0wzXkwJa2iwQJOXkdGT8IDMec`;
     }
     return (
         <TouchableOpacity onPress={props.onPress} style={{ ...styles.mapPreview, ...props.style }}>

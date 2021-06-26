@@ -5,7 +5,7 @@ export const ADD_REPORT = 'ADD_REPORT';
 export const CREATE_REPORT = 'CREATE_REPORT';
 export const SET_REPORTS = 'SET_REPORTS';
 import Report from '../../models/report';
-import ENV from '../../env';
+// import ENV from '../../env';
 
 export const addImage = (imageUrl) =>{
     console.log(imageUrl)
@@ -104,7 +104,7 @@ export const createReport = (text, image, address, lat, lng) =>{
 
 export const addLocation = (location) => {
     return async dispatch => {
-        const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${location.lat},${location.lng}&language=en&key=${ENV.googleApiKey}`);
+        const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${location.lat},${location.lng}&language=en&key=AIzaSyANv-6zqK0wzXkwJa2iwQJOXkdGT8IDMec`);
         if(!response.ok){
             throw new Error('Something went wrong!');
         }
