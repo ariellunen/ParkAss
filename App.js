@@ -6,7 +6,10 @@ import ReduxThunk from 'redux-thunk';
 import authReducer from './store/reducers/auth';
 import reportReducer from './store/reducers/report';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
-import { TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { TouchableWithoutFeedback, Keyboard, I18nManager } from 'react-native';
+// I18nManager.forceRTL(false);
+// I18nManager.allowRTL(false);
+I18nManager.forceRTL(true);
 
 
 const rootReducer = combineReducers({
