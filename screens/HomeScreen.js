@@ -50,48 +50,32 @@ const HomeScreen = (props) => {
       quality: 0.5,
       base64: true,
     });
-
-
     setPickedImage(image.uri);
-    firebase
-      .auth()
-      .createUserWithEmailAndPassword("email@email.com", "12345678")
-      // .getCurrentUser()
-      .catch((error) => {
-        var errorMessage = error.message;
-        console.log(errorMessage);
-      });
-    uploadmultimedia();
+    uploadmultimedia(image.uri);
   };
-  const uploadmultimedia = async () => {
-    const blob = await new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-      xhr.onload = function () {
-        resolve(xhr.response); // when BlobModule finishes reading, resolve with the blob
-      };
-      xhr.onerror = function () {
-        reject(new TypeError("Network request failed")); // error occurred, rejecting
-      };
-      xhr.responseType = "blob"; // use BlobModule's UriHandler
-      xhr.open("GET", pickedImage, true); // fetch the blob from uri in async mode
-      xhr.send(null); // no initial data
-    });
+
+  const uploadmultimedia = async (image) => {
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", image, true);
+    xhr.send(null);
 
     var timestamp = new Date().getTime();
     var imageRef = firebase.storage().ref(`users/Dp/` + timestamp + "/");
-
-    return imageRef
-      .put(blob)
-      .then(() => {
-        blob.close();
-        return imageRef.getDownloadURL();
-      })
-      .then((dwnldurl) => {
-        console.log(dwnldurl)
-        dispatch(reportActions.addImage(dwnldurl));
-        props.navigation.navigate('Map');
-      });
+    console.log(imageRef)
+    imageFunc(imageRef, xhr)
   };
+
+  const imageFunc = (imageRef, xhr) => {
+    imageRef.put(xhr).then(() =>{
+      console.log("dwnldurl")
+
+      return imageRef.getDownloadURL();
+    }).then((dwnldurl) => {
+      console.log(dwnldurl)
+      dispatch(reportActions.addImage(dwnldurl));
+      props.navigation.navigate('Map');
+    })
+  }
 
   return (
     <ImageBackground
@@ -152,7 +136,7 @@ const HomeScreen = (props) => {
                 size={50}
                 color="white"
                 title="Call the police"
-                onPress={() => {}}
+                onPress={() => { }}
               />
             </View>
             <Text style={styles.paragraph}>חיוג למשטרה</Text>

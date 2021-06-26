@@ -5,6 +5,10 @@ export const LOGOUT = 'LOGOUT';
 export const SET_DID_TRY_AL = 'SET_DID_TRY_AL';
 export const AUTHENTICATE = 'AUTHENTICATE';
 let timer;
+import firebase from "firebase/app";
+require("firebase/database");
+require("firebase/auth");
+require("firebase/storage");
 
 export const setDidTryAL = () => {
     return { type: SET_DID_TRY_AL };
@@ -77,6 +81,8 @@ export const login = (email, password) => {
             throw new Error(message);
         }
         const resData = await response.json();
+        console.log("resData", resData)
+
         dispatch(authenticate(resData.localId, resData.idToken , parseInt(resData.expiresIn) * 1000));
         const expirationDate = new Date(new Date().getTime() + parseInt(resData.expiresIn) * 1000);
         saveDataStorage(resData.idToken, resData.localId, expirationDate);
