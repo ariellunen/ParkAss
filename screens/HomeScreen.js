@@ -55,8 +55,8 @@ const HomeScreen = (props) => {
     setPickedImage(image.uri);
     firebase
       .auth()
-      // .createUserWithEmailAndPassword("email@email.com", "12345678")
-      .getCurrentUser()
+      .createUserWithEmailAndPassword("email@email.com", "12345678")
+      // .getCurrentUser()
       .catch((error) => {
         var errorMessage = error.message;
         console.log(errorMessage);
