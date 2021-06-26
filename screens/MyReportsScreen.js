@@ -43,7 +43,7 @@ const MyReportsScreen = (props) => {
       <View style={{ flex: 1, justifyContent: 'center' }}>
         <Text>An error occured!</Text>
         <Button
-          title="Try Again"
+          title="נסה שנית"
           onPress={loadReports}
           color={Colors.primary}
         />
@@ -76,7 +76,6 @@ const MyReportsScreen = (props) => {
         <FlatList
           data={reports}
           keyExtractor={item => item.id}
-          style={styles.list}
           renderItem={itemData => (
             <ReportItem
               image={itemData.item.imageUrl}
@@ -102,10 +101,6 @@ const styles = StyleSheet.create({
     width: '95%',
     borderRadius: 30,
     marginTop: 20,
-  },
-  list: {
-    backgroundColor: 'red',
-    width: 40,
   },
 });
 export default MyReportsScreen;

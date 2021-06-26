@@ -109,8 +109,6 @@ const AuthScreen = props => {
         keyboardVerticalOffset={50}
         style={styles.screen}
       >
-        {/* <Image style={styles.tinyLogo}
-          source={{ uri: 'https://i.postimg.cc/CKJ4LmZY/image-1.png' }} /> */}
         <View style={styles.authContainer}>
           <ScrollView>
             <Input
@@ -192,11 +190,6 @@ const styles = StyleSheet.create({
   button: {
     height: 40,
     borderRadius: 50,
-  },
-  tinyLogo: {
-    height: '17%',
-    width: '100%',
-    marginTop: 30,
   },
 });
 
