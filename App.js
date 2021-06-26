@@ -8,10 +8,8 @@ import reportReducer from "./store/reducers/report";
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import { TouchableWithoutFeedback, Keyboard, I18nManager } from "react-native";
 import firebase from "firebase/app";
-// I18nManager.forceRTL(false);
-// I18nManager.allowRTL(false);
-I18nManager.forceRTL(true);
 import "firebase/storage";
+I18nManager.forceRTL(true);
 require("firebase/storage");
 require("firebase/database");
 if (!firebase.apps.length) {
