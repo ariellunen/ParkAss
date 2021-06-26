@@ -7,8 +7,10 @@ import {
   Button,
   ActivityIndicator,
   Alert,
-  Image,
+  I18nManager,
+  ImageBackground,
 } from 'react-native';
+I18nManager.forceRTL(true);
 import { useDispatch } from 'react-redux';
 import Input from '../components/UI/Input';
 import * as authActions from '../store/action/auth';
@@ -86,34 +88,33 @@ const AuthScreen = () => {
     [dispatchFormState],
   );
   return (
-    <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={50} style={styles.screen}>
-      <View style={styles.body}>
-        <Image
-          style={styles.tinyLogo}
-          source={{ uri: 'https://i.postimg.cc/VNVbPVYT/image.png' }}
-        />
+    <ImageBackground
+      source={{ uri: 'https://i.postimg.cc/65Nzc2xk/28.png' }}
+      style={styles.imageBackground}
+    >
+      <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={50} style={styles.screen}>
         <View style={styles.authContainer}>
           <ScrollView>
             <Input
               id="email"
-              label="E-Mail"
+              label="מייל:"
               keyboardType="email-address"
               required
               email
               autoCapitalize="none"
-              errorText="Please enter a valid email address."
+              errorText="אנא הזן כתובת מייל תקנית."
               onInputChange={inputChangeHandler}
               initialValue=""
             />
             <Input
               id="password"
-              label="Password"
+              label="סיסמא:"
               keyboardType="default"
               secureTextEntry
               required
               minLength={5}
               autoCapitalize="none"
-              errorText="Please enter a valid password."
+              errorText="אנא הזן סיסמה חוקית."
               onInputChange={inputChangeHandler}
               initialValue=""
             />
@@ -122,7 +123,7 @@ const AuthScreen = () => {
                 <ActivityIndicator size="small" color={color.primary} />
               ) : (
                 <Button
-                  title={isSignup ? 'Sign Up' : 'Login'}
+                  title={isSignup ? 'הרשם' : 'התחבר'}
                   color="darkgrey"
                   onPress={authHandler}
                 />
@@ -130,7 +131,7 @@ const AuthScreen = () => {
             </View>
             <View style={styles.buttonContainer}>
               <Button
-                title={`Switch to ${isSignup ? 'Login' : 'Sign Up'}`}
+                title={`החלף ל- ${isSignup ? 'התחבר' : 'הרשם'}`}
                 color="gainsboro"
                 onPress={() => {
                   setIsSignup((prevState) => !prevState);
@@ -139,24 +140,18 @@ const AuthScreen = () => {
             </View>
           </ScrollView>
         </View>
-        <Image style={styles.Logo} source={{ uri: 'https://i.postimg.cc/qBhBF76p/image.png' }} />
-      </View>
-    </KeyboardAvoidingView>
+      </KeyboardAvoidingView>
+    </ImageBackground>
   );
 };
-
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-  },
-  body: {
-    height: '100%',
     alignItems: 'center',
-    backgroundColor: 'white',
   },
   authContainer: {
-    marginTop: 70,
     width: '80%',
+    height: '70%',
     maxWidth: 400,
     maxHeight: 400,
     padding: 20,
@@ -167,20 +162,16 @@ const styles = StyleSheet.create({
     elevation: 5,
     borderRadius: 10,
     backgroundColor: 'white',
+    marginTop: 250,
+    marginBottom: 'auto',
   },
   buttonContainer: {
-    marginTop: 10,
+    marginTop: 40,
+    borderRadius: 50,
   },
-  tinyLogo: {
-    height: '17%',
+  imageBackground: {
+    height: '100%',
     width: '100%',
-    marginTop: 30,
-  },
-  Logo: {
-    height: '30%',
-    width: '55%',
-    marginTop: 20,
   },
 });
-
 export default AuthScreen;

@@ -1,10 +1,6 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import {
-  StyleSheet,
-  Platform,
-} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
-import Colors from '../constants/Colors';
 import PropTypes from 'prop-types';
 const FullMapScreen = (props) => {
   const [markerCoordinates, setMarkerCoordinates] = useState();
@@ -25,41 +21,12 @@ const FullMapScreen = (props) => {
   );
 };
 const styles = StyleSheet.create({
-  second: {
-    color: '#777',
-  },
-  container: {
-    flex: 1,
-  },
   map: {
     ...StyleSheet.absoluteFillObject,
   },
-  headerButton: {
-    marginHorizontal: 20,
-  },
-  headerButtonText: {
-    fontSize: 16,
-    color: Platform.OS === 'android' ? 'white' : Colors.primary,
-  },
-  desInput: {
-    height: 40,
-    borderWidth: 0.5,
-    marginTop: 50,
-    marginLeft: 5,
-    marginRight: 5,
-    padding: 5,
-    backgroundColor: 'white',
-  },
-  suggestions: {
-    backgroundColor: 'white',
-    padding: 15,
-    borderTopWidth: 0.5,
-    marginLeft: 5,
-    marginRight: 5,
-  },
-  main: {
-    color: 'black',
-  },
 });
-
+FullMapScreen.prototype = {
+  props: PropTypes.object.isRequired,
+  pickedLocation: PropTypes.object,
+};
 export default FullMapScreen;

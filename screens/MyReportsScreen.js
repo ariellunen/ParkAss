@@ -27,7 +27,7 @@ const MyReportsScreen = (props) => {
     return (
       <View style={{ flex: 1, justifyContent: 'center' }}>
         <Text>An error occured!</Text>
-        <Button title="Try Again" onPress={loadReports} color={Colors.primary} />
+        <Button title="נסה שנית" onPress={loadReports} color={Colors.primary} />
       </View>
     );
   }
@@ -88,9 +88,6 @@ const styles = StyleSheet.create({
     width: '95%',
     borderRadius: 30,
     marginTop: 20,
-  },
-  ocard: {
-    backgroundColor: 'red',
   },
 });
 export default MyReportsScreen;

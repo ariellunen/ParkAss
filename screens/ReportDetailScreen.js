@@ -1,16 +1,20 @@
 import * as React from 'react';
 import { View, Text, Image, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 import MapPreview from '../components/MapPreview';
+import { IconButton } from 'react-native-paper';
 import Animated from 'react-native-reanimated';
 import BottomSheet from 'reanimated-bottom-sheet';
-import PropTypes from 'prop-types';
 const ReportDetailScreen = (props) => {
+  console.log('route', props.route.params.report);
   const report = props.route.params.report;
   const bs = React.createRef();
   const fall = new Animated.Value(1);
+  const back = () => {
+    props.navigation.navigate('Home');
+  };
   const renderInner = () => (
     <View style={styles.panel}>
-      <View style={{ alignItems: 'center', backgroundColor: 'aliceblue' }}>
+      <View style={styles.rendInder}>
         <Text style={styles.panelTitle}>פרטי הדיווח</Text>
         <Text style={styles.panelSubtitle}>{report.address}</Text>
       </View>
@@ -28,7 +32,10 @@ const ReportDetailScreen = (props) => {
     </View>
   );
   return (
-    <View style={{ flex: 1 }}>
+    <View style={styles.viewCon}>
+      <View style={styles.view}>
+        <IconButton icon="home" size={30} color="white" title="back home" onPress={back} />
+      </View>
       <MapPreview
         location={{ lat: report.lat, lng: report.lng }}
         style={styles.locationContainer}
@@ -43,14 +50,8 @@ const ReportDetailScreen = (props) => {
         callbackNode={fall}
         enabledGestureInteraction
       />
-      <Animated.View
-        style={{
-          position: 'absolute',
-          bottom: 0,
-          right: 0,
-        }}
-      >
-        <View style={{ alignItems: 'center' }}>
+      <Animated.View style={styles.animatedcont}>
+        <View style={styles.animated}>
           <TouchableOpacity onPress={() => bs.current.snapTo(0)} style={styles.button}>
             <View>
               <Text style={styles.paragraph}>פרטי הדיווח</Text>
@@ -62,6 +63,29 @@ const ReportDetailScreen = (props) => {
   );
 };
 const styles = StyleSheet.create({
+  animatedcont: {
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+  },
+  rendInder: {
+    alignItems: 'center',
+    backgroundColor: 'aliceblue',
+  },
+  animated: {
+    alignItems: 'center',
+  },
+  view: {
+    backgroundColor: 'lightblue',
+    borderRadius: 70,
+    position: 'absolute',
+    left: 0,
+    marginTop: 40,
+    zIndex: 1,
+  },
+  viewCon: {
+    flex: 1,
+  },
   header: {
     paddingTop: 10,
     borderTopLeftRadius: 30,
@@ -129,7 +153,4 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
 });
-ReportDetailScreen.prototype = {
-  route: PropTypes.object,
-};
 export default ReportDetailScreen;

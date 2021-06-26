@@ -5,41 +5,37 @@ export const ADD_REPORT = 'ADD_REPORT';
 export const CREATE_REPORT = 'CREATE_REPORT';
 export const SET_REPORTS = 'SET_REPORTS';
 import Report from '../../models/report';
-import { REACT_APP_GOOGLE_API_KEY } from '@env';
+import ENV from '../../constants/env';
 export const addImage = (imageUrl) => ({ type: ADD_IMAGE, image: imageUrl });
 export const fetchReports = () => async (dispatch, getState) => {
   const userId = getState().auth.userId;
-  try {
-    const response = await fetch(
-      `https://parkass-default-rtdb.firebaseio.com/reports/${userId}.json`,
-    );
-    if (!response.ok) {
-      throw new Error('Somthing went wrong');
-    }
-    const resData = await response.json();
-    const loadedReports = [];
-    for (const key in resData) {
-      loadedReports.push(
-        new Report(
-          key,
-          userId,
-          resData[key].date,
-          resData[key].image,
-          resData[key].lat,
-          resData[key].lng,
-          resData[key].address,
-          resData[key].text,
-        ),
-      );
-    }
-    dispatch({
-      type: SET_REPORTS,
-      loadedReports,
-      userReports: loadedReports.filter((report) => report.userId === userId),
-    });
-  } catch (err) {
-    throw err;
+  const response = await fetch(
+    `https://parkass-default-rtdb.firebaseio.com/reports/${userId}.json`,
+  );
+  if (!response.ok) {
+    throw new Error('Somthing went wrong');
   }
+  const resData = await response.json();
+  const loadedReports = [];
+  for (const key in resData) {
+    loadedReports.push(
+      new Report(
+        key,
+        userId,
+        resData[key].date,
+        resData[key].image,
+        resData[key].lat,
+        resData[key].lng,
+        resData[key].address,
+        resData[key].text,
+      ),
+    );
+  }
+  dispatch({
+    type: SET_REPORTS,
+    loadedReports,
+    userReports: loadedReports.filter((report) => report.userId === userId),
+  });
 };
 export const createReport = (text, image, address, lat, lng) => {
   const date = new Date();
@@ -82,7 +78,7 @@ export const createReport = (text, image, address, lat, lng) => {
 };
 export const addLocation = (location) => async (dispatch) => {
   const response = await fetch(
-    `https://maps.googleapis.com/maps/api/geocode/json?latlng=${location.lat},${location.lng}&language=en&key=${REACT_APP_GOOGLE_API_KEY}`,
+    `https://maps.googleapis.com/maps/api/geocode/json?latlng=${location.lat},${location.lng}&language=en&key=${ENV.googleApiKey}`,
   );
   if (!response.ok) {
     throw new Error('Something went wrong!');
@@ -91,7 +87,7 @@ export const addLocation = (location) => async (dispatch) => {
   if (!resData.results) {
     throw new Error('Something went wrong!');
   }
-  const results = resData.results[0].address_components;
+  const results = resData.results[0]?.address_components;
   let city = '';
   results.map((result) => {
     if (result.types[0] === 'locality') {

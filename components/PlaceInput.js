@@ -1,40 +1,39 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Platform, TextInput } from 'react-native';
-import Colors from '../constants/Colors';
+import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
 import { Icon } from 'react-native-elements';
-import { REACT_APP_GOOGLE_API_KEY } from '@env';
+import ENV from '../constants/env';
 const PlaceInput = (props) => {
   const [destinationInput, setDestentionInput] = useState('');
-  const [pickedLocation, setPickedLocation] = useState();
+  // const [pickedLocation, setPickedLocation] = useState();
   const [predictions, setPredictions] = useState([]);
-
   const handleSearch = async (placeId) => {
     console.log(placeId);
-    const apiUrl = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&radius=10000&key=${REACT_APP_GOOGLE_API_KEY}`;
+    const apiUrl = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&radius=10000&key=${ENV.googleApiKey}`;
     try {
       const result = await fetch(apiUrl);
       console.log('result', result);
       const search_results = await result.json();
       console.log('search_results', search_results);
-      setPickedLocation({
-        latitude: search_results.result.geometry.location.lat,
-        longitude: search_results.result.geometry.location.lng,
-        latitudeDelta: 0.015,
-        longitudeDelta: 0.0121,
-      });
+      // setPickedLocation({
+      //   latitude: search_results.result.geometry.location.lat,
+      //   longitude: search_results.result.geometry.location.lng,
+      //   latitudeDelta: 0.015,
+      //   longitudeDelta: 0.0121,
+      // });
+      console.log(search_results);
       props.handleSearchResult(search_results);
     } catch (err) {
       console.log('error');
     }
   };
-  useEffect(() => {}, [props]);
+  // useEffect(() => {}, [props]);
   const onChangeTextInput = async (input) => {
-    const apiUrl = `https://maps.googleapis.com/maps/api/place/autocomplete/json?key=AIzaSyANv-6zqK0wzXkwJa2iwQJOXkdGT8IDMec&input=${input}&location=${props.pickedLocation.latitude},${props.pickedLocation.latitude}&radius=2000`;
+    const apiUrl = `https://maps.googleapis.com/maps/api/place/autocomplete/json?key=${ENV.googleApiKey}&input=${input}&location=${props.pickedLocation.latitude},${props.pickedLocation.latitude}&radius=2000`;
     try {
       const result = await fetch(apiUrl);
       const json = await result.json();
-      console.log('json', json);
       setPredictions(json.predictions);
+      console.log(json.prediction);
     } catch (err) {
       console.log('error');
     }
@@ -92,22 +91,9 @@ const styles = StyleSheet.create({
   second: {
     color: '#777',
   },
-  container: {
-    flex: 1,
-  },
-  map: {
-    ...StyleSheet.absoluteFillObject,
-  },
-  headerButton: {
-    marginHorizontal: 20,
-  },
-  headerButtonText: {
-    fontSize: 16,
-    color: Platform.OS === 'android' ? 'white' : Colors.primary,
-  },
   desInput: {
-    borderTopLeftRadius: 30,
-    borderBottomLeftRadius: 30,
+    borderTopRightRadius: 30,
+    borderBottomRightRadius: 30,
     height: 40,
     width: '80%',
     marginTop: 50,
@@ -129,5 +115,4 @@ const styles = StyleSheet.create({
     color: 'black',
   },
 });
-
 export default PlaceInput;

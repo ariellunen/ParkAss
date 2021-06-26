@@ -4,10 +4,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import { ParkAssNavigation, AuthNavigator } from './ParkAssNavigation';
 import StartupScreen from '../screens/StartUpScreen';
 
-const AppNavigator = (props) => {
+const AppNavigator = () => {
   const isAuth = useSelector((state) => !!state.auth.token);
   const didTryAutoLogin = useSelector((state) => state.auth.didTryAutoLogin);
-
   return (
     <NavigationContainer>
       {isAuth && <ParkAssNavigation />}
@@ -16,5 +15,4 @@ const AppNavigator = (props) => {
     </NavigationContainer>
   );
 };
-
 export default AppNavigator;

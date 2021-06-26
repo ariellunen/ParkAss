@@ -19,9 +19,7 @@ const MapScreen = (props) => {
     latitudeDelta: 0.015,
     longitudeDelta: 0.0121,
   };
-
   const [hasUserPremission, setHasUserPremission] = useState(false);
-
   useEffect(() => {
     async function fetchData() {
       const result = await Location.requestForegroundPermissionsAsync();
@@ -56,24 +54,17 @@ const MapScreen = (props) => {
       ]);
     }
   };
-
   if (!isFetching && pickedLocation !== undefined) {
     return <ActivityIndicator size="large" color={Colors.primary} style={{ flex: 1 }} />;
   }
-
-  console.log('pickedLocation', pickedLocation);
-
   const handleSearchResult = (search_results) => {
-    console.log('map screen region', search_results);
     setPickedLocation({
       latitude: search_results.result.geometry.location.lat,
       longitude: search_results.result.geometry.location.lng,
       latitudeDelta: 0.015,
       longitudeDelta: 0.0121,
     });
-    console.log(pickedLocation);
   };
-
   const handleSaveLocation = () => {
     if (pickedLocation === undefined) {
       Alert.alert('לא נבחר מיקום', [{ text: 'Okay' }]);
@@ -86,7 +77,6 @@ const MapScreen = (props) => {
       props.navigation.navigate('Details');
     }
   };
-
   return (
     <View style={{ flex: 1 }}>
       <FullMapScreen pickedLocation={pickedLocation} />
@@ -102,7 +92,6 @@ const MapScreen = (props) => {
     </View>
   );
 };
-
 const styles = StyleSheet.create({
   add: {
     backgroundColor: 'lightskyblue',
@@ -111,5 +100,4 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
 });
-
 export default MapScreen;
