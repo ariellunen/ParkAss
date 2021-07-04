@@ -1,32 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TextInput } from 'react-native';
 import { Icon } from 'react-native-elements';
 import ENV from '../constants/env';
+import PropTypes from 'prop-types';
 const PlaceInput = (props) => {
   const [destinationInput, setDestentionInput] = useState('');
-  // const [pickedLocation, setPickedLocation] = useState();
   const [predictions, setPredictions] = useState([]);
   const handleSearch = async (placeId) => {
-    console.log(placeId);
     const apiUrl = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${placeId}&radius=10000&key=${ENV.googleApiKey}`;
     try {
       const result = await fetch(apiUrl);
-      console.log('result', result);
       const search_results = await result.json();
-      console.log('search_results', search_results);
-      // setPickedLocation({
-      //   latitude: search_results.result.geometry.location.lat,
-      //   longitude: search_results.result.geometry.location.lng,
-      //   latitudeDelta: 0.015,
-      //   longitudeDelta: 0.0121,
-      // });
-      console.log(search_results);
       props.handleSearchResult(search_results);
     } catch (err) {
       console.log('error');
     }
   };
-  // useEffect(() => {}, [props]);
   const onChangeTextInput = async (input) => {
     const apiUrl = `https://maps.googleapis.com/maps/api/place/autocomplete/json?key=${ENV.googleApiKey}&input=${input}&location=${props.pickedLocation.latitude},${props.pickedLocation.latitude}&radius=2000`;
     try {
@@ -115,4 +104,8 @@ const styles = StyleSheet.create({
     color: 'black',
   },
 });
+PlaceInput.propTypes = {
+  handleSearchResult: PropTypes.object.isRequired,
+  pickedLocation: PropTypes.object.isRequired,
+};
 export default PlaceInput;

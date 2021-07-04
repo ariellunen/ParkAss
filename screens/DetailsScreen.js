@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
+import PropTypes from 'prop-types';
 import * as reportActions from '../store/action/report';
 import { Card, IconButton, Avatar } from 'react-native-paper';
 import { View, Image, Text, StyleSheet, TextInput, Linking } from 'react-native';
@@ -54,31 +54,15 @@ const DetailsScreen = (props) => {
 
   return (
     <View style={styles.body}>
-      <View style={{ backgroundColor: 'lightskyblue', width: '100%', height: 190 }}>
-        <Text
-          style={{
-            fontSize: 30,
-            fontWeight: 'bold',
-            textAlign: 'center',
-            marginTop: 30,
-            color: 'white',
-          }}
-        >
-          פרטי האירוע
-        </Text>
+      <View style={styles.viewDet}>
+        <Text style={styles.textdet}>פרטי האירוע</Text>
       </View>
       <Card style={styles.card}>
         <Card.Title
           title="טופס תלונה"
           subtitle="הוסף תיאור לאירוע"
           left={LeftContent}
-          style={{
-            backgroundColor: 'aliceblue',
-            width: '100%',
-            height: 100,
-            borderTopLeftRadius: 30,
-            borderTopRightRadius: 30,
-          }}
+          style={styles.cardTi}
         />
         <View style={styles.SingleCard}>
           <Image style={styles.image} source={{ uri: image }} />
@@ -87,7 +71,7 @@ const DetailsScreen = (props) => {
           <TextInput style={styles.input} onChangeText={onChangeText} value={text} />
           <View style={styles.SingleButton}>
             <View style={styles.Button}>
-              <View style={{ backgroundColor: 'lightblue', borderRadius: 70 }}>
+              <View style={styles.buttonFirst}>
                 <IconButton
                   icon="check"
                   size={30}
@@ -99,7 +83,7 @@ const DetailsScreen = (props) => {
               <Text style={styles.paragraph}>שמור דיווח</Text>
             </View>
             <View style={styles.Button}>
-              <View style={{ backgroundColor: 'salmon', borderRadius: 70 }}>
+              <View style={styles.button}>
                 <IconButton
                   icon="delete"
                   size={30}
@@ -121,6 +105,33 @@ const styles = StyleSheet.create({
   SingleCard: {
     alignItems: 'center',
     height: '90%',
+  },
+  viewDet: {
+    backgroundColor: 'lightskyblue',
+    width: '100%',
+    height: 190,
+  },
+  button: {
+    backgroundColor: 'salmon',
+    borderRadius: 70,
+  },
+  textdet: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginTop: 30,
+    color: 'white',
+  },
+  buttonFirst: {
+    backgroundColor: 'lightblue',
+    borderRadius: 70,
+  },
+  cardTi: {
+    backgroundColor: 'aliceblue',
+    width: '100%',
+    height: 100,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
   },
   image: {
     width: '90%',
@@ -171,5 +182,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
-
+DetailsScreen.propTypes = {
+  navigation: PropTypes.object.isRequired,
+};
 export default DetailsScreen;

@@ -3,6 +3,7 @@ import { View, Text, Image, StyleSheet, Dimensions, TouchableOpacity } from 'rea
 import MapPreview from '../components/MapPreview';
 import { IconButton } from 'react-native-paper';
 import Animated from 'react-native-reanimated';
+import PropTypes from 'prop-types';
 import BottomSheet from 'reanimated-bottom-sheet';
 const ReportDetailScreen = (props) => {
   console.log('route', props.route.params.report);
@@ -153,4 +154,9 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
 });
+ReportDetailScreen.propTypes = {
+  report: PropTypes.object,
+  route: PropTypes.object,
+  navigation: PropTypes.object,
+};
 export default ReportDetailScreen;

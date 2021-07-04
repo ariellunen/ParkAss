@@ -31,7 +31,7 @@ export default (state = initialState, action) => {
         city: action.locationData.city,
         ...state,
       };
-    case CREATE_REPORT:
+    case CREATE_REPORT: {
       const newReport = new Report(
         action.reportData.id,
         action.reportData.userId,
@@ -45,6 +45,7 @@ export default (state = initialState, action) => {
       return {
         reportsArr: state.reportsArr.concat(newReport),
       };
+    }
     default:
       return state;
   }

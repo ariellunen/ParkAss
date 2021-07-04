@@ -1,6 +1,8 @@
 import React from 'react';
 import { Image, StyleSheet, TouchableOpacity } from 'react-native';
 import ENV from '../constants/env';
+import PropTypes from 'prop-types';
+
 const MapPreview = (props) => {
   let imagePreviewUrl;
   if (props.location) {
@@ -26,4 +28,10 @@ const styles = StyleSheet.create({
     height: '100%',
   },
 });
+MapPreview.propTypes = {
+  location: PropTypes.object.isRequired,
+  onPress: PropTypes.func.isRequired,
+  style: PropTypes.object.isRequired,
+  children: PropTypes.object.isRequired,
+};
 export default MapPreview;

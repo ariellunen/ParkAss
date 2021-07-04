@@ -25,8 +25,7 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
   },
 });
-FullMapScreen.prototype = {
-  props: PropTypes.object.isRequired,
+FullMapScreen.propTypes = {
   pickedLocation: PropTypes.object,
 };
 export default FullMapScreen;

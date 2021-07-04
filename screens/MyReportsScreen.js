@@ -5,6 +5,7 @@ import * as reportActions from '../store/action/report';
 import Colors from '../constants/Colors';
 import ReportItem from '../components/ReportItem';
 import { Card } from 'react-native-paper';
+import PropTypes from 'prop-types';
 const MyReportsScreen = (props) => {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
@@ -25,7 +26,7 @@ const MyReportsScreen = (props) => {
   }, [dispatch, loadReports]);
   if (error) {
     return (
-      <View style={{ flex: 1, justifyContent: 'center' }}>
+      <View style={styles.NON}>
         <Text>An error occured!</Text>
         <Button title="נסה שנית" onPress={loadReports} color={Colors.primary} />
       </View>
@@ -33,32 +34,22 @@ const MyReportsScreen = (props) => {
   }
   if (isLoading) {
     return (
-      <View style={{ flex: 1, justifyContent: 'center' }}>
+      <View style={styles.NON}>
         <ActivityIndicator size="large" color={Colors.primary} />
       </View>
     );
   }
   if (!isLoading && reports?.length === 0) {
     return (
-      <View style={{ flex: 1, justifyContent: 'center' }}>
+      <View style={styles.NON}>
         <Text>אין דיווחים קודמים!</Text>
       </View>
     );
   }
   return (
-    <View style={{ alignItems: 'center' }}>
-      <View style={{ backgroundColor: 'lightskyblue', width: '100%', height: 100 }}>
-        <Text
-          style={{
-            fontSize: 30,
-            fontWeight: 'bold',
-            textAlign: 'center',
-            marginTop: 40,
-            color: 'white',
-          }}
-        >
-          דיווחים קודמים
-        </Text>
+    <View style={styles.all}>
+      <View style={styles.view}>
+        <Text style={styles.text}>דיווחים קודמים</Text>
       </View>
       <Card style={styles.card}>
         <FlatList
@@ -82,6 +73,25 @@ const MyReportsScreen = (props) => {
   );
 };
 const styles = StyleSheet.create({
+  text: {
+    fontSize: 30,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    marginTop: 40,
+    color: 'white',
+  },
+  view: {
+    backgroundColor: 'lightskyblue',
+    width: '100%',
+    height: 100,
+  },
+  all: {
+    alignItems: 'center',
+  },
+  NON: {
+    flex: 1,
+    justifyContent: 'center',
+  },
   card: {
     backgroundColor: 'white',
     height: '85%',
@@ -90,4 +100,8 @@ const styles = StyleSheet.create({
     marginTop: 20,
   },
 });
+MyReportsScreen.propTypes = {
+  navigation: PropTypes.object,
+};
+
 export default MyReportsScreen;

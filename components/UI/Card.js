@@ -1,10 +1,8 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
+import PropTypes from 'prop-types';
 
-const Card = (props) => {
-  console.log(props.style);
-  return <View style={{ ...styles.card, ...props.style }}>{props.children}</View>;
-};
+const Card = (props) => <View style={{ ...styles.card, ...props.style }}>{props.children}</View>;
 
 const styles = StyleSheet.create({
   card: {
@@ -17,5 +15,8 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
 });
-
+Card.propTypes = {
+  style: PropTypes.object.isRequired,
+  children: PropTypes.object.isRequired,
+};
 export default Card;

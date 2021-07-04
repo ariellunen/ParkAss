@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import Colors from '../constants/Colors';
+import PropTypes from 'prop-types';
 
 const ReportItem = (props) => (
   <TouchableOpacity onPress={props.onSelect} style={styles.reportItem}>
@@ -45,5 +46,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
-
+ReportItem.propTypes = {
+  onSelect: PropTypes.object.isRequired,
+  image: PropTypes.object.isRequired,
+  address: PropTypes.string.isRequired,
+  desc: PropTypes.string.isRequired,
+};
 export default ReportItem;

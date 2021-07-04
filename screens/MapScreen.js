@@ -7,6 +7,7 @@ import * as Location from 'expo-location';
 import { IconButton } from 'react-native-paper';
 import { useDispatch } from 'react-redux';
 import * as reportActions from '../store/action/report';
+import PropTypes from 'prop-types';
 
 const MapScreen = (props) => {
   const dispatch = useDispatch();
@@ -19,14 +20,12 @@ const MapScreen = (props) => {
     latitudeDelta: 0.015,
     longitudeDelta: 0.0121,
   };
-  const [hasUserPremission, setHasUserPremission] = useState(false);
   useEffect(() => {
     async function fetchData() {
       const result = await Location.requestForegroundPermissionsAsync();
       if (result.status !== 'granted') {
         setPickedLocation(defultRegion);
       }
-      setHasUserPremission(true);
       getLocationHandler();
     }
     fetchData();
@@ -55,7 +54,7 @@ const MapScreen = (props) => {
     }
   };
   if (!isFetching && pickedLocation !== undefined) {
-    return <ActivityIndicator size="large" color={Colors.primary} style={{ flex: 1 }} />;
+    return <ActivityIndicator size="large" color={Colors.primary} style={styles.view} />;
   }
   const handleSearchResult = (search_results) => {
     setPickedLocation({
@@ -78,7 +77,7 @@ const MapScreen = (props) => {
     }
   };
   return (
-    <View style={{ flex: 1 }}>
+    <View style={styles.view}>
       <FullMapScreen pickedLocation={pickedLocation} />
       <PlaceInput handleSearchResult={handleSearchResult} pickedLocation={pickedLocation} />
       <IconButton
@@ -93,6 +92,9 @@ const MapScreen = (props) => {
   );
 };
 const styles = StyleSheet.create({
+  view: {
+    flex: 1,
+  },
   add: {
     backgroundColor: 'lightskyblue',
     borderRadius: 30,
@@ -100,4 +102,7 @@ const styles = StyleSheet.create({
     bottom: 0,
   },
 });
+MapScreen.propTypes = {
+  navigation: PropTypes.object.isRequired,
+};
 export default MapScreen;

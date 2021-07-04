@@ -1,9 +1,8 @@
 import React, { useReducer, useEffect } from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
-
+import PropTypes from 'prop-types';
 const INPUT_CHANGE = 'INPUT_CHANGE';
 const INPUT_BLUR = 'INPUT_BLUR';
-
 const inputReducer = (state, action) => {
   switch (action.type) {
     case INPUT_CHANGE:
@@ -47,13 +46,13 @@ const Input = (props) => {
     if (props.email && !emailRegex.test(text.toLowerCase())) {
       isValid = false;
     }
-    if (props.min != null && +text < props.min) {
+    if (props.min !== null && +text < props.min) {
       isValid = false;
     }
-    if (props.max != null && +text > props.max) {
+    if (props.max !== null && +text > props.max) {
       isValid = false;
     }
-    if (props.minLength != null && text.length < props.minLength) {
+    if (props.minLength !== null && text.length < props.minLength) {
       isValid = false;
     }
     dispatch({ type: INPUT_CHANGE, value: text, isValid });
@@ -104,5 +103,17 @@ const styles = StyleSheet.create({
     fontSize: 13,
   },
 });
-
+Input.propTypes = {
+  initialValue: PropTypes.object.isRequired,
+  onInputChange: PropTypes.object.isRequired,
+  id: PropTypes.object.isRequired,
+  errorText: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  min: PropTypes.string.isRequired,
+  max: PropTypes.string.isRequired,
+  email: PropTypes.string.isRequired,
+  initiallyValid: PropTypes.string.isRequired,
+  minLength: PropTypes.string.isRequired,
+  required: PropTypes.object.isRequired,
+};
 export default Input;

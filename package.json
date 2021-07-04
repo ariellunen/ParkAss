@@ -80,5 +80,26 @@
     "eslint-plugin-react": "^7.24.0",
     "metro-react-native-babel-preset": "^0.59.0"
   },
-  "private": true
+  "private": true,
+  "checkSubmission": {
+    "ex": "final",
+    "students": [
+      {
+        "id": "207055435",
+        "fullName": "Halel Sarusi",
+        "email": "halels1401@gmail.com"
+      },
+      {
+        "id": "205884612",
+        "fullName": "Aruel Lunenfeld",
+        "email": "ariellunen@gmail.com"
+      }
+    ],
+    "os": "Windows",
+    "device": "IOS",
+    "submissionDate": "26/06/2021",
+    "delay": false,
+    "delayReason": "string",
+    "comments": "string"
+  }
 }
