@@ -26,7 +26,6 @@ const LeftContent = (props) => (
 const HomeScreen = (props) => {
   const [fetch, setFetch] = useState(false);
   const dispatch = useDispatch();
-  const [pickedImage, setPickedImage] = useState();
   const verifyPermissions = async () => {
     const result = await ImagePicker.requestCameraPermissionsAsync();
     if (result.status !== 'granted') {
@@ -52,12 +51,9 @@ const HomeScreen = (props) => {
       base64: true,
     });
     setFetch(true);
-    setPickedImage(image.uri);
-    console.log(image.uri);
     uploadmultimedia(image.uri);
   };
   const uploadmultimedia = async (image) => {
-    console.log('Image', pickedImage);
     const blob = await new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
       xhr.onload = function () {
@@ -81,7 +77,6 @@ const HomeScreen = (props) => {
         return imageRef.getDownloadURL();
       })
       .then((dwnldurl) => {
-        console.log('Download here', dwnldurl);
         dispatch(reportActions.addImage(dwnldurl));
         setFetch(false);
 

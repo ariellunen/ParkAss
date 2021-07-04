@@ -34,12 +34,8 @@ const DetailsScreen = (props) => {
 
   const dispatch = useDispatch();
   const [text, onChangeText] = useState();
-  console.log('city', selector.city);
-
   const saveReportHandler = () => {
-    console.log(image);
     dispatch(reportActions.createReport(text, image, address, lat, lng));
-    console.log(cityHallNum[city]);
     Linking.openURL(`http://api.whatsapp.com/send?phone=972
         ${cityHallNum[city]}
         &text=${image}\n`);

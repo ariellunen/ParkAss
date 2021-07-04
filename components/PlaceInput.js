@@ -22,7 +22,6 @@ const PlaceInput = (props) => {
       const result = await fetch(apiUrl);
       const json = await result.json();
       setPredictions(json.predictions);
-      console.log(json.prediction);
     } catch (err) {
       console.log('error');
     }

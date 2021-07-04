@@ -6,7 +6,6 @@ import Animated from 'react-native-reanimated';
 import PropTypes from 'prop-types';
 import BottomSheet from 'reanimated-bottom-sheet';
 const ReportDetailScreen = (props) => {
-  console.log('route', props.route.params.report);
   const report = props.route.params.report;
   const bs = React.createRef();
   const fall = new Animated.Value(1);

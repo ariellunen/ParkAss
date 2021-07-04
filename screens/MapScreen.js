@@ -37,14 +37,12 @@ const MapScreen = (props) => {
       const location = await Location.getCurrentPositionAsync({
         timeout: 5000,
       });
-      console.log('location', location);
       setPickedLocation({
         latitude: location.coords.latitude,
         longitude: location.coords.longitude,
         latitudeDelta: 0.015,
         longitudeDelta: 0.0121,
       });
-      console.log('pickedLocation', pickedLocation);
     } catch (err) {
       console.log(err);
       setPickedLocation(defultRegion);
