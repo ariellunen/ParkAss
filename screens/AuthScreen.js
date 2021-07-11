@@ -8,13 +8,13 @@ import {
   ActivityIndicator,
   Alert,
   I18nManager,
-  ImageBackground,
 } from 'react-native';
 I18nManager.forceRTL(true);
 import { useDispatch } from 'react-redux';
 import Input from '../components/UI/Input';
 import * as authActions from '../store/action/auth';
 import { color } from 'react-native-reanimated';
+
 const FORM_INPUT_UPDATE = 'FORM_INPUT_UPDATE';
 const formReducer = (state, action) => {
   if (action.type === FORM_INPUT_UPDATE) {
@@ -164,10 +164,6 @@ const styles = StyleSheet.create({
   buttonContainer: {
     marginTop: 40,
     borderRadius: 50,
-  },
-  imageBackground: {
-    height: '100%',
-    width: '100%',
   },
 });
 export default AuthScreen;

@@ -1,5 +1,5 @@
 import Report from '../../models/report';
-import { ADD_IMAGE, ADD_LOACATION, SET_REPORTS, CREATE_REPORT } from '../action/report';
+import { ADD_IMAGE, ADD_LOCATION, SET_REPORTS, CREATE_REPORT } from '../action/report';
 const initialState = {
   reportsArr: null,
   image: null,
@@ -23,7 +23,7 @@ export default (state = initialState, action) => {
         image: action.image,
         reportsArr: [],
       };
-    case ADD_LOACATION:
+    case ADD_LOCATION:
       return {
         lat: action.locationData.location.lat,
         lng: action.locationData.location.lng,

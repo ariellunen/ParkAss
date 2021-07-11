@@ -1,11 +1,12 @@
 export const ADD_IMAGE = 'ADD_IMAGE';
-export const ADD_LOACATION = 'ADD_LOACATION';
+export const ADD_LOCATION = 'ADD_LOCATION';
 export const ADD_DESCRIPTION = 'ADD_DESCRIPTION';
 export const ADD_REPORT = 'ADD_REPORT';
 export const CREATE_REPORT = 'CREATE_REPORT';
 export const SET_REPORTS = 'SET_REPORTS';
 import Report from '../../models/report';
 import ENV from '../../constants/env';
+
 export const addImage = (imageUrl) => ({ type: ADD_IMAGE, image: imageUrl });
 export const fetchReports = () => async (dispatch, getState) => {
   const userId = getState().auth.userId;
@@ -37,6 +38,7 @@ export const fetchReports = () => async (dispatch, getState) => {
     userReports: loadedReports.filter((report) => report.userId === userId),
   });
 };
+
 export const createReport = (text, image, address, lat, lng) => {
   const date = new Date();
   return async (dispatch, getState) => {
@@ -76,6 +78,7 @@ export const createReport = (text, image, address, lat, lng) => {
     });
   };
 };
+
 export const addLocation = (location) => async (dispatch) => {
   const response = await fetch(
     `https://maps.googleapis.com/maps/api/geocode/json?latlng=${location.lat},${location.lng}&language=en&key=${ENV.googleApiKey}`,
@@ -89,14 +92,15 @@ export const addLocation = (location) => async (dispatch) => {
   }
   const results = resData.results[0]?.address_components;
   let city = '';
-  results.map((result) => {
-    if (result.types[0] === 'locality') {
-      city = result.long_name;
+  for (let i = 0; i < results.length; i++) {
+    if (results[i].types[0] === 'locality') {
+      city = results[i].long_name;
+      break;
     }
-  });
+  }
   const address = resData.results[0].formatted_address;
   dispatch({
-    type: ADD_LOACATION,
+    type: ADD_LOCATION,
     locationData: { location, address, city },
   });
 };
