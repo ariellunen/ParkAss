@@ -88,60 +88,56 @@ const AuthScreen = () => {
     [dispatchFormState],
   );
   return (
-    <ImageBackground
-      source={{ uri: 'https://i.postimg.cc/65Nzc2xk/28.png' }}
-      style={styles.imageBackground}
-    >
-      <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={50} style={styles.screen}>
-        <View style={styles.authContainer}>
-          <ScrollView>
-            <Input
-              id="email"
-              label="מייל:"
-              keyboardType="email-address"
-              required
-              email
-              autoCapitalize="none"
-              errorText="אנא הזן כתובת מייל תקנית."
-              onInputChange={inputChangeHandler}
-              initialValue=""
+    // <ImageBackground
+    //   source={{ uri: 'https://i.postimg.cc/65Nzc2xk/28.png' }}
+    //   style={styles.imageBackground}
+    // >
+    <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={50} style={styles.screen}>
+      <View style={styles.authContainer}>
+        <ScrollView>
+          <Input
+            id="email"
+            label="מייל:"
+            keyboardType="email-address"
+            required
+            email
+            autoCapitalize="none"
+            errorText="אנא הזן כתובת מייל תקנית."
+            onInputChange={inputChangeHandler}
+            initialValue=""
+          />
+          <Input
+            id="password"
+            label="סיסמא:"
+            keyboardType="default"
+            secureTextEntry
+            required
+            minLength={5}
+            autoCapitalize="none"
+            errorText="אנא הזן סיסמה חוקית."
+            onInputChange={inputChangeHandler}
+            initialValue=""
+          />
+          <View style={styles.buttonContainer}>
+            {isLoading ? (
+              <ActivityIndicator size="small" color={color.primary} />
+            ) : (
+              <Button title={isSignup ? 'הרשם' : 'התחבר'} color="darkgrey" onPress={authHandler} />
+            )}
+          </View>
+          <View style={styles.buttonContainer}>
+            <Button
+              title={`החלף ל- ${isSignup ? 'התחבר' : 'הרשם'}`}
+              color="gainsboro"
+              onPress={() => {
+                setIsSignup((prevState) => !prevState);
+              }}
             />
-            <Input
-              id="password"
-              label="סיסמא:"
-              keyboardType="default"
-              secureTextEntry
-              required
-              minLength={5}
-              autoCapitalize="none"
-              errorText="אנא הזן סיסמה חוקית."
-              onInputChange={inputChangeHandler}
-              initialValue=""
-            />
-            <View style={styles.buttonContainer}>
-              {isLoading ? (
-                <ActivityIndicator size="small" color={color.primary} />
-              ) : (
-                <Button
-                  title={isSignup ? 'הרשם' : 'התחבר'}
-                  color="darkgrey"
-                  onPress={authHandler}
-                />
-              )}
-            </View>
-            <View style={styles.buttonContainer}>
-              <Button
-                title={`החלף ל- ${isSignup ? 'התחבר' : 'הרשם'}`}
-                color="gainsboro"
-                onPress={() => {
-                  setIsSignup((prevState) => !prevState);
-                }}
-              />
-            </View>
-          </ScrollView>
-        </View>
-      </KeyboardAvoidingView>
-    </ImageBackground>
+          </View>
+        </ScrollView>
+      </View>
+    </KeyboardAvoidingView>
+    // </ImageBackground>
   );
 };
 const styles = StyleSheet.create({
