@@ -9,6 +9,7 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { TouchableWithoutFeedback, Keyboard, I18nManager } from 'react-native';
 import firebase from 'firebase/app';
 import 'firebase/storage';
+
 require('firebase/storage');
 require('firebase/database');
 if (!firebase.apps.length) {

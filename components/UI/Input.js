@@ -99,21 +99,21 @@ const styles = StyleSheet.create({
   },
   errorText: {
     fontFamily: 'open-sans',
-    color: 'red',
+    color: 'white',
     fontSize: 13,
   },
 });
 Input.propTypes = {
-  initialValue: PropTypes.object.isRequired,
-  onInputChange: PropTypes.object.isRequired,
-  id: PropTypes.object.isRequired,
+  initialValue: PropTypes.string,
+  onInputChange: PropTypes.func.isRequired,
+  id: PropTypes.string.isRequired,
   errorText: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
-  min: PropTypes.string.isRequired,
-  max: PropTypes.string.isRequired,
-  email: PropTypes.string.isRequired,
-  initiallyValid: PropTypes.string.isRequired,
-  minLength: PropTypes.string.isRequired,
-  required: PropTypes.object.isRequired,
+  min: PropTypes.string,
+  max: PropTypes.string,
+  email: PropTypes.bool,
+  initiallyValid: PropTypes.string,
+  minLength: PropTypes.number,
+  required: PropTypes.bool,
 };
 export default Input;

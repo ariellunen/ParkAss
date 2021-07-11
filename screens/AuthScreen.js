@@ -8,6 +8,7 @@ import {
   ActivityIndicator,
   Alert,
   I18nManager,
+  Image,
 } from 'react-native';
 I18nManager.forceRTL(true);
 import { useDispatch } from 'react-redux';
@@ -88,11 +89,8 @@ const AuthScreen = () => {
     [dispatchFormState],
   );
   return (
-    // <ImageBackground
-    //   source={{ uri: 'https://i.postimg.cc/65Nzc2xk/28.png' }}
-    //   style={styles.imageBackground}
-    // >
     <KeyboardAvoidingView behavior="padding" keyboardVerticalOffset={50} style={styles.screen}>
+      <Image source={require('../assets/logo.png')} style={styles.logo} />
       <View style={styles.authContainer}>
         <ScrollView>
           <Input
@@ -137,19 +135,24 @@ const AuthScreen = () => {
         </ScrollView>
       </View>
     </KeyboardAvoidingView>
-    // </ImageBackground>
   );
 };
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
     alignItems: 'center',
+    backgroundColor: '#4E67BB',
+  },
+  logo: {
+    marginTop: 100,
+    width: '90%',
+    height: '20%',
+    resizeMode: 'contain',
   },
   authContainer: {
-    width: '80%',
-    height: '70%',
-    maxWidth: 400,
-    maxHeight: 400,
+    width: '90%',
+    // maxWidth: 400,
+    // maxHeight: 400,
     padding: 20,
     shadowColor: 'black',
     shadowOpacity: 0.26,
@@ -158,8 +161,6 @@ const styles = StyleSheet.create({
     elevation: 5,
     borderRadius: 10,
     backgroundColor: 'white',
-    marginTop: 250,
-    marginBottom: 'auto',
   },
   buttonContainer: {
     marginTop: 40,
