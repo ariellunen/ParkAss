@@ -106,7 +106,7 @@ const HomeScreen = (props) => {
                 onPress={takeImageHandler}
               />
             </View>
-            <Text style={styles.paragraph}>מצלמה</Text>
+            <Text style={styles.paragraph}>מצחחחלמה</Text>
           </View>
           <View style={styles.SingleCard}>
             <View style={styles.singlecardfirst}>
