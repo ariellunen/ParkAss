@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "AssPark",
-    "slug": "AssPark",
+    "name": "ParkAss",
+    "slug": "ParkAss",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/logo.png",
     "splash": {
       "image": "./assets/logo.png",
       "resizeMode": "contain",
