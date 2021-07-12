@@ -93,3 +93,7 @@ const setLogoutTimer = (expirationTime) => (dispatch) => {
     dispatch(logout());
   }, expirationTime);
 };
+
+export const googleLogIn = (userId, token) => {
+  return { type: AUTHENTICATE, userData: { userId, token } };
+};

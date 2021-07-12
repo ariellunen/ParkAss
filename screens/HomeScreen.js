@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { Card, Avatar, IconButton } from 'react-native-paper';
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as authActions from '../store/action/auth';
 import * as ImagePicker from 'expo-image-picker';
 import * as reportActions from '../store/action/report';
@@ -25,6 +25,8 @@ const LeftContent = (props) => (
 );
 const HomeScreen = (props) => {
   const [fetch, setFetch] = useState(false);
+  const selector = useSelector((state) => state.auth);
+  console.log("selector", selector);
   const dispatch = useDispatch();
   const verifyPermissions = async () => {
     const result = await ImagePicker.requestCameraPermissionsAsync();
@@ -38,7 +40,6 @@ const HomeScreen = (props) => {
     }
     return true;
   };
-
   const takeImageHandler = async () => {
     const hasPermission = await verifyPermissions();
     if (!hasPermission) {
@@ -69,7 +70,7 @@ const HomeScreen = (props) => {
 
     const timestamp = new Date().getTime();
     const imageRef = firebase.storage().ref(`users/Dp/` + timestamp + '/');
-
+    console.log("imageRef",imageRef)
     return imageRef
       .put(blob)
       .then(() => {
@@ -77,9 +78,9 @@ const HomeScreen = (props) => {
         return imageRef.getDownloadURL();
       })
       .then((dwnldurl) => {
+        console.log(dwnldurl)
         dispatch(reportActions.addImage(dwnldurl));
         setFetch(false);
-
         props.navigation.navigate('Map');
       });
   };
@@ -130,7 +131,7 @@ const HomeScreen = (props) => {
                 color="white"
                 title="Logout"
                 onPress={() => {
-                  dispatch(authActions.logout());
+                  firebase.auth().signOut();
                 }}
               />
             </View>

@@ -14,13 +14,14 @@ require('firebase/storage');
 require('firebase/database');
 if (!firebase.apps.length) {
   firebase.initializeApp({
-    apiKey: 'AIzaSyBeLRKGGRtYJUXpLFTc3sXpm6rUh3qa1tw',
-    authDomain: 'parkass-52f92.firebaseapp.com',
-    projectId: 'parkass-52f92',
-    storageBucket: 'parkass-52f92.appspot.com',
-    messagingSenderId: '991818465397',
-    appId: '1:991818465397:web:8757945e999a226863f83c',
-    measurementId: 'G-7FJ8CBM618',
+    apiKey: 'AIzaSyB907390BLI_mPxruGHafJHOeb-XjycbFo',
+    authDomain: 'parkass.firebaseapp.com',
+    databaseURL: 'https://parkass-default-rtdb.firebaseio.com',
+    projectId: 'parkass',
+    storageBucket: 'parkass.appspot.com',
+    messagingSenderId: '212784895158',
+    appId: '1:212784895158:web:bc65487af9b35aea718217',
+    measurementId: 'G-M8BJ7QY64L',
   });
 }
 firebase.storage().ref();

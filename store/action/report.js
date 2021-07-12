@@ -6,37 +6,36 @@ export const CREATE_REPORT = 'CREATE_REPORT';
 export const SET_REPORTS = 'SET_REPORTS';
 import Report from '../../models/report';
 import ENV from '../../constants/env';
+import firebase from 'firebase/app';
 
 export const addImage = (imageUrl) => ({ type: ADD_IMAGE, image: imageUrl });
 export const fetchReports = () => async (dispatch, getState) => {
   const userId = getState().auth.userId;
-  const response = await fetch(
-    `https://parkass-default-rtdb.firebaseio.com/reports/${userId}.json`,
-  );
-  if (!response.ok) {
-    throw new Error('Somthing went wrong');
-  }
-  const resData = await response.json();
-  const loadedReports = [];
-  for (const key in resData) {
-    loadedReports.push(
-      new Report(
-        key,
-        userId,
-        resData[key].date,
-        resData[key].image,
-        resData[key].lat,
-        resData[key].lng,
-        resData[key].address,
-        resData[key].text,
-      ),
-    );
-  }
-  dispatch({
-    type: SET_REPORTS,
-    loadedReports,
-    userReports: loadedReports.filter((report) => report.userId === userId),
-  });
+  let resData = firebase.database().ref('reports/' + userId);
+  resData.on('value', (report) => {
+    const data = report.val();
+    console.log(data);
+    const loadedReports = [];
+    for (const key in data) {
+      loadedReports.push(
+        new Report(
+          key,
+          userId,
+          data[key].date,
+          data[key].image,
+          data[key].lat,
+          data[key].lng,
+          data[key].address,
+          data[key].text,
+        ),
+      );
+    }
+    dispatch({
+      type: SET_REPORTS,
+      loadedReports,
+      userReports: loadedReports.filter((report) => report.userId === userId),
+    });
+  })
 };
 
 export const createReport = (text, image, address, lat, lng) => {
@@ -44,29 +43,20 @@ export const createReport = (text, image, address, lat, lng) => {
   return async (dispatch, getState) => {
     const token = getState().auth.token;
     const userId = getState().auth.userId;
-    const response = await fetch(
-      `https://parkass-default-rtdb.firebaseio.com/reports/${userId}.json?auth=${token}`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          userId,
-          image,
-          address,
-          lat,
-          lng,
-          text,
-          date,
-        }),
-      },
-    );
-    const resData = await response.json();
+    console.log(token, userId);
+    firebase
+      .database()
+      .ref('reports/' + userId)
+      .push({
+        text,
+        image,
+        address,
+        lat,
+        lng,
+      });
     dispatch({
       type: CREATE_REPORT,
       reportData: {
-        id: resData.name,
         image,
         address,
         lat,
