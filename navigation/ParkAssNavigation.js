@@ -14,20 +14,32 @@ export const AuthNavigator = () => (
     <AuthStackNavigator.Screen
       name="Auth"
       component={AuthScreen}
-      options={{ headerShown: false }}
+      options={{
+        headerShown: false,
+        cardStyle: {
+          backgroundColor: 'transparent',
+          // position: 'absolute',
+          borderTopWidth: 0,
+        },
+      }}
     />
   </AuthStackNavigator.Navigator>
 );
-const ReportStackNavigatior = createStackNavigator();
-export const ReportStackNavigation = () => (
-  <ReportStackNavigatior.Navigator>
-    <ReportStackNavigatior.Screen name="Reports" component={MyReportsScreen} />
-  </ReportStackNavigatior.Navigator>
-);
+// const ReportStackNavigatior = createStackNavigator();
+// export const ReportStackNavigation = () => (
+//   <ReportStackNavigatior.Navigator>
+//     <ReportStackNavigatior.Screen name="Reports" component={MyReportsScreen} />
+//   </ReportStackNavigatior.Navigator>
+// );
 export const ParkAssNavigation = () => (
   <Stack.Navigator
     screenOptions={{
       headerShown: false,
+      cardStyle: {
+        backgroundColor: 'transparent',
+        position: 'absolute',
+        borderTopWidth: 0,
+      },
     }}
   >
     <Stack.Screen name="Home" component={HomeScreen} />

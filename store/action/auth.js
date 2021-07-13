@@ -94,6 +94,4 @@ const setLogoutTimer = (expirationTime) => (dispatch) => {
   }, expirationTime);
 };
 
-export const googleLogIn = (userId, token) => {
-  return { type: AUTHENTICATE, userData: { userId, token } };
-};
+export const googleLogIn = (userId, token) => ({ type: AUTHENTICATE, userData: { userId, token } });

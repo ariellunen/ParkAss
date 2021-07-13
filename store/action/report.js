@@ -11,7 +11,7 @@ import firebase from 'firebase/app';
 export const addImage = (imageUrl) => ({ type: ADD_IMAGE, image: imageUrl });
 export const fetchReports = () => async (dispatch, getState) => {
   const userId = getState().auth.userId;
-  let resData = firebase.database().ref('reports/' + userId);
+  const resData = firebase.database().ref('reports/' + userId);
   resData.on('value', (report) => {
     const data = report.val();
     console.log(data);
@@ -35,7 +35,7 @@ export const fetchReports = () => async (dispatch, getState) => {
       loadedReports,
       userReports: loadedReports.filter((report) => report.userId === userId),
     });
-  })
+  });
 };
 
 export const createReport = (text, image, address, lat, lng) => {

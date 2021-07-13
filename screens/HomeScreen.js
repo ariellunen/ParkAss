@@ -5,18 +5,17 @@ import {
   Alert,
   ActivityIndicator,
   Linking,
-  ImageBackground,
   Dimensions,
 } from 'react-native';
 import { Card, Avatar, IconButton } from 'react-native-paper';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import * as authActions from '../store/action/auth';
 import * as ImagePicker from 'expo-image-picker';
 import * as reportActions from '../store/action/report';
 import Colors from '../constants/Colors';
 import firebase from 'firebase/app';
 import PropTypes from 'prop-types';
+import Background from '../components/Background';
 require('firebase/database');
 require('firebase/auth');
 require('firebase/storage');
@@ -26,7 +25,7 @@ const LeftContent = (props) => (
 const HomeScreen = (props) => {
   const [fetch, setFetch] = useState(false);
   const selector = useSelector((state) => state.auth);
-  console.log("selector", selector);
+  console.log('selector', selector);
   const dispatch = useDispatch();
   const verifyPermissions = async () => {
     const result = await ImagePicker.requestCameraPermissionsAsync();
@@ -52,37 +51,9 @@ const HomeScreen = (props) => {
       base64: true,
     });
     setFetch(true);
-    uploadmultimedia(image.uri);
-  };
-  const uploadmultimedia = async (image) => {
-    const blob = await new Promise((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-      xhr.onload = function () {
-        resolve(xhr.response);
-      };
-      xhr.onerror = function () {
-        reject(new TypeError('Network request failed'));
-      };
-      xhr.responseType = 'blob';
-      xhr.open('GET', image, true);
-      xhr.send(null);
-    });
-
-    const timestamp = new Date().getTime();
-    const imageRef = firebase.storage().ref(`users/Dp/` + timestamp + '/');
-    console.log("imageRef",imageRef)
-    return imageRef
-      .put(blob)
-      .then(() => {
-        blob.close();
-        return imageRef.getDownloadURL();
-      })
-      .then((dwnldurl) => {
-        console.log(dwnldurl)
-        dispatch(reportActions.addImage(dwnldurl));
-        setFetch(false);
-        props.navigation.navigate('Map');
-      });
+    // uploadmultimedia(image.uri);
+    dispatch(reportActions.addImage(image.uri));
+    props.navigation.navigate('Map');
   };
 
   if (fetch) {
@@ -90,10 +61,7 @@ const HomeScreen = (props) => {
   }
 
   return (
-    <ImageBackground
-      source={{ uri: 'https://i.postimg.cc/J7P1jYZk/image.jpg' }}
-      style={styles.imageBack}
-    >
+    <Background>
       <Card style={styles.card} dir="rtl">
         <Card.Title title="מסך הבית" subtitle="בחר את הפעולה המתאימה" left={LeftContent} />
         <View style={styles.all}>
@@ -154,16 +122,11 @@ const HomeScreen = (props) => {
           </View>
         </View>
       </Card>
-    </ImageBackground>
+    </Background>
   );
 };
 
 const styles = StyleSheet.create({
-  imageBack: {
-    width: '100%',
-    height: '100%',
-    alignItems: 'center',
-  },
   card: {
     backgroundColor: 'white',
     height: '60%',

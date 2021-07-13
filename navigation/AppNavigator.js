@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 import { NavigationContainer } from '@react-navigation/native';
 import { ParkAssNavigation, AuthNavigator } from './ParkAssNavigation';
-import StartupScreen from '../screens/StartUpScreen';
 import firebase from 'firebase/app';
-import AuthScreen from '../screens/AuthScreen';
 
 const AppNavigator = () => {
   useEffect(() => {

@@ -9,7 +9,6 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { TouchableWithoutFeedback, Keyboard, I18nManager } from 'react-native';
 import firebase from 'firebase/app';
 import 'firebase/storage';
-
 require('firebase/storage');
 require('firebase/database');
 if (!firebase.apps.length) {
@@ -38,7 +37,9 @@ export default function App() {
   return (
     <TouchableWithoutFeedback onPress={hideKeyBoard}>
       <Provider store={store}>
+        {/* <LinearGradient colors={['red', 'yellow', 'green']}> */}
         <AppNavigator />
+        {/* </LinearGradient> */}
       </Provider>
     </TouchableWithoutFeedback>
   );

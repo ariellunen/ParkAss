@@ -1,26 +1,19 @@
 import React from 'react';
-import { View } from 'react-native';
+import { StyleSheet, SafeAreaView } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
-import colors from '../constants/Colors';
 import { element } from 'prop-types';
 
 const Background = ({ children }) => (
-  <View
-    style={{
-      flex: 1,
-      alignItems: 'center',
-      //   justifyContent: 'center',
-      //   backgroundColor: colors.primary,
-    }}
-  >
-    <LinearGradient
-      // Background Linear Gradient
-      colors={['transparent', colors.primary]}
-    >
-      {children}
-    </LinearGradient>
-  </View>
+  <LinearGradient colors={['#4E67BB', '#131D47']} style={styles.container}>
+    <SafeAreaView style={styles.container}>{children}</SafeAreaView>
+  </LinearGradient>
 );
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
 
 Background.propTypes = {
   children: element,

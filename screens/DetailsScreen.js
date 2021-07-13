@@ -5,6 +5,7 @@ import * as reportActions from '../store/action/report';
 import { Card, IconButton, Avatar } from 'react-native-paper';
 import { View, Image, Text, StyleSheet, TextInput, Linking } from 'react-native';
 import cityHallNum from '../models/cityHallNum';
+import firebase from 'firebase/app';
 
 const LeftContent = (props) => (
   <Avatar.Icon {...props} icon="parking" backgroundColor="lightskyblue" />
@@ -17,7 +18,6 @@ const DetailsScreen = (props) => {
   const [city, setCity] = useState();
   const [lat, setLat] = useState();
   const [lng, setLng] = useState();
-
   useEffect(() => {
     if (selector.image) {
       setImage(selector.image);
@@ -34,11 +34,42 @@ const DetailsScreen = (props) => {
 
   const dispatch = useDispatch();
   const [text, onChangeText] = useState();
-  const saveReportHandler = () => {
+
+  const uploadmultimedia = async () => {
+    const blob = await new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.onload = function () {
+        resolve(xhr.response);
+      };
+      xhr.onerror = function () {
+        reject(new TypeError('Network request failed'));
+      };
+      xhr.responseType = 'blob';
+      xhr.open('GET', image, true);
+      xhr.send(null);
+    });
+
+    const timestamp = new Date().getTime();
+    const imageRef = firebase.storage().ref(`users/Dp/` + timestamp + '/');
+    console.log('imageRef', imageRef);
+    return imageRef
+      .put(blob)
+      .then(() => {
+        blob.close();
+        return imageRef.getDownloadURL();
+      })
+      .then((dwnldurl) => {
+        console.log(dwnldurl);
+        saveReportHandler(dwnldurl);
+      });
+  };
+
+  const saveReportHandler = (dwnldurl) => {
     dispatch(reportActions.createReport(text, image, address, lat, lng));
+    console.log(dwnldurl);
     Linking.openURL(`http://api.whatsapp.com/send?phone=972
         ${cityHallNum[city]}
-        &text=${image}\n`);
+        &text=${dwnldurl}\n`);
     // תיאור - ${text}\n
     // כתובת - ${address}`)
     props.navigation.navigate('Home');
@@ -73,7 +104,7 @@ const DetailsScreen = (props) => {
                   size={30}
                   color="white"
                   title="Save Report"
-                  onPress={saveReportHandler}
+                  onPress={uploadmultimedia}
                 />
               </View>
               <Text style={styles.paragraph}>שמור דיווח</Text>

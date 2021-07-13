@@ -169,21 +169,10 @@
 // });
 // export default AuthScreen;
 
-import React, { useReducer, useCallback, useState, useEffect } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
-
-import {
-  ScrollView,
-  View,
-  KeyboardAvoidingView,
-  StyleSheet,
-  Button,
-  Text,
-  ActivityIndicator,
-  Alert,
-  I18nManager,
-  Image,
-} from 'react-native';
+import Background from '../components/Background';
+import { View, StyleSheet, Button, Image } from 'react-native';
 import * as Google from 'expo-google-app-auth';
 import firebase from 'firebase/app';
 import * as authActions from '../store/action/auth';
@@ -202,7 +191,6 @@ const AuthScreen = () => {
     }
     return false;
   };
-
   const onSignIn = (googleUser) => {
     console.log('Google Auth Response', googleUser);
     const unsubscribe = firebase.auth().onAuthStateChanged((firebaseUser) => {
@@ -212,7 +200,6 @@ const AuthScreen = () => {
           googleUser.idToken,
           googleUser.accessToken,
         );
-        // Sign in with credential from the Google user.
         firebase
           .auth()
           .signInWithCredential(credential)
@@ -231,28 +218,11 @@ const AuthScreen = () => {
             }
             console.log('idToken', googleUser.idToken);
             console.log(result.user.uid);
-            const database = firebase.database();
-            console.log('database', database);
-            // firebase
-            //   .database()
-            //   .ref('users/' + result.user.uid)
-            //   .push({
-            //     username: 'Ariel',
-            //     email: 'email',
-            //     profile_picture: 'imageUrl',
-            //   });
             dispatch(authActions.googleLogIn(result.user.uid, googleUser.idToken));
             console.log('user signed in');
           })
           .catch((error) => {
-            // Handle Errors here.
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            // The email of the user's account used.
-            const email = error.email;
-            // The firebase.auth.AuthCredential type that was used.
-            const credential = error.credential;
-            // ...
+            console.log(error);
           });
       } else {
         console.log('User already signed-in Firebase.');
@@ -263,11 +233,9 @@ const AuthScreen = () => {
     try {
       const result = await Google.logInAsync({
         // androidClientId: YOUR_CLIENT_ID_HERE,
-        // behavior: 'web',
         iosClientId: '212784895158-2k0boqlvgqbpb14r2d2cn8nlav9s1393.apps.googleusercontent.com',
         scopes: ['profile', 'email'],
       });
-
       if (result.type === 'success') {
         onSignIn(result);
         return result.accessToken;
@@ -277,23 +245,28 @@ const AuthScreen = () => {
       return { error: true };
     }
   };
-
   return (
-    <View style={styles.screen}>
-      <Text>jsjsjsjs</Text>
-      <Button title="Sign In With Google" onPress={signInWithGoogleAsync} style={styles.button} />
-    </View>
+    <Background>
+      <View style={styles.container}>
+        <Image source={require('../assets/logo.png')} />
+        <Button title="Sign In With Google" onPress={signInWithGoogleAsync} style={styles.button} />
+      </View>
+    </Background>
   );
 };
-
 const styles = StyleSheet.create({
-  screen: {
-    flex: 1,
-    alignItems: 'center',
-    backgroundColor: '#4E67BB',
-  },
   button: {
     marginTop: 100,
+  },
+  logo: {
+    // marginTop: 100,
+    width: 200,
+    height: 1000,
+    // resizeMode: 'contain',
+  },
+  container: {
+    flex: 1,
+    alignItems: 'center',
   },
 });
 export default AuthScreen;
