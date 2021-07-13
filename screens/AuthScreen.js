@@ -1,12 +1,11 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import Background from '../components/Background';
-import { View, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet, Image, TouchableOpacity, Text } from 'react-native';
 import * as Google from 'expo-google-app-auth';
 import firebase from 'firebase/app';
 import * as authActions from '../store/action/auth';
 import { IconButton } from 'react-native-paper';
-import { Button } from 'react-native-elements';
 const AuthScreen = () => {
   const dispatch = useDispatch();
   const isUserEqual = (googleUser, firebaseUser) => {
@@ -79,33 +78,44 @@ const AuthScreen = () => {
   return (
     <Background>
       <View style={styles.container}>
-        <Image source={require('../assets/logo.png')} style={styles.logo} />
-        <Button
-          containerStyle={{ width: '90%', alignItems: 'center' }}
-          type="clear"
-          style={styles.button}
-          onPress={signInWithGoogleAsync}
-          icon={<IconButton icon="google" size={30} color="white" title="login" />}
-          title="התחבר\י"
-          iconRight
-        />
+        <Image source={require('../assets/logo11.png')} style={styles.logo} />
       </View>
+      <TouchableOpacity onPress={signInWithGoogleAsync}>
+        <View style={styles.button}>
+          <IconButton icon="google" size={45} color="white" style={styles.googleLogo} />
+          <Text style={styles.textButton}>התחבר\י</Text>
+        </View>
+      </TouchableOpacity>
     </Background>
   );
 };
 const styles = StyleSheet.create({
   button: {
-    marginTop: 100,
-    backgroundColor: '#270949',
+    bottom: 30,
+    backgroundColor: '#000',
+    opacity: 0.3,
+    width: '100%',
+    height: 70,
+    // display: 'flex',
+    position: 'relative',
   },
   logo: {
-    marginTop: 100,
-    width: '80%',
-    height: 200,
+    marginTop: 150,
   },
   container: {
     flex: 1,
     alignItems: 'center',
+  },
+  textButton: {
+    color: 'white',
+    fontSize: 30,
+    position: 'absolute',
+    right: '60%',
+    margin: 11,
+  },
+  googleLogo: {
+    marginLeft: '80%',
+    margin: 1,
   },
 });
 export default AuthScreen;
