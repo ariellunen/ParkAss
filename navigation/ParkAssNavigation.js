@@ -37,7 +37,7 @@ export const ParkAssNavigation = () => (
       headerShown: false,
       cardStyle: {
         backgroundColor: 'transparent',
-        position: 'absolute',
+        // position: 'absolute',
         borderTopWidth: 0,
       },
     }}
