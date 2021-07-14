@@ -22,8 +22,10 @@
     "babel-preset-env": "^1.7.0",
     "dotenv": "^10.0.0",
     "expo": "~41.0.1",
+    "expo-app-loading": "^1.1.2",
     "expo-camera": "^11.0.3",
     "expo-file-system": "~11.0.2",
+    "expo-font": "^9.1.0",
     "expo-google-app-auth": "^8.2.2",
     "expo-google-sign-in": "~9.1.0",
     "expo-image-picker": "^10.1.4",
@@ -67,7 +69,8 @@
     "redux": "^4.1.0",
     "redux-thunk": "^2.3.0",
     "reselect": "^3.0.1",
-    "rn-bottom-drawer": "^1.4.3"
+    "rn-bottom-drawer": "^1.4.3",
+    "underscore": "^1.13.1"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",

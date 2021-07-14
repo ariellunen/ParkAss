@@ -6,7 +6,10 @@ import * as Google from 'expo-google-app-auth';
 import firebase from 'firebase/app';
 import * as authActions from '../store/action/auth';
 import { IconButton } from 'react-native-paper';
-const AuthScreen = () => {
+import { ParkAssNavigation, AuthNavigator } from '../navigation/ParkAssNavigation';
+import { NavigationContainer } from '@react-navigation/native';
+
+const AuthScreen = (props) => {
   const dispatch = useDispatch();
   const isUserEqual = (googleUser, firebaseUser) => {
     console.log('googleUser', googleUser);
@@ -25,6 +28,7 @@ const AuthScreen = () => {
     console.log('Google Auth Response', googleUser);
     const unsubscribe = firebase.auth().onAuthStateChanged((firebaseUser) => {
       unsubscribe();
+      console.log(firebaseUser);
       if (!isUserEqual(googleUser, firebaseUser)) {
         const credential = firebase.auth.GoogleAuthProvider.credential(
           googleUser.idToken,
@@ -45,8 +49,10 @@ const AuthScreen = () => {
                   first_name: result.additionalUserInfo.profile.given_name,
                   last_name: result.additionalUserInfo.profile.family_name,
                 });
+            } else {
+              dispatch(authActions.googleLogIn(result.user.uid, googleUser.idToken));
             }
-            console.log('idToken', googleUser.idToken);
+            // console.log('idToken', googleUser.idToken);
             console.log(result.user.uid);
             dispatch(authActions.googleLogIn(result.user.uid, googleUser.idToken));
             console.log('user signed in');
@@ -55,6 +61,8 @@ const AuthScreen = () => {
             console.log(error);
           });
       } else {
+        console.log('Auth Screen', firebaseUser.uid);
+        dispatch(authActions.googleLogIn(firebaseUser.uid, googleUser.idToken));
         console.log('User already signed-in Firebase.');
       }
     });

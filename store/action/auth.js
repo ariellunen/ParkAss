@@ -68,19 +68,16 @@ export const login = (email, password) => async (dispatch) => {
   const expirationDate = new Date(new Date().getTime() + parseInt(resData.expiresIn) * 1000);
   saveDataStorage(resData.idToken, resData.localId, expirationDate);
 };
-const saveDataStorage = (token, userId, expirationDate) => {
+const saveDataStorage = (token, userId) => {
   AsyncStorage.setItem(
     'userData',
     JSON.stringify({
       token,
       userId,
-      expiryDate: expirationDate.toISOString(),
     }),
   );
 };
-export const logout = () => {
-  return { type: LOGOUT };
-};
+export const logout = () => ({ type: LOGOUT });
 const clearLogoutTime = () => {
   if (timer) {
     clearTimeout(timer);
@@ -92,4 +89,10 @@ const setLogoutTimer = (expirationTime) => (dispatch) => {
   }, expirationTime);
 };
 
-export const googleLogIn = (userId, token) => ({ type: AUTHENTICATE, userData: { userId, token } });
+export const googleLogIn = (userId, token) => {
+  console.log("Auth action");
+  console.log('userId', userId);
+  saveDataStorage("token",token);
+
+  return { type: AUTHENTICATE, userData: { userId, token } };
+};

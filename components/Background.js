@@ -4,10 +4,12 @@ import { LinearGradient } from 'expo-linear-gradient';
 import { element } from 'prop-types';
 
 const Background = ({ children }) => (
-  <LinearGradient colors={['#96A5F7', '#4E67BB']} style={styles.container}>
+  <LinearGradient colors={['#A7A5BE', '#BDBBF1']} style={styles.container}>
     <SafeAreaView style={styles.container}>{children}</SafeAreaView>
   </LinearGradient>
 );
+
+// #A7A5BE
 
 const styles = StyleSheet.create({
   container: {

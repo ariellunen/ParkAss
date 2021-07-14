@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import HomeScreen from '../screens/HomeScreen';
 import AuthScreen from '../screens/AuthScreen';
 import MyReportsScreen from '../screens/MyReportsScreen';
@@ -9,6 +10,7 @@ import DetailsScreen from '../screens/DetailsScreen';
 import ReportDetailScreen from '../screens/ReportDetailScreen';
 const Stack = createStackNavigator();
 const AuthStackNavigator = createStackNavigator();
+// const DrawerNavigator = createDrawerNavigator();
 export const AuthNavigator = () => (
   <AuthStackNavigator.Navigator>
     <AuthStackNavigator.Screen
@@ -50,3 +52,9 @@ export const ParkAssNavigation = () => (
     <Stack.Screen name="ReportDetails" component={ReportDetailScreen} />
   </Stack.Navigator>
 );
+
+// const Drawer = () => {
+//   return (<DrawerNavigator.Navigator>
+//     <DrawerNavigator.Screen name="Home" component={HomeScreen} />
+//   </DrawerNavigator.Navigator>
+// }
