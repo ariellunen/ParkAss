@@ -20,10 +20,12 @@ const MapPreview = (props) => {
 };
 const styles = StyleSheet.create({
   mapPreview: {
+    borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
   },
   mapImage: {
+    borderRadius: 10,
     width: '100%',
     height: '100%',
   },

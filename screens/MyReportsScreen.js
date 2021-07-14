@@ -185,12 +185,11 @@ const MyReportsScreen = () => {
       transition="backgroundColor"
     >
       <View style={styles.infoContainer}>
+        <Image source={require('../assets/locationVector.png')} style={styles.locationIcon} />
+
         <Text style={styles.headerText}>{section.address}</Text>
-        {/* <View>
-          <Text>{section.desc}</Text>
-          <Text>{section.date}</Text>
-        </View> */}
-        {/* <Image style={styles.image} source={{ uri: section.imageUrl }} /> */}
+        <Text style={styles.descText}>{section.desc}</Text>
+        <Image style={styles.image} source={{ uri: section.imageUrl }} />
         <View style={styles.date}>
           <Text style={styles.textDate}>{section.date}</Text>
         </View>
@@ -238,6 +237,13 @@ const MyReportsScreen = () => {
 export default MyReportsScreen;
 
 const styles = StyleSheet.create({
+  locationIcon: {
+    height: 15,
+    width: 11,
+    position: 'absolute',
+    left: 95,
+    top: 27,
+  },
   NON: {
     flex: 1,
     justifyContent: 'center',
@@ -254,11 +260,14 @@ const styles = StyleSheet.create({
     height: 70,
     borderRadius: 10,
     backgroundColor: '#ccc',
+    right: 10,
+    bottom: 10,
+    position: 'absolute',
   },
   infoContainer: {
-    margin: 10,
-    alignItems: 'flex-start',
     position: 'relative',
+    backgroundColor: 'white',
+    borderRadius: 10,
   },
   border: {
     borderBottomColor: '#E6E9F5',
@@ -272,17 +281,19 @@ const styles = StyleSheet.create({
     paddingTop: 10,
   },
   headerText: {
-    fontSize: 13,
-    right: 5,
+    fontSize: 14,
+    left: 110,
     position: 'absolute',
-    color: 'white',
+    color: 'black',
     fontWeight: 'bold',
+    top: 25,
   },
   content: {
     marginLeft: 10,
     marginRight: 10,
     backgroundColor: '#fff',
-    height: 250,
+    height: 240,
+    borderRadius: 10,
   },
   contentcon: {
     padding: 10,
@@ -290,16 +301,27 @@ const styles = StyleSheet.create({
   locationContainer: {
     height: 250,
     width: 355,
+    // borderRadius: 10,
   },
   date: {
+    borderRadius: 10,
     height: 140,
     width: 90,
-    backgroundColor: 'red',
+    backgroundColor: '#6B7ACC',
     textAlignVertical: 'center',
   },
   textDate: {
     fontSize: 17,
     fontWeight: 'bold',
     textAlign: 'center',
+    marginTop: 55,
+  },
+  descText: {
+    fontSize: 14,
+    left: 110,
+    position: 'absolute',
+    color: 'black',
+    // fontWeight: 'bold',
+    top: 55,
   }
 });
