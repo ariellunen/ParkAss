@@ -9,7 +9,7 @@ const AppNavigator = () => {
     checkIfLoggedIn();
   }, []);
   const isSaved = useSelector((state) => !!state.auth.token);
-  console.log(isSaved);
+  console.log(isSaved)
   // const didTryAutoLogin = useSelector((state) => state.auth.didTryAutoLogin);
   const [isAuth, setIsAuth] = useState(false);
   const checkIfLoggedIn = () => {

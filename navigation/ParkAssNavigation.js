@@ -7,9 +7,7 @@ import FullMap from '../screens/FullMapScreen';
 import MapScreen from '../screens/MapScreen';
 import DetailsScreen from '../screens/DetailsScreen';
 import ReportDetailScreen from '../screens/ReportDetailScreen';
-import { createDrawerNavigator } from "@react-navigation/drawer";
 const Stack = createStackNavigator();
-const Drawer = createDrawerNavigator();
 const AuthStackNavigator = createStackNavigator();
 export const AuthNavigator = () => (
   <AuthStackNavigator.Navigator>
@@ -44,7 +42,6 @@ export const ParkAssNavigation = () => (
       },
     }}
   >
-    <Stack.Screen name="App" component={DrawerScreen} />
     <Stack.Screen name="Home" component={HomeScreen} />
     <Stack.Screen name="Map" component={MapScreen} />
     <Stack.Screen name="Details" component={DetailsScreen} />
@@ -52,19 +49,4 @@ export const ParkAssNavigation = () => (
     <Stack.Screen name="Reports" component={MyReportsScreen} />
     <Stack.Screen name="ReportDetails" component={ReportDetailScreen} />
   </Stack.Navigator>
-);
-
-const DrawerContent = () => {
-  return (
-    <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
-      <Text>Drawer content</Text>
-    </View>
-  );
-}
-
-export const DrawerScreen = () => (
-  <Drawer.Navigator initialRouteName="Home" drawerContent={() => <DrawerContent />}>
-    <Drawer.Screen name="Reports" component={MyReportsScreen} />
-    {/* <Drawer.Screen name="Profile" component={ProfileStackScreen} /> */}
-  </Drawer.Navigator>
 );
