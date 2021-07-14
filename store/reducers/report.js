@@ -2,7 +2,7 @@ import Report from '../../models/report';
 import { ADD_IMAGE, ADD_LOCATION, SET_REPORTS, CREATE_REPORT } from '../action/report';
 const initialState = {
   reportsArr: null,
-  image: null,
+  imageUrl: null,
   address: null,
   city: null,
   lat: null,
@@ -20,7 +20,7 @@ export default (state = initialState, action) => {
       };
     case ADD_IMAGE:
       return {
-        image: action.image,
+        imageUrl: action.image,
         reportsArr: [],
       };
     case ADD_LOCATION:
@@ -35,7 +35,7 @@ export default (state = initialState, action) => {
       const newReport = new Report(
         action.reportData.id,
         action.reportData.userId,
-        action.reportData.date,
+        new Date().toLocaleDateString(),
         action.reportData.image,
         action.reportData.lat,
         action.reportData.lng,

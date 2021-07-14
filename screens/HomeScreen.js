@@ -12,6 +12,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as ImagePicker from 'expo-image-picker';
 import * as reportActions from '../store/action/report';
+import * as authActions from '../store/action/auth';
 import Colors from '../constants/Colors';
 import firebase from 'firebase/app';
 import PropTypes from 'prop-types';
@@ -100,6 +101,8 @@ const HomeScreen = (props) => {
                 title="Logout"
                 onPress={() => {
                   firebase.auth().signOut();
+                  dispatch(authActions.logout());
+
                 }}
               />
             </View>

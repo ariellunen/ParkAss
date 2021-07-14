@@ -1,4 +1,4 @@
-import { AUTHENTICATE } from '../action/auth';
+import { AUTHENTICATE, LOGOUT } from '../action/auth';
 
 const initialState = {
   token: null,
@@ -19,11 +19,11 @@ export default (state = initialState, action) => {
     //     ...state,
     //     didTryAutoLogin: true,
     //   };
-    // case LOGOUT:
-    //   return {
-    //     ...initialState,
-    //     didTryAutoLogin: true,
-    //   };
+    case LOGOUT:
+      return {
+        ...initialState,
+        // didTryAutoLogin: true,
+      };
     // case SIGNUP:
     //   return {
     //     token: action.token,

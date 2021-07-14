@@ -14,7 +14,7 @@ export const fetchReports = () => async (dispatch, getState) => {
   const resData = firebase.database().ref('reports/' + userId);
   resData.on('value', (report) => {
     const data = report.val();
-    console.log(data);
+    console.log('fetch reports', data);
     const loadedReports = [];
     for (const key in data) {
       loadedReports.push(
@@ -38,35 +38,34 @@ export const fetchReports = () => async (dispatch, getState) => {
   });
 };
 
-export const createReport = (text, image, address, lat, lng) => {
-  const date = new Date();
-  return async (dispatch, getState) => {
-    const token = getState().auth.token;
-    const userId = getState().auth.userId;
-    console.log(token, userId);
-    firebase
-      .database()
-      .ref('reports/' + userId)
-      .push({
-        text,
-        image,
-        address,
-        lat,
-        lng,
-      });
-    dispatch({
-      type: CREATE_REPORT,
-      reportData: {
-        image,
-        address,
-        lat,
-        lng,
-        text,
-        date,
-        userId,
-      },
+export const createReport = (text, image, address, lat, lng) => async (dispatch, getState) => {
+  const token = getState().auth.token;
+  const userId = getState().auth.userId;
+  const date = new Date().toLocaleDateString();
+  console.log(token, userId);
+  firebase
+    .database()
+    .ref('reports/' + userId)
+    .push({
+      text,
+      image,
+      address,
+      lat,
+      lng,
+      date,
     });
-  };
+  dispatch({
+    type: CREATE_REPORT,
+    reportData: {
+      image,
+      address,
+      lat,
+      lng,
+      text,
+      date,
+      userId,
+    },
+  });
 };
 
 export const addLocation = (location) => async (dispatch) => {
@@ -88,7 +87,20 @@ export const addLocation = (location) => async (dispatch) => {
       break;
     }
   }
-  const address = resData.results[0].formatted_address;
+  // const address = resData.results[0].formatted_address;
+  const responseAd = await fetch(
+    `https://maps.googleapis.com/maps/api/geocode/json?latlng=${location.lat},${location.lng}&key=${ENV.googleApiKey}`,
+  );
+  if (!responseAd.ok) {
+    throw new Error('Something went wrong!');
+  }
+  const resDataAd = await responseAd.json();
+  if (!resDataAd.results) {
+    throw new Error('Something went wrong!');
+  }
+  console.log(resDataAd.results[0].formatted_address);
+  const address = resDataAd.results[0].formatted_address;
+
   dispatch({
     type: ADD_LOCATION,
     locationData: { location, address, city },

@@ -187,6 +187,10 @@ const MyReportsScreen = () => {
     >
       <View style={styles.infoContainer}>
         <Text style={styles.headerText}>{section.address}</Text>
+        <View>
+          <Text>{section.desc}</Text>
+          <Text>{section.date}</Text>
+        </View>
         <Image style={styles.image} source={{ uri: section.imageUrl }} />
       </View>
       <View style={styles.border}></View>
@@ -200,7 +204,6 @@ const MyReportsScreen = () => {
       // transition="backgroundColor"
     >
       <Animatable.Text animation={isActive ? 'bounceIn' : undefined} style={styles.contentcon}>
-        {section.content}
         <MapPreview
           location={{ lat: section.lat, lng: section.lng }}
           style={styles.locationContainer}
@@ -263,17 +266,17 @@ const styles = StyleSheet.create({
     paddingTop: 10,
   },
   headerText: {
-    fontSize: 14,
-    fontWeight: '500',
+    fontSize: 13,
     right: 5,
     position: 'absolute',
-    color: 'red',
+    color: 'white',
+    fontWeight: 'bold',
   },
   content: {
     marginLeft: 10,
     marginRight: 10,
     backgroundColor: '#fff',
-    height: 400,
+    height: 250,
   },
   contentcon: {
     padding: 10,

@@ -13,14 +13,14 @@ const LeftContent = (props) => (
 
 const DetailsScreen = (props) => {
   const selector = useSelector((state) => state.report);
-  const [image, setImage] = useState();
+  const [image, setImage] = useState(null);
   const [address, setAddress] = useState();
   const [city, setCity] = useState();
   const [lat, setLat] = useState();
   const [lng, setLng] = useState();
   useEffect(() => {
-    if (selector.image) {
-      setImage(selector.image);
+    if (selector.imageUrl) {
+      setImage(selector.imageUrl);
     }
     if (selector.address) {
       setAddress(selector.address);
@@ -34,6 +34,7 @@ const DetailsScreen = (props) => {
 
   const dispatch = useDispatch();
   const [text, onChangeText] = useState();
+  console.log(address);
 
   const uploadmultimedia = async () => {
     const blob = await new Promise((resolve, reject) => {
@@ -59,14 +60,13 @@ const DetailsScreen = (props) => {
         return imageRef.getDownloadURL();
       })
       .then((dwnldurl) => {
-        console.log(dwnldurl);
         saveReportHandler(dwnldurl);
       });
   };
 
   const saveReportHandler = (dwnldurl) => {
     dispatch(reportActions.createReport(text, image, address, lat, lng));
-    console.log(dwnldurl);
+    console.log(typeof imageUr);
     Linking.openURL(`http://api.whatsapp.com/send?phone=972
         ${cityHallNum[city]}
         &text=${dwnldurl}\n`);

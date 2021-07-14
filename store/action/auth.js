@@ -79,8 +79,6 @@ const saveDataStorage = (token, userId, expirationDate) => {
   );
 };
 export const logout = () => {
-  clearLogoutTime();
-  AsyncStorage.removeItem('userData');
   return { type: LOGOUT };
 };
 const clearLogoutTime = () => {

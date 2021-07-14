@@ -96,7 +96,6 @@ const styles = StyleSheet.create({
     opacity: 0.3,
     width: '100%',
     height: 70,
-    // display: 'flex',
     position: 'relative',
   },
   logo: {
