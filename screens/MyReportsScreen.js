@@ -88,10 +88,10 @@
 //   all: {
 //     alignItems: 'center',
 //   },
-//   NON: {
-//     flex: 1,
-//     justifyContent: 'center',
-//   },
+  // NON: {
+  //   flex: 1,
+  //   justifyContent: 'center',
+  // },
 //   card: {
 //     backgroundColor: 'white',
 //     height: '85%',
@@ -113,7 +113,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as reportActions from '../store/action/report';
-// import all the components we are going to use
 import {
   SafeAreaView,
   Image,
@@ -187,11 +186,14 @@ const MyReportsScreen = () => {
     >
       <View style={styles.infoContainer}>
         <Text style={styles.headerText}>{section.address}</Text>
-        <View>
+        {/* <View>
           <Text>{section.desc}</Text>
           <Text>{section.date}</Text>
+        </View> */}
+        {/* <Image style={styles.image} source={{ uri: section.imageUrl }} /> */}
+        <View style={styles.date}>
+          <Text style={styles.textDate}>{section.date}</Text>
         </View>
-        <Image style={styles.image} source={{ uri: section.imageUrl }} />
       </View>
       <View style={styles.border}></View>
     </Animatable.View>
@@ -236,6 +238,10 @@ const MyReportsScreen = () => {
 export default MyReportsScreen;
 
 const styles = StyleSheet.create({
+  NON: {
+    flex: 1,
+    justifyContent: 'center',
+  },
   container: {
     flex: 1,
     paddingTop: 30,
@@ -285,4 +291,15 @@ const styles = StyleSheet.create({
     height: 250,
     width: 355,
   },
+  date: {
+    height: 140,
+    width: 90,
+    backgroundColor: 'red',
+    textAlignVertical: 'center',
+  },
+  textDate: {
+    fontSize: 17,
+    fontWeight: 'bold',
+    textAlign: 'center',
+  }
 });
