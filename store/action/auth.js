@@ -2,10 +2,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export const LOGOUT = 'LOGOUT';
 export const SET_DID_TRY_AL = 'SET_DID_TRY_AL';
 export const AUTHENTICATE = 'AUTHENTICATE';
-let timer;
 export const setDidTryAL = () => ({ type: SET_DID_TRY_AL });
 export const authenticate = (userId, token, expiryTime) => (dispatch) => {
-  dispatch(setLogoutTimer(expiryTime));
   dispatch({ type: AUTHENTICATE, userId, token });
 };
 export const signup = (email, password) => async (dispatch) => {
@@ -78,21 +76,7 @@ const saveDataStorage = (token, userId) => {
   );
 };
 export const logout = () => ({ type: LOGOUT });
-const clearLogoutTime = () => {
-  if (timer) {
-    clearTimeout(timer);
-  }
-};
-const setLogoutTimer = (expirationTime) => (dispatch) => {
-  timer = setTimeout(() => {
-    dispatch(logout());
-  }, expirationTime);
-};
-
-export const googleLogIn = (userId, token) => {
-  console.log("Auth action");
-  console.log('userId', userId);
-  saveDataStorage("token",token);
-
-  return { type: AUTHENTICATE, userData: { userId, token } };
-};
+export const googleLogIn = (userId, token, image) => ({
+  type: AUTHENTICATE,
+  userData: { userId, token, image },
+});

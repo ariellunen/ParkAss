@@ -64,7 +64,7 @@ const PlaceInput = (props) => {
 const styles = StyleSheet.create({
   searchIcon: {
     marginTop: 50,
-    backgroundColor: 'lightskyblue',
+    backgroundColor: '#6B7ACC',
     height: 40,
     width: 50,
     borderTopLeftRadius: 30,
@@ -92,19 +92,20 @@ const styles = StyleSheet.create({
   suggestions: {
     backgroundColor: 'white',
     padding: 10,
-    borderTopWidth: 0.5,
+    borderTopWidth: 1,
+    borderColor: '#E6E9F5',
     marginLeft: 'auto',
     marginRight: 'auto',
     marginTop: 0.5,
-    borderRadius: 15,
-    width: '90%',
+    borderRadius: 10,
+    width: '85%',
   },
   main: {
     color: 'black',
   },
 });
 PlaceInput.propTypes = {
-  handleSearchResult: PropTypes.object.isRequired,
-  pickedLocation: PropTypes.object.isRequired,
+  handleSearchResult: PropTypes.func,
+  pickedLocation: PropTypes.object,
 };
 export default PlaceInput;

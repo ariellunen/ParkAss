@@ -159,6 +159,7 @@ const styles = StyleSheet.create({
     height: 100,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
+    marginTop: 100,
   },
   image: {
     width: '90%',
@@ -192,7 +193,7 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: 'white',
     height: '80%',
-    marginTop: -100,
+    marginTop: -160,
     borderRadius: 30,
     width: '80%',
     justifyContent: 'center',

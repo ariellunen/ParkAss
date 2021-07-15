@@ -88,10 +88,10 @@
 //   all: {
 //     alignItems: 'center',
 //   },
-  // NON: {
-  //   flex: 1,
-  //   justifyContent: 'center',
-  // },
+// NON: {
+//   flex: 1,
+//   justifyContent: 'center',
+// },
 //   card: {
 //     backgroundColor: 'white',
 //     height: '85%',
@@ -186,9 +186,12 @@ const MyReportsScreen = () => {
     >
       <View style={styles.infoContainer}>
         <Image source={require('../assets/locationVector.png')} style={styles.locationIcon} />
-
-        <Text style={styles.headerText}>{section.address}</Text>
-        <Text style={styles.descText}>{section.desc}</Text>
+        <View style={styles.headerTextContainer}>
+          <Text style={styles.headerText}>{section.address}</Text>
+        </View>
+        <View style={styles.descContainer}>
+          <Text style={styles.descText}>{section.desc}</Text>
+        </View>
         <Image style={styles.image} source={{ uri: section.imageUrl }} />
         <View style={styles.date}>
           <Text style={styles.textDate}>{section.date}</Text>
@@ -202,7 +205,6 @@ const MyReportsScreen = () => {
     <Animatable.View
       duration={400}
       style={[styles.content, isActive ? styles.active : styles.inactive]}
-      // transition="backgroundColor"
     >
       <Animatable.Text animation={isActive ? 'bounceIn' : undefined} style={styles.contentcon}>
         <MapPreview
@@ -237,6 +239,15 @@ const MyReportsScreen = () => {
 export default MyReportsScreen;
 
 const styles = StyleSheet.create({
+  descContainer: {
+    maxWidth: '40%',
+    marginLeft: 110,
+    textAlign: 'right',
+  },
+  headerTextContainer: {
+    maxWidth: '70%',
+    marginLeft: 110,
+  },
   locationIcon: {
     height: 15,
     width: 11,
@@ -268,6 +279,7 @@ const styles = StyleSheet.create({
     position: 'relative',
     backgroundColor: 'white',
     borderRadius: 10,
+    textAlign: 'right',
   },
   border: {
     borderBottomColor: '#E6E9F5',
@@ -282,7 +294,7 @@ const styles = StyleSheet.create({
   },
   headerText: {
     fontSize: 14,
-    left: 110,
+    // left: 110,
     position: 'absolute',
     color: 'black',
     fontWeight: 'bold',
@@ -301,7 +313,6 @@ const styles = StyleSheet.create({
   locationContainer: {
     height: 250,
     width: 355,
-    // borderRadius: 10,
   },
   date: {
     borderRadius: 10,
@@ -318,10 +329,9 @@ const styles = StyleSheet.create({
   },
   descText: {
     fontSize: 14,
-    left: 110,
     position: 'absolute',
     color: 'black',
     // fontWeight: 'bold',
     top: 55,
-  }
+  },
 });

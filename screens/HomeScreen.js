@@ -84,13 +84,13 @@ const styles = StyleSheet.create({
     marginTop: 65,
   },
   button: {
-    bottom: 30,
+    bottom: 35,
     backgroundColor: '#000',
     opacity: 0.3,
     width: '85%',
     borderRadius: 15,
     height: 50,
-    marginTop: 20,
+    marginTop: 15,
     marginLeft: 'auto',
     marginRight: 'auto',
   },
@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
   logo: {
     marginLeft: 'auto',
     marginRight: 'auto',
-    marginTop: 30,
+    // marginTop: 30,
     marginBottom: 55,
   },
   container: {
@@ -112,7 +112,7 @@ const styles = StyleSheet.create({
     alignContent: 'center',
   },
   circles: {
-    marginTop: 20,
+    marginTop: 18,
     marginLeft: 'auto',
     marginRight: 'auto',
   },

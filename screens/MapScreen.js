@@ -94,10 +94,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   add: {
-    backgroundColor: 'lightskyblue',
+    backgroundColor: '#6B7ACC',
     borderRadius: 30,
     position: 'absolute',
-    bottom: 0,
+    bottom: 5,
+    left: 5,
   },
 });
 MapScreen.propTypes = {

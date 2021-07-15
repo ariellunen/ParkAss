@@ -6,10 +6,8 @@ import * as Google from 'expo-google-app-auth';
 import firebase from 'firebase/app';
 import * as authActions from '../store/action/auth';
 import { IconButton } from 'react-native-paper';
-import { ParkAssNavigation, AuthNavigator } from '../navigation/ParkAssNavigation';
-import { NavigationContainer } from '@react-navigation/native';
 
-const AuthScreen = (props) => {
+const AuthScreen = () => {
   const dispatch = useDispatch();
   const isUserEqual = (googleUser, firebaseUser) => {
     console.log('googleUser', googleUser);
@@ -17,7 +15,6 @@ const AuthScreen = (props) => {
       const providerData = firebaseUser.providerData;
       for (let i = 0; i < providerData.length; i++) {
         if (providerData[i].providerId === firebase.auth.GoogleAuthProvider.PROVIDER_ID) {
-          // We don't need to reauth the Firebase connection.
           return true;
         }
       }
@@ -50,19 +47,32 @@ const AuthScreen = (props) => {
                   last_name: result.additionalUserInfo.profile.family_name,
                 });
             } else {
-              dispatch(authActions.googleLogIn(result.user.uid, googleUser.idToken));
+              dispatch(
+                authActions.googleLogIn(
+                  result.user.uid,
+                  googleUser.idToken,
+                  googleUser.user.photoUrl,
+                ),
+              );
             }
-            // console.log('idToken', googleUser.idToken);
-            console.log(result.user.uid);
-            dispatch(authActions.googleLogIn(result.user.uid, googleUser.idToken));
+            dispatch(
+              authActions.googleLogIn(
+                result.user.uid,
+                googleUser.idToken,
+                googleUser.user.photoUrl,
+              ),
+            );
             console.log('user signed in');
           })
           .catch((error) => {
             console.log(error);
           });
       } else {
-        console.log('Auth Screen', firebaseUser.uid);
-        dispatch(authActions.googleLogIn(firebaseUser.uid, googleUser.idToken));
+        console.log(googleUser.user.photoUrl);
+
+        dispatch(
+          authActions.googleLogIn(firebaseUser.uid, googleUser.idToken, googleUser.user.photoUrl),
+        );
         console.log('User already signed-in Firebase.');
       }
     });

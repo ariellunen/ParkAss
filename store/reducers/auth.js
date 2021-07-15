@@ -3,6 +3,7 @@ import { AUTHENTICATE, LOGOUT } from '../action/auth';
 const initialState = {
   token: null,
   userId: null,
+  image: null,
   // didTryAutoLogin: false,
 };
 
@@ -13,6 +14,7 @@ export default (state = initialState, action) => {
       return {
         token: action.userData.token,
         userId: action.userData.userId,
+        image: action.userData.image,
         // ...state,
         // didTryAutoLogin: true,
       };
