@@ -8,7 +8,7 @@ import FullMap from '../screens/FullMapScreen';
 import MapScreen from '../screens/MapScreen';
 import DetailsScreen from '../screens/DetailsScreen';
 import ReportDetailScreen from '../screens/ReportDetailScreen';
-import { Alert } from 'react-native';
+import { Alert, TouchableOpacity } from 'react-native';
 import { Avatar } from 'react-native-paper';
 const Stack = createStackNavigator();
 const AuthStackNavigator = createStackNavigator();
@@ -37,17 +37,20 @@ export const ParkAssNavigation = (props) => (
         borderTopWidth: 0,
       },
       headerRight: () => (
-        <Avatar.Image
-          size={35}
-          source={{ uri: props.image }}
+        <TouchableOpacity
           onPress={() => {
-            Alert.alert('לא נבחר מיקום', [{ text: 'Okay' }]);
-            //TODO: add logout
+            Alert.alert('האם תרצה להתנתק?', [{ text: 'Okay' }]);
+            //TODO: add logout + navigate
           }}
-          title="Info"
-          color="#fff"
-          style={{ margin: 10 }}
-        />
+        >
+          <Avatar.Image
+            size={35}
+            source={{ uri: props.image }}
+            title="Info"
+            color="#fff"
+            style={{ margin: 10 }}
+          />
+        </TouchableOpacity>
       ),
     }}
   >
