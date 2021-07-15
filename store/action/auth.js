@@ -3,7 +3,7 @@ export const LOGOUT = 'LOGOUT';
 export const SET_DID_TRY_AL = 'SET_DID_TRY_AL';
 export const AUTHENTICATE = 'AUTHENTICATE';
 export const setDidTryAL = () => ({ type: SET_DID_TRY_AL });
-export const authenticate = (userId, token, expiryTime) => (dispatch) => {
+export const authenticate = (userId, token) => (dispatch) => {
   dispatch({ type: AUTHENTICATE, userId, token });
 };
 export const signup = (email, password) => async (dispatch) => {

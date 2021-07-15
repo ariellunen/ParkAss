@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-// import { createDrawerNavigator } from '@react-navigation/drawer';
 import HomeScreen from '../screens/HomeScreen';
 import AuthScreen from '../screens/AuthScreen';
 import MyReportsScreen from '../screens/MyReportsScreen';
@@ -8,11 +7,10 @@ import FullMap from '../screens/FullMapScreen';
 import MapScreen from '../screens/MapScreen';
 import DetailsScreen from '../screens/DetailsScreen';
 import ReportDetailScreen from '../screens/ReportDetailScreen';
-import { Alert, TouchableOpacity } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import { Avatar } from 'react-native-paper';
-import { NavigationContainer } from '@react-navigation/native';
 import * as authActions from '../store/action/auth';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
 const Stack = createStackNavigator();
 const AuthStackNavigator = createStackNavigator();

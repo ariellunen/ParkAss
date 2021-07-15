@@ -1,24 +1,14 @@
-import {
-  View,
-  Text,
-  StyleSheet,
-  Alert,
-  ActivityIndicator,
-  Image,
-  TouchableOpacity,
-} from 'react-native';
-import React, { useState } from 'react';
+import { View, Text, StyleSheet, Alert, Image, TouchableOpacity } from 'react-native';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as ImagePicker from 'expo-image-picker';
 import * as reportActions from '../store/action/report';
-import Colors from '../constants/Colors';
 import PropTypes from 'prop-types';
 import Background from '../components/Background';
 require('firebase/database');
 require('firebase/auth');
 require('firebase/storage');
 const HomeScreen = (props) => {
-  const [fetch, setFetch] = useState(false);
   const selector = useSelector((state) => state.auth);
   console.log('selector', selector);
   const dispatch = useDispatch();
@@ -44,14 +34,9 @@ const HomeScreen = (props) => {
       aspect: [16, 9],
       quality: 0.5,
     });
-    setFetch(true);
     dispatch(reportActions.addImage(image.uri));
     props.navigation.navigate('Map');
   };
-
-  if (fetch) {
-    return <ActivityIndicator style={styles.activity} size="large" color={Colors.primary} />;
-  }
 
   return (
     <Background>

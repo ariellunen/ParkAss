@@ -6,11 +6,10 @@ import { useSelector } from 'react-redux';
 const AppNavigator = () => {
   const isAuth = useSelector((state) => !!state.auth.userId);
   const image = useSelector((state) => state.auth.image);
-  console.log("image - " , image);
   return (
     <NavigationContainer>
       {isAuth && <ParkAssNavigation image={image} />}
-      {!isAuth && <AuthNavigator  />}
+      {!isAuth && <AuthNavigator />}
     </NavigationContainer>
   );
 };

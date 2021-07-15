@@ -200,7 +200,6 @@ const MyReportsScreen = () => {
       <View style={styles.border}></View>
     </Animatable.View>
   );
-  console.log('reports', reports);
   const renderContent = (section, _, isActive) => (
     <Animatable.View
       duration={400}
@@ -245,6 +244,7 @@ const styles = StyleSheet.create({
     textAlign: 'right',
   },
   headerTextContainer: {
+    // backgroundColor: 'blue',
     maxWidth: '70%',
     marginLeft: 110,
   },
