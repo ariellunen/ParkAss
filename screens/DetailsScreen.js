@@ -34,8 +34,6 @@ const DetailsScreen = (props) => {
 
   const dispatch = useDispatch();
   const [text, onChangeText] = useState();
-  console.log(address);
-
   const uploadmultimedia = async () => {
     const blob = await new Promise((resolve, reject) => {
       const xhr = new XMLHttpRequest();
@@ -81,9 +79,6 @@ const DetailsScreen = (props) => {
 
   return (
     <View style={styles.body}>
-      <View style={styles.viewDet}>
-        <Text style={styles.textdet}>פרטי האירוע</Text>
-      </View>
       <Card style={styles.card}>
         <Card.Title
           title="טופס תלונה"
@@ -93,9 +88,15 @@ const DetailsScreen = (props) => {
         />
         <View style={styles.SingleCard}>
           <Image style={styles.image} source={{ uri: image }} />
-          <Text style={styles.location}>{address}</Text>
-
-          <TextInput style={styles.input} onChangeText={onChangeText} value={text} />
+          <View style={styles.locationCon}>
+            <Text style={styles.location}>{address}</Text>
+          </View>
+          <TextInput
+            style={styles.input}
+            placeholder="תיאור האירוע"
+            onChangeText={onChangeText}
+            value={text}
+          />
           <View style={styles.SingleButton}>
             <View style={styles.Button}>
               <View style={styles.buttonFirst}>
@@ -129,25 +130,21 @@ const DetailsScreen = (props) => {
 };
 
 const styles = StyleSheet.create({
+  locationCon: {
+    borderRadius: 20,
+    width: '90%',
+    height: 60,
+    textAlign: 'center',
+    marginTop: 20,
+    backgroundColor: 'ghostwhite',
+  },
   SingleCard: {
     alignItems: 'center',
     height: '90%',
   },
-  viewDet: {
-    backgroundColor: 'lightskyblue',
-    width: '100%',
-    height: 190,
-  },
   button: {
     backgroundColor: 'salmon',
     borderRadius: 70,
-  },
-  textdet: {
-    fontSize: 30,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginTop: 30,
-    color: 'white',
   },
   buttonFirst: {
     backgroundColor: 'lightblue',
@@ -159,31 +156,27 @@ const styles = StyleSheet.create({
     height: 100,
     borderTopLeftRadius: 30,
     borderTopRightRadius: 30,
-    marginTop: 100,
   },
   image: {
     width: '90%',
     height: '30%',
     marginTop: 20,
-    borderRadius: 50,
+    borderRadius: 30,
   },
   input: {
     height: '20%',
     width: '90%',
     marginTop: 20,
     borderWidth: 1,
-    borderRadius: 50,
+    borderRadius: 30,
     textAlign: 'center',
     backgroundColor: 'ghostwhite',
     borderColor: 'ghostwhite',
   },
   location: {
-    backgroundColor: 'ghostwhite',
-    borderRadius: 50,
-    width: '90%',
-    height: '5%',
     textAlign: 'center',
-    marginTop: 20,
+    marginTop: 15,
+    fontSize: 16,
   },
   body: {
     height: '100%',
@@ -193,13 +186,13 @@ const styles = StyleSheet.create({
   card: {
     backgroundColor: 'white',
     height: '80%',
-    marginTop: -160,
+    marginTop: 30,
     borderRadius: 30,
     width: '80%',
     justifyContent: 'center',
   },
   SingleButton: {
-    marginTop: 40,
+    marginTop: 13,
     flexDirection: 'row',
     alignItems: 'center',
     flexWrap: 'wrap',

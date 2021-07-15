@@ -10,6 +10,10 @@ import DetailsScreen from '../screens/DetailsScreen';
 import ReportDetailScreen from '../screens/ReportDetailScreen';
 import { Alert, TouchableOpacity } from 'react-native';
 import { Avatar } from 'react-native-paper';
+import { NavigationContainer } from '@react-navigation/native';
+import * as authActions from '../store/action/auth';
+import { useDispatch, useSelector } from 'react-redux';
+
 const Stack = createStackNavigator();
 const AuthStackNavigator = createStackNavigator();
 export const AuthNavigator = () => (
@@ -21,7 +25,6 @@ export const AuthNavigator = () => (
         headerShown: false,
         cardStyle: {
           backgroundColor: 'transparent',
-          // position: 'absolute',
           borderTopWidth: 0,
         },
       }}
@@ -29,40 +32,42 @@ export const AuthNavigator = () => (
   </AuthStackNavigator.Navigator>
 );
 
-export const ParkAssNavigation = (props) => (
-  <Stack.Navigator
-    screenOptions={{
-      headerStyle: {
-        backgroundColor: '#E6E9F5',
-        borderTopWidth: 0,
-      },
-      headerRight: () => (
-        <TouchableOpacity
-          onPress={() => {
-            Alert.alert('האם תרצה להתנתק?', [{ text: 'Okay' }]);
-            //TODO: add logout + navigate
-          }}
-        >
-          <Avatar.Image
-            size={35}
-            source={{ uri: props.image }}
-            title="Info"
-            color="#fff"
-            style={{ margin: 10 }}
-          />
-        </TouchableOpacity>
-      ),
-    }}
-  >
-    <Stack.Screen name="Home" options={{ headerTitle: false }} component={HomeScreen} />
-    <Stack.Screen name="Map" options={{ headerShown: false }} component={MapScreen} />
-    <Stack.Screen name="Details" options={{ title: 'פרטי הדוח' }} component={DetailsScreen} />
-    <Stack.Screen name="FullMap" options={{ headerTitle: false }} component={FullMap} />
-    <Stack.Screen
-      name="Reports"
-      options={{ title: 'דיווחים אחרונים' }}
-      component={MyReportsScreen}
-    />
-    <Stack.Screen name="ReportDetails" component={ReportDetailScreen} />
-  </Stack.Navigator>
-);
+export const ParkAssNavigation = (props) => {
+  const dispatch = useDispatch();
+  return (
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: '#E6E9F5',
+          borderTopWidth: 0,
+        },
+        headerRight: () => (
+          <TouchableOpacity
+            onPress={() => {
+              dispatch(authActions.logout());
+            }}
+          >
+            <Avatar.Image
+              size={35}
+              source={{ uri: props.image }}
+              title="Info"
+              color="#fff"
+              style={{ margin: 10 }}
+            />
+          </TouchableOpacity>
+        ),
+      }}
+    >
+      <Stack.Screen name="Home" options={{ headerTitle: false }} component={HomeScreen} />
+      <Stack.Screen name="Map" options={{ headerShown: false }} component={MapScreen} />
+      <Stack.Screen name="Details" options={{ title: 'פרטי הדוח' }} component={DetailsScreen} />
+      <Stack.Screen name="FullMap" options={{ headerTitle: false }} component={FullMap} />
+      <Stack.Screen
+        name="Reports"
+        options={{ title: 'דיווחים אחרונים' }}
+        component={MyReportsScreen}
+      />
+      <Stack.Screen name="ReportDetails" component={ReportDetailScreen} />
+    </Stack.Navigator>
+  );
+};

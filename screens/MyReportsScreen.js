@@ -294,7 +294,6 @@ const styles = StyleSheet.create({
   },
   headerText: {
     fontSize: 14,
-    // left: 110,
     position: 'absolute',
     color: 'black',
     fontWeight: 'bold',
